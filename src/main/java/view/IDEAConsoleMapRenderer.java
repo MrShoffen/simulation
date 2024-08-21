@@ -9,27 +9,20 @@ import world.entities.objects.Grass;
 import world.entities.objects.Rock;
 import world.entities.objects.Tree;
 
-public class IDEAConsoleMapRendere implements MapRenderer {
-    private final Map map;
-    private final int height;
-    private final int width;
+public class IDEAConsoleMapRenderer extends MapRenderer {
 
     private static final String PREDATOR_EMOJI = "\uD83D\uDC2F";
+
     private static final String HERBIVORE_EMOJI = "\uD83D\uDC16";
     private static final String GRASS_EMOJI = "\uD83C\uDF31";
     private static final String ROCK_EMOJI = "\uD83E\uDEA8";
     private static final String TREE_EMOJI = "\uD83C\uDF33";
     private static final String EMPTY_CELL_EMOJI = "\uD83D\uDFEB";
-
     private static final String ATTACK_COLOR = "\u001B[31m";
+
     private static final String HEALTH_COLOR = "\u001B[32m";
     private static final String RESET_COLOR = "\u001B[0m";
 
-    public IDEAConsoleMapRendere(Map map) {
-        this.map = map;
-        height = map.getHeight();
-        width = map.getWidth();
-    }
 
     @Override
     public void render() {
@@ -86,7 +79,7 @@ public class IDEAConsoleMapRendere implements MapRenderer {
         System.out.println( map.contains(new Cell (2,2)));
 
 
-        MapRenderer renderer = new IDEAConsoleMapRendere(map);
+        MapRenderer renderer = new IDEAConsoleMapRenderer();
         renderer.render();
         var a= map.allEntities();
         System.out.println(a);

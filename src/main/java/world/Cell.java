@@ -179,6 +179,6 @@ public class Cell {
 
     @Override
     public String toString() {
-        return "o";
+        return (x + " " + y);
     }
 }

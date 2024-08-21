@@ -1,21 +1,41 @@
-import view.IDEAConsoleMapRendere;
+import game.Simulation;
+import view.IDEAConsoleMapRenderer;
 import view.MapRenderer;
 import world.Map;
 
 public class Test
 {
+
+
     public static void main(String[] args) {
 
 
-        Map test = new Map(5,8);
-        MapRenderer renderer = new IDEAConsoleMapRendere(test);
+        System.out.println(Game.ASK_FOR_WIDTH);
+//        int width = Game.readIntMatchingPattern(Game.PATTERN_FOR_WIDTH_HEIGHT_INPUT);
 
-//        System.out.println(test);
+        System.out.println(Game.ASK_FOR_HEIGHT);
+//        int height = Game.readIntMatchingPattern(Game.PATTERN_FOR_WIDTH_HEIGHT_INPUT);
 
-      //  test.updateMap();
 
-//        System.out.println(test);
+//        Map map = new Map(height,width);
+
+        System.out.println(Game.ASK_FOR_RENDERER_CHOICE);
+//        MapRenderer renderer = Game.chooseMapRenderer();
+//        renderer.setMap(map);
+
+        Map map = new Map(12,20);
+        MapRenderer renderer = new IDEAConsoleMapRenderer();
+        renderer.setMap(map);
+        Simulation simulation  = new Simulation(map,renderer);
+
+
 
     }
+
+
+
+
+
+
 
 }
