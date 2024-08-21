@@ -79,4 +79,9 @@ public class Map {
     public boolean contains(Cell cell) {
         return cells.contains(cell);
     }
+
+    //test
+    public void clearMap(){
+        cells.forEach(Cell::removeEntity);
+    }
 }

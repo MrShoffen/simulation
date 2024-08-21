@@ -14,25 +14,36 @@ public class Simulation {
 
     ArrayList<Action> actions;
 
+    boolean isRunning;
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
     public Simulation(Map map, MapRenderer renderer) {
         this.map = map;
         this.renderer = renderer;
         actions = new ArrayList<>();
 
         init();
-
-        renderer.render();
-    }
-
-    public void start(){
+        isRunning = true;
 
     }
 
-    private void generateActions(){
+    public void start() {
+        isRunning = true;
+        System.out.println("simulation is running");
+    }
+
+    public void pause() {
+        isRunning = false;
+    }
+
+    private void generateActions() {
 
     }
 
-    private void init(){
+    private void init() {
         actions.add(new RockSpawnAction(map));
         actions.add(new GrassSpawnAction(map));
         actions.add(new TreeSpawnAction(map));
@@ -44,9 +55,14 @@ public class Simulation {
     }
 
     private void performAllActions() {
-        for(Action action : actions){
-            action.perform();
-        }
+        actions.forEach(Action::perform);
+        actions.clear();
     }
 
+    public void nextTurn() {
+        isRunning = true;
+        map.clearMap();
+        init();
+        renderer.render();
+    }
 }

@@ -10,6 +10,12 @@ public class RockSpawnAction extends spawnAction {
 
     public RockSpawnAction(Map map) {
         super(map);
+        spawnRate = ROCK_RATE;
+    }
+
+    @Override
+    protected int getNumberOfEntitiesByType() {
+        return getNumberOfEntitiesByType(Rock.class);
     }
 
     @Override
@@ -17,11 +23,4 @@ public class RockSpawnAction extends spawnAction {
         return new Rock();
     }
 
-    @Override
-    public int getSpawnQuantity() {
-        int mapSq = map.getHeight() * map.getWidth();
-        int numberOfRocks = (int) (ROCK_RATE *mapSq);
-
-        return  numberOfRocks-getNumberOfEntitiesByType(Rock.class);
-    }
 }

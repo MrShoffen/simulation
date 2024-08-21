@@ -9,19 +9,16 @@ public class PredatorSpawnAction extends spawnAction {
     private final double PREDATOR_RATE = 0.07;
     public PredatorSpawnAction(Map map) {
         super(map);
+        spawnRate = PREDATOR_RATE;
+    }
+
+    @Override
+    protected int getNumberOfEntitiesByType() {
+        return getNumberOfEntitiesByType(Predator.class);
     }
 
     @Override
     protected Entity randomEntity() {
         return new Predator();
-    }
-
-    @Override
-    public int getSpawnQuantity() {
-        int square = map.getHeight()*map.getWidth();
-        int numberOfRocks = (int) (PREDATOR_RATE *square);
-
-        return  numberOfRocks-getNumberOfEntitiesByType(Predator.class);
-
     }
 }

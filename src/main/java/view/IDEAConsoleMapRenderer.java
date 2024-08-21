@@ -31,7 +31,7 @@ public class IDEAConsoleMapRenderer extends MapRenderer {
             result.append(lineWithCells(i));
         }
 
-        System.out.println(result);
+        System.out.print(result);
     }
 
 
@@ -56,8 +56,8 @@ public class IDEAConsoleMapRenderer extends MapRenderer {
     private String entity(Entity entity) throws IllegalStateException {
         return
                 switch (entity) {
-                    case Predator _ -> ATTACK_COLOR + "1" + HEALTH_COLOR + PREDATOR_EMOJI + "2" + RESET_COLOR;
-                    case Herbivore _ -> HEALTH_COLOR +" "+ HERBIVORE_EMOJI + "2" + RESET_COLOR;
+                    case Predator predator -> ATTACK_COLOR + predator.getAttack() + HEALTH_COLOR + PREDATOR_EMOJI + predator.currentHealth() + RESET_COLOR;
+                    case Herbivore herbivore -> HEALTH_COLOR +" "+ HERBIVORE_EMOJI + herbivore.currentHealth() + RESET_COLOR;
                     case Grass _ ->  " " + GRASS_EMOJI + " ";
                     case Rock _ -> " " + ROCK_EMOJI + " ";
                     case Tree _ -> " " + TREE_EMOJI + " ";

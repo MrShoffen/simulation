@@ -1,11 +1,14 @@
 package world.entities.creatures;
 
-import world.Map;
+import world.entities.Entity;
 
 public class Herbivore extends Creature {
+
+
+
     @Override
-
-    public void move(Map map) {
-
+    protected boolean tryToConsume(Entity victim) {
+        heal(victim.getHealingPower());
+        return true;
     }
 }

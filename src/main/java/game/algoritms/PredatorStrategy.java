@@ -1,5 +1,5 @@
-package game.algoritms;
-
+//package game.algoritms;
+//
 //import world.Cell;
 //import world.entities.creatures.Herbivore;
 // class PredatorStrategy extends Strategy {

@@ -6,20 +6,19 @@ import world.entities.objects.Rock;
 import world.entities.objects.Tree;
 
 public class TreeSpawnAction extends spawnAction{
-
     private final double TREE_RATE = 0.1;
 
     public TreeSpawnAction(Map map) {
         super(map);
+        spawnRate = TREE_RATE;
     }
 
     @Override
-    public int getSpawnQuantity() {
-        int mapSq = map.getHeight() * map.getWidth();
-        int numberOfRocks = (int) (TREE_RATE *mapSq);
-
-        return  numberOfRocks-getNumberOfEntitiesByType(Tree.class);
+    protected int getNumberOfEntitiesByType() {
+        return getNumberOfEntitiesByType(Tree.class);
     }
+
+
 
     @Override
     protected Entity randomEntity() {
