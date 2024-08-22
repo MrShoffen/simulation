@@ -10,14 +10,17 @@ public class Game {
 
     public final static String ASK_FOR_WIDTH = "Введите ширину поля (число больше 3): ";
     public final static String ASK_FOR_HEIGHT = "Введите высоту поля (число больше 3): ";
-    public final static Pattern PATTERN_FOR_WIDTH_HEIGHT_INPUT = Pattern.compile("[4-9][0-9]*|\\d{2,}");
+    public final static Pattern PATTERN_FOR_WIDTH_HEIGHT_INPUT = Pattern.compile("[4-9][0-9]*|\\d{2,}"); //число от 4 и больше.
 
 
     public final static String ASK_FOR_RENDERER_CHOICE = "Где выводить симуляцию?\n1: Консоль | 2: JavaFX | 3: Выход\nВаш выбор:";
-    public final static Pattern PATTERN_FOR_RENDERER_MENU_CHOICE = Pattern.compile("[12]");
+    public final static Pattern PATTERN_FOR_RENDERER_MENU_CHOICE = Pattern.compile("[12]"); //1||2
 
+    public final static String ASK_FOR_STARTING_SIMULATION = "Симуляция создана\nЛегенда: \n" +
+            "Поросёнок - травоядное. Цифра справа - текущее здоровье\nТигр - хищник. Цифра справа - здоровье, цифра слева - сила атаки\n\n" +
+            "Нажмите Enter для старта симуляции.";
     public final static String ASK_FOR_RUNNING_MENU_CHOICE = "1: Пауза | 2: Продолжить | 3: Выход";
-    public final static Pattern PATTERN_FOR_RUNNING_MENU_CHOICE = Pattern.compile("[123]");
+    public final static Pattern PATTERN_FOR_RUNNING_MENU_CHOICE = Pattern.compile("[123]"); // 1||2||3
 
     public final static String ERROR_INPUT_TRY_AGAIN = "Неправильный ввод! Попробуйте еще раз.";
 
@@ -44,9 +47,19 @@ public class Game {
         }
     }
 
+    private static void messageBeforeStart(){
+        System.out.println(ASK_FOR_STARTING_SIMULATION);
+        Scanner scan = new Scanner(System.in);
+        scan.next();
+
+    }
+
     public static void runSimulationInAnotherTrhead(Simulation sim) {
         GameThread game = new GameThread(sim);
         Thread gameThread = new Thread(game);
+
+//        messageBeforeStart();
+
         gameThread.start();
 
         int choiceInRunningMenu = 0;

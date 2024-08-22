@@ -7,33 +7,35 @@ import world.entities.Entity;
 public abstract class spawnAction extends Action {
     protected double spawnRate;
 
-    public spawnAction(Map map) {
+    protected spawnAction(Map map) {
         super(map);
     }
 
     @Override
-    public void perform() {
+    public final void perform() {
         int quantityForSpawn = getSpawnQuantity();
 
         for (int i = 0; i < quantityForSpawn; i++) {
-            getRandomEmptyCell().setEntity(randomEntity());
+            randomEmptyCell().setEntity(randomEntity());
         }
-
-
-//        place world.entities na kartu
     }
 
-    protected int getSpawnQuantity() {
+    private int getSpawnQuantity() {
         int mapSq = map.getHeight() * map.getWidth();
-        int numberToSpawn = (int) (spawnRate * mapSq);
-        return numberToSpawn - getNumberOfEntitiesByType();
+        int maxQuantityToSpawn = (int) (spawnRate * mapSq);
+        return (maxQuantityToSpawn - currentQuantityOfEntityType());
     }
 
-    protected abstract int getNumberOfEntitiesByType();
+    protected abstract int currentQuantityOfEntityType();
+
+    protected final int currentQuantityOfEntityType(Class<? extends Entity> type) {
+        return (int) map.allEntities().stream().filter(entity -> entity.getClass() == type).count();
+
+    }
 
     abstract protected Entity randomEntity();
 
-    private Cell getRandomEmptyCell() {
+    private Cell randomEmptyCell() {
         Cell result;
         do {
             int x = (int) (Math.random() * map.getWidth());
@@ -45,19 +47,5 @@ public abstract class spawnAction extends Action {
         return result;
     }
 
-    protected int getNumberOfEntitiesByType(Class<? extends Entity> type) {
-        int result = 0;
-        for (Entity entity : map.allEntities()) {
-            if (entity.getClass() == type) {
-                result++;
-            }
-        }
-        return result;
-    }
-
-    public static void main(String[] args) {
-        spawnAction a = new PredatorSpawnAction(new Map(5, 10));
-        a.getRandomEmptyCell();
-    }
 
 }

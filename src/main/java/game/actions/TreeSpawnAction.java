@@ -2,11 +2,10 @@ package game.actions;
 
 import world.Map;
 import world.entities.Entity;
-import world.entities.objects.Rock;
 import world.entities.objects.Tree;
 
 public class TreeSpawnAction extends spawnAction{
-    private final double TREE_RATE = 0.1;
+    private final static double TREE_RATE = 0.1;
 
     public TreeSpawnAction(Map map) {
         super(map);
@@ -14,14 +13,12 @@ public class TreeSpawnAction extends spawnAction{
     }
 
     @Override
-    protected int getNumberOfEntitiesByType() {
-        return getNumberOfEntitiesByType(Tree.class);
+    protected final int currentQuantityOfEntityType() {
+        return currentQuantityOfEntityType(Tree.class);
     }
 
-
-
     @Override
-    protected Entity randomEntity() {
+    protected final Entity randomEntity() {
         return new Tree();
     }
 }

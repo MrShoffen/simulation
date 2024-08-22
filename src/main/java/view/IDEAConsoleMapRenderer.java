@@ -56,51 +56,54 @@ public class IDEAConsoleMapRenderer extends MapRenderer {
     private String entity(Entity entity) throws IllegalStateException {
         return
                 switch (entity) {
-                    case Predator predator -> ATTACK_COLOR + predator.getAttack() + HEALTH_COLOR + PREDATOR_EMOJI + predator.currentHealth() + RESET_COLOR;
-                    case Herbivore herbivore -> HEALTH_COLOR +" "+ HERBIVORE_EMOJI + herbivore.currentHealth() + RESET_COLOR;
-                    case Grass _ ->  " " + GRASS_EMOJI + " ";
+                    case Predator predator ->
+                            ATTACK_COLOR + predator.getAttack() + HEALTH_COLOR + PREDATOR_EMOJI + predator.currentHealth() + RESET_COLOR;
+                    case Herbivore herbivore ->
+                            HEALTH_COLOR + " " + HERBIVORE_EMOJI + herbivore.currentHealth() + RESET_COLOR;
+                    case Grass _ -> " " + GRASS_EMOJI + " ";
                     case Rock _ -> " " + ROCK_EMOJI + " ";
                     case Tree _ -> " " + TREE_EMOJI + " ";
                     case null, default -> throw new IllegalStateException();
                 };
     }
-
-    public static void main(String[] args) {
-
-        Map map = new Map(10, 10);
-
-        map.setEntity(new Predator(), 0, 0);
-
-        map.setEntity(new Herbivore(), 2, 2);
-        map.setEntity(new Grass(),1,0);
-        map.setEntity(new Tree(),0,1);
-        map.setEntity(new Rock(),2,4);
-
-        System.out.println( map.contains(new Cell (2,2)));
-
-
-        MapRenderer renderer = new IDEAConsoleMapRenderer();
-        renderer.render();
-        var a= map.allEntities();
-        System.out.println(a);
-//        renderer.render();
-//        for (int i = 1; i < 4; i++) {
-////            System.out.print("\033[H\033[J");
-//
-//            System.out.println("\n\n\n\n\n\n\n");
-////            System.out.flush();
-//            renderer.render();
-//            map.moveEntity(i - 1, i - 1, i, i);
-//            try {
-//                Thread.sleep(500);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-
-
-    }
 }
+
+//    public static void main(String[] args) {
+//
+//        Map map = new Map(10, 10);
+//
+//        map.setEntity(new Predator(), 0, 0);
+//
+////        map.setEntity(new Herbivore(), 2, 2);
+//        map.setEntity(new Grass(),1,0);
+//        map.setEntity(new Tree(),0,1);
+//        map.setEntity(new Rock(),2,4);
+//
+//        System.out.println( map.contains(new Cell (2,2)));
+//
+//
+//        MapRenderer renderer = new IDEAConsoleMapRenderer();
+//        renderer.render();
+//        var a= map.allEntities();
+//        System.out.println(a);
+////        renderer.render();
+////        for (int i = 1; i < 4; i++) {
+//////            System.out.print("\033[H\033[J");
+////
+////            System.out.println("\n\n\n\n\n\n\n");
+//////            System.out.flush();
+////            renderer.render();
+////            map.moveEntity(i - 1, i - 1, i, i);
+////            try {
+////                Thread.sleep(500);
+////            } catch (InterruptedException e) {
+////                throw new RuntimeException(e);
+////            }
+////        }
+//
+//
+//    }
+//}
 //    }
 
 

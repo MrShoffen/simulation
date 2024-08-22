@@ -5,7 +5,6 @@ import game.actions.Action;
 import view.MapRenderer;
 import world.Map;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class Simulation {
@@ -26,13 +25,14 @@ public class Simulation {
         actions = new ArrayList<>();
 
         init();
-        isRunning = true;
+
+        renderer.render();
+        isRunning = false;
 
     }
 
-    public void start() {
+    public void resume() {
         isRunning = true;
-        System.out.println("simulation is running");
     }
 
     public void pause() {
@@ -48,10 +48,16 @@ public class Simulation {
         actions.add(new GrassSpawnAction(map));
         actions.add(new TreeSpawnAction(map));
         actions.add(new HerbivoreSpawnAction(map));
-        actions.add(new PredatorSpawnAction(map));
+//        actions.add(new PredatorSpawnAction(map));
+
+
 
         performAllActions();
 
+    }
+
+    private void addActions(){
+        actions.add(new MoveAction(map));
     }
 
     private void performAllActions() {
@@ -59,10 +65,11 @@ public class Simulation {
         actions.clear();
     }
 
+
+
     public void nextTurn() {
-        isRunning = true;
-        map.clearMap();
-        init();
+        addActions();
+        performAllActions();
         renderer.render();
     }
 }

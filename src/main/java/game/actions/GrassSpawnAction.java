@@ -3,23 +3,22 @@ package game.actions;
 import world.Map;
 import world.entities.Entity;
 import world.entities.objects.Grass;
-import world.entities.objects.Rock;
 
 public class GrassSpawnAction extends spawnAction {
-    private double GRASS_RATE = 0.1;
+    private final static double GRASS_SPAWN_RATE = 0.1;
+
     public GrassSpawnAction(Map map) {
         super(map);
-        spawnRate = GRASS_RATE;
-    }
-
-
-
-    protected int getNumberOfEntitiesByType() {
-        return getNumberOfEntitiesByType(Grass.class);
+        spawnRate = GRASS_SPAWN_RATE;
     }
 
     @Override
-    protected Entity randomEntity() {
+    protected final int currentQuantityOfEntityType() {
+        return currentQuantityOfEntityType(Grass.class);
+    }
+
+    @Override
+    protected final Entity randomEntity() {
         return new Grass();
     }
 }

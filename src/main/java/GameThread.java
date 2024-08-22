@@ -12,6 +12,7 @@ public class GameThread implements Runnable{
     @Override
     public void run() {
         gameRunning = true;
+        resume();
         while(gameRunning){
             try {
                 Thread.sleep(500);
@@ -32,7 +33,7 @@ public class GameThread implements Runnable{
     }
     public void resume(){
         if(!simulation.isRunning()) {
-            simulation.nextTurn();
+            simulation.resume();
         }
     }
 

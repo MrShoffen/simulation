@@ -3,22 +3,21 @@ package game.actions;
 import world.Map;
 import world.entities.Entity;
 import world.entities.creatures.Herbivore;
-import world.entities.objects.Rock;
 
 public class HerbivoreSpawnAction extends spawnAction{
-    private final double HERBI_RATE = 0.08;
+    private final static double HERBIVORE_RATE = 0.08;
     public HerbivoreSpawnAction(Map map) {
         super(map);
-        spawnRate = HERBI_RATE;
+        spawnRate = HERBIVORE_RATE;
     }
 
     @Override
-    protected int getNumberOfEntitiesByType() {
-        return getNumberOfEntitiesByType(Herbivore.class);
+    protected final int currentQuantityOfEntityType() {
+        return currentQuantityOfEntityType(Herbivore.class);
     }
 
     @Override
-    protected Entity randomEntity() {
-        return new Herbivore();
+    protected final Entity randomEntity() {
+        return Herbivore.randomHerbivore();
     }
 }

@@ -5,8 +5,7 @@ import world.entities.Entity;
 import world.entities.objects.Rock;
 
 public class RockSpawnAction extends spawnAction {
-
-    private final double ROCK_RATE = 0.1;
+    private final static double ROCK_RATE = 0.1;
 
     public RockSpawnAction(Map map) {
         super(map);
@@ -14,12 +13,12 @@ public class RockSpawnAction extends spawnAction {
     }
 
     @Override
-    protected int getNumberOfEntitiesByType() {
-        return getNumberOfEntitiesByType(Rock.class);
+    protected final int currentQuantityOfEntityType() {
+        return currentQuantityOfEntityType(Rock.class);
     }
 
     @Override
-    protected Entity randomEntity() {
+    protected final Entity randomEntity() {
         return new Rock();
     }
 

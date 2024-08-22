@@ -10,25 +10,28 @@ public abstract class Creature extends Entity {
     protected Class<? extends Entity> VICTIM_CLASS;
 
     protected int health;
-    protected int maxHealth;
+    protected final int maxHealth;
+    protected int speed;
     protected SearchStrategy strategy = new BFSSearchStrategy();
 
-    public Creature(){
-        maxHealth = (int) (Math.random() * 6) + 4;
-        health = maxHealth;
+    protected Creature(int health, int speed) {
+        this.maxHealth = health;
+        this.health = maxHealth;
+        this.speed = speed;
     }
-
 
     public void move(Map map) {
         Cell startingCell = null;
         Cell nextCell = strategy.find(startingCell, VICTIM_CLASS);
 
-        if (nextCellContainsVictim(nextCell)) {
-            boolean successfullyConsumed = tryToConsume(nextCell.getEntity());
-            if (!successfullyConsumed) {
-                return;
-            }
-        }
+        System.out.println("im moving, my speed is " + speed);
+
+//        if (nextCellContainsVictim(nextCell)) {
+//            boolean successfullyConsumed = tryToConsume(nextCell.getEntity());
+//            if (!successfullyConsumed) {
+//                return;
+//            }
+//        }
 
 //        map.move
 
@@ -63,4 +66,7 @@ public abstract class Creature extends Entity {
         return health <= 0;
     }
 
+    public int speed() {
+        return speed;
+    }
 }
