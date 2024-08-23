@@ -3,10 +3,8 @@ package game.actions;
 import world.Map;
 import world.entities.creatures.Creature;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class MoveAction extends Action {
@@ -44,7 +42,7 @@ public class MoveAction extends Action {
 
     private void filterCreaturesWithMoves() {
         creaturesWithMoves = creaturesWithMoves.stream().
-                filter(creature -> !creature.isDead() && creature.speed() >= currentStep && creature.isMoving())
+                filter(creature -> !creature.isDead() && creature.speed() >= currentStep && creature.canMove())
                 .collect(Collectors.toList());
     }
 }

@@ -23,7 +23,7 @@ public class Predator extends Creature{
 
     @Override
     protected boolean tryToConsume(Entity victim) {
-        isMoving = false;
+        canMove = false;
 
         Herbivore herbivore = (Herbivore) victim;
         herbivore.recieveDamage(this.attack);

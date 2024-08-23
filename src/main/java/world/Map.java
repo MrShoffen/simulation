@@ -105,4 +105,10 @@ public class Map {
         cells.forEach(Cell::removeEntity);
     }
 
+    public void removeEntity(Entity entity){
+        Optional<Cell>  opt= locateCellOfCreature(entity);
+        opt.ifPresent(Cell::removeEntity);
+
+
+    }
 }

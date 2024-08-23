@@ -9,7 +9,7 @@ public final class GrassSpawnAction extends spawnAction {
 
     public GrassSpawnAction(Map map) {
         super(map);
-        spawnRate = GRASS_SPAWN_RATE*Math.random() + GRASS_SPAWN_RATE;
+        spawnRate =  GRASS_SPAWN_RATE;
     }
 
     @Override

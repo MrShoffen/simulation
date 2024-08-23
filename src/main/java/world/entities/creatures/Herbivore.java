@@ -19,7 +19,7 @@ public class Herbivore extends Creature {
 
     @Override
     protected boolean tryToConsume(Entity victim) {
-        isMoving = false;
+        canMove = false;
         heal(victim.getHealingPower());
         return true;
     }

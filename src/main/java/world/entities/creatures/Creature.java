@@ -13,47 +13,57 @@ public abstract class Creature extends Entity {
 
     protected int health;
     protected final int maxHealth;
-    protected int speed;
-    protected SearchStrategy strategy;
+    protected final int speed;
+    protected final SearchStrategy strategy;
 
-    protected boolean isMoving;
+    protected boolean canMove;
+    protected int movesWithoutFood;
 
     protected Creature(int health, int speed) {
         this.maxHealth = health;
         this.health = maxHealth;
         this.speed = speed;
         strategy = new BFSSearchStrategy();
-        isMoving = true;
+        canMove = true;
+        movesWithoutFood = 0;
     }
 
-    public boolean isMoving() {
-        return isMoving;
+    public int movesWithoutFood() {
+        return movesWithoutFood;
+    }
+
+    public boolean canMove() {
+        return canMove;
     }
 
     public void allowToMove(){
-        isMoving = true;
+        canMove = true;
     }
 
     public void move(Map map) {
         Optional<Cell> start = map.locateCellOfCreature(this);
-        if (this.isDead() || start.isEmpty() || !isMoving) {
+        if (this.isDead() || start.isEmpty() || !canMove) {
             return;
         }
         Cell startingCell = start.get();
         Cell nextCell = strategy.find(startingCell, VICTIM_CLASS);
 
+        boolean victimIsConsumed = false;
         if (nextCellContainsVictim(nextCell)) {
-            boolean successfullyConsumed = tryToConsume(nextCell.getEntity());
-            if (!successfullyConsumed) {
+             victimIsConsumed = tryToConsume(nextCell.getEntity());
+            if (!victimIsConsumed) {
+                movesWithoutFood++;
                 return;
             }
         }
+
+        if(victimIsConsumed){
+            movesWithoutFood = 0;
+        } else {
+            movesWithoutFood++;
+        }
 //        System.out.println("im moving, my speed is " + speed + " and my cell is " + startingCell + ", my next cell is " +nextCell + ", road to " + VICTIM_CLASS);
         map.moveEntity(startingCell, nextCell);
-
-
-//        map.move
-
     }
 
 
@@ -73,6 +83,9 @@ public abstract class Creature extends Entity {
 
     public void recieveDamage(int damage) {
         health -= damage;
+        if (health < 0){
+            health = 0;
+        }
     }
 
     public void heal(int heal) {
