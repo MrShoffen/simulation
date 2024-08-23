@@ -47,10 +47,10 @@ public class Game {
         }
     }
 
-    private static void messageBeforeStart(){
+     static void messageBeforeStart(){
         System.out.println(ASK_FOR_STARTING_SIMULATION);
         Scanner scan = new Scanner(System.in);
-        scan.next();
+        scan.nextLine();
 
     }
 

@@ -3,8 +3,8 @@ package world.entities.creatures;
 import world.entities.Entity;
 
 public class Predator extends Creature{
-    private static final int HEALTH_MULTIPLIER = 5;
-    private static final int MINIMUM_HEALTH = 4;
+    private static final int HEALTH_MULTIPLIER = 3;
+    private static final int MINIMUM_HEALTH = 3;
 
     private static final int SPEED_MULTIPLIER = 4;
     private static final int MINIMUM_SPEED = 2;

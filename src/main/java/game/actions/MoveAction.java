@@ -1,6 +1,5 @@
 package game.actions;
 
-import view.MapRenderer;
 import world.Map;
 import world.entities.creatures.Creature;
 
@@ -9,29 +8,36 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class MoveAction extends Action {
+    boolean moveInProgress;
 
-
+    ArrayList<Creature> creaturesWithMoves;
+    int currentStep;
     public MoveAction(Map map) {
         super(map);
+        moveInProgress = true;
+
+        creaturesWithMoves = getCreaturesWithMoves();
+        currentStep = 1;
+
     }
 
     @Override
     public void perform() {
-
-        ArrayList<Creature> creaturesWithMoves = getCreaturesWithMoves();
-
-        int currentStep = 1;
-
-        while(!creaturesWithMoves.isEmpty()){
-            System.out.println("STEP " + currentStep);
             removeDeadCreatures(creaturesWithMoves);
             removeWithNoSPeedCreatures(creaturesWithMoves,currentStep);
+        //хищник убивает свинью. она пытается найтись в Мапе, но её там нет. поэтому нулл экспешн
+        if(creaturesWithMoves.isEmpty()){
+            moveInProgress = false;
+            return;
+        }
 
             Collections.shuffle(creaturesWithMoves); //optional
             creaturesWithMoves.forEach(creature -> creature.move(map));
             currentStep++;
+    }
 
-        }
+    public boolean moveInProgress() {
+        return moveInProgress;
     }
 
     private ArrayList<Creature> getCreaturesWithMoves() {

@@ -6,6 +6,8 @@ import world.Cell;
 import world.Map;
 import world.entities.Entity;
 
+import java.util.Optional;
+
 public abstract class Creature extends Entity {
     protected Class<? extends Entity> VICTIM_CLASS;
 
@@ -20,22 +22,30 @@ public abstract class Creature extends Entity {
         this.speed = speed;
     }
 
+
     public void move(Map map) {
-        Cell startingCell = null;
+        Optional<Cell> start = map.locateCellOfCreature(this);
+        if (this.isDead()) {
+//            System.out.println("уже мертвое существо");
+            return;
+        }
+        Cell startingCell = start.get();
         Cell nextCell = strategy.find(startingCell, VICTIM_CLASS);
 
-        System.out.println("im moving, my speed is " + speed);
+        if (nextCellContainsVictim(nextCell)) {
+            boolean successfullyConsumed = tryToConsume(nextCell.getEntity());
+            if (!successfullyConsumed) {
+                return;
+            }
+        }
+//        System.out.println("im moving, my speed is " + speed + " and my cell is " + startingCell + ", my next cell is " +nextCell + ", road to " + VICTIM_CLASS);
+        map.moveEntity(startingCell, nextCell);
 
-//        if (nextCellContainsVictim(nextCell)) {
-//            boolean successfullyConsumed = tryToConsume(nextCell.getEntity());
-//            if (!successfullyConsumed) {
-//                return;
-//            }
-//        }
 
 //        map.move
 
     }
+
 
     protected abstract boolean tryToConsume(Entity victim);
 

@@ -15,11 +15,13 @@ public class Simulation {
 
     boolean isRunning;
 
+    int simulationCount;
+
     public boolean isRunning() {
         return isRunning;
     }
 
-    public Simulation(Map map, MapRenderer renderer) {
+    public Simulation(Map map, MapRenderer renderer) throws InterruptedException {
         this.map = map;
         this.renderer = renderer;
         actions = new ArrayList<>();
@@ -28,6 +30,7 @@ public class Simulation {
 
         renderer.render();
         isRunning = false;
+        simulationCount = 0;
 
     }
 
@@ -43,12 +46,12 @@ public class Simulation {
 
     }
 
-    private void init() {
+    private void init() throws InterruptedException {
         actions.add(new RockSpawnAction(map));
         actions.add(new GrassSpawnAction(map));
         actions.add(new TreeSpawnAction(map));
         actions.add(new HerbivoreSpawnAction(map));
-//        actions.add(new PredatorSpawnAction(map));
+        actions.add(new PredatorSpawnAction(map));
 
 
 
@@ -58,16 +61,38 @@ public class Simulation {
 
     private void addActions(){
         actions.add(new MoveAction(map));
+        actions.add(new GrassSpawnAction(map));
+        actions.add(new HerbivoreSpawnAction(map));
     }
 
-    private void performAllActions() {
-        actions.forEach(Action::perform);
+    private void performAllActions() throws InterruptedException {
+        for(Action action : actions){
+            if (action instanceof MoveAction){
+                performMoveAction((MoveAction) action);
+            } else{
+                action.perform();
+            }
+        }
         actions.clear();
     }
 
+    public void performMoveAction(MoveAction action) throws InterruptedException {
+
+        while(action.moveInProgress()){
+            action.perform();
+            if (action.moveInProgress()){
+                renderer.render();
+                System.out.println();
+                Thread.sleep(400);
+            }
+        }
+
+    }
 
 
-    public void nextTurn() {
+    public void nextTurn() throws InterruptedException {
+        simulationCount++;
+        System.out.println("Шаг симуляции: " + simulationCount);
         addActions();
         performAllActions();
         renderer.render();

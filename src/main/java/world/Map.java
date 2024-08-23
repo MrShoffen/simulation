@@ -5,6 +5,8 @@ import world.entities.Entity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,8 +22,7 @@ public class Map {
 
 
         //todo mb peredelat d mapu?
-        java.util.Map<Cell,Entity> mm = new HashMap<>();
-
+        java.util.Map<Cell, Entity> mm = new HashMap<>();
 
 
 //        getCellAt(2, 4).log();
@@ -63,6 +64,19 @@ public class Map {
                 .map(Cell::getEntity);
     }
 
+    public Optional<Cell> locateCellOfCreature(Entity entity) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Cell cellForCheck = getCellAt(x, y);
+                if (cellForCheck.hasEntity() && cellForCheck.getEntity() == entity) {
+                    return Optional.of(cellForCheck);
+                }
+            }
+        }
+//        System.out.println("не нашел");
+        return Optional.empty();
+    }
+
     public void setEntity(Entity entity, int x, int y) {
         getCellAt(x, y).setEntity(entity);
     }
@@ -71,9 +85,15 @@ public class Map {
         getCellAt(x, y).removeEntity();
     }
 
-    public void moveEntity(int x1, int y1, int x2, int y2) {
+    private void moveEntity(int x1, int y1, int x2, int y2) {
         getCellAt(x2, y2).setEntity(getCellAt(x1, y1).getEntity());
         getCellAt(x1, y1).removeEntity();
+    }
+
+    public void moveEntity(Cell start, Cell finish) {
+        if (!start.equals(finish)) {
+            moveEntity(start.getX(), start.getY(), finish.getX(), finish.getY());
+        }
     }
 
     public boolean contains(Cell cell) {
@@ -81,7 +101,8 @@ public class Map {
     }
 
     //test
-    public void clearMap(){
+    public void clearMap() {
         cells.forEach(Cell::removeEntity);
     }
+
 }

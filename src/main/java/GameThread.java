@@ -15,12 +15,16 @@ public class GameThread implements Runnable{
         resume();
         while(gameRunning){
             try {
-                Thread.sleep(500);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             if(simulation.isRunning()){
-                simulation.nextTurn();
+                try {
+                    simulation.nextTurn();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 System.out.println(Game.ASK_FOR_RUNNING_MENU_CHOICE + '\n');
             }
         }

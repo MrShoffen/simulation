@@ -1,18 +1,19 @@
 package world.entities.creatures;
 
 import world.entities.Entity;
+import world.entities.objects.Grass;
 
 public class Herbivore extends Creature {
     private static final int HEALTH_MULTIPLIER = 5;
     private static final int MINIMUM_HEALTH = 4;
 
     private static final int SPEED_MULTIPLIER = 4;
-    private static final int MINIMUM_SPEED = 2;
+    private static final int MINIMUM_SPEED = 3;
 
 
     private Herbivore(int health, int speed) {
         super(health, speed);
-        VICTIM_CLASS = Herbivore.class;
+        VICTIM_CLASS = Grass.class;
     }
 
 

@@ -7,7 +7,7 @@ public class StartingMenu
 {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
 //
 //        System.out.println(Game.ASK_FOR_WIDTH);
@@ -23,7 +23,7 @@ public class StartingMenu
 //        MapRenderer renderer = Game.chooseMapRenderer();
 //        renderer.setMap(map);
 
-        Map map = new Map(10,10);
+        Map map = new Map(5,5);
         MapRenderer renderer = new IDEAConsoleMapRenderer();
         renderer.setMap(map);
         Simulation simulation  = new Simulation(map,renderer);

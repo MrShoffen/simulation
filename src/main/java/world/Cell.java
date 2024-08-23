@@ -3,8 +3,6 @@ package world;
 import world.entities.Entity;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class Cell {
     private final int x;
@@ -20,11 +18,12 @@ public class Cell {
 
     private Entity entity;
 
-    public final ArrayList<Cell> neighbours;
+    private final ArrayList<Cell> neighbours;
 
-    //    kostyl TODO: peredelat eto v algoritmicheskom klasse
-    public Cell prev = null;
 
+    public ArrayList<Cell> neighbours() {
+        return neighbours;
+    }
 
     public Cell(int x, int y) {
         this.x = x;
@@ -61,29 +60,6 @@ public class Cell {
     }
 
 
-
-
-    public void log() {
-        System.out.println("Node (" + (x) + ", " + (y) + ") connected to ");
-        for (Cell cell : neighbours) {
-            System.out.print("(" + (cell.x ) + ", " + (cell.y) + ") ");
-        }
-        if (neighbours.isEmpty()) System.out.println("No nodes");
-
-        class CellWithPrev {
-
-            Cell current;
-            Cell prev;
-
-            public CellWithPrev(Cell in) {
-                current = in;
-            }
-        }
-
-        System.out.println();
-    }
-
-
     public static ArrayList<Cell> createGridGraph(int height, int width) {
         Cell[][] grid = new Cell[height][width];
         ArrayList<Cell> graph = new ArrayList<>();
@@ -95,7 +71,6 @@ public class Cell {
             }
 
         createConnectionsInGraph(height, width, grid);
-
 
         //возвращаем граф-сетку, в котором каждый элемент связан с соседями
         return graph;
@@ -122,63 +97,9 @@ public class Cell {
             }
     }
 
-    //todo nado peredelat' sistemy, chtobi zhervty bili vklyucheni v graph
-    public static ArrayList<Cell> calculateRoute(Cell start, Cell end) {
-
-
-        Queue<Cell> visited = new LinkedList<>();
-        Queue<Cell> queue = new LinkedList<>();
-        queue.add(start);
-
-
-        ArrayList<Cell> route = new ArrayList<>();
-
-
-        Cell tempCell = null;
-        while (!queue.isEmpty()) {
-            tempCell = queue.remove();
-            if (!visited.contains(tempCell)) {
-                visited.add(tempCell);
-                if (tempCell.equals(end)) {
-                    System.out.println("found!");
-                    break;
-                } else {
-                    //tut nado v ochered dobavit tolko podhodyashie kletki
-                    //esli v kletke kamen ili derevo ili creature - dobavit eto
-                    //v visited
-                    queue.addAll(tempCell.neighbours);
-
-                    for (Cell c : tempCell.neighbours) {
-
-                        if (!visited.contains(c)) c.prev = tempCell;
-                    }
-                }
-
-            }
-
-
-        }
-
-        System.out.println("found and quit");
-
-        if (tempCell != end) return new ArrayList<>();
-
-        while (tempCell.prev != null) {
-//            System.out.println(tempCell.x + " " + tempCell.y);
-            route.add(tempCell);
-            tempCell = tempCell.prev;
-        }
-
-        route.add(start);
-
-
-
-        return route;
-    }
-
 
     @Override
     public String toString() {
-        return (x + " " + y);
+        return ("(" + x + " " + y + ")");
     }
 }

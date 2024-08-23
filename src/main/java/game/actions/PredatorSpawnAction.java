@@ -5,7 +5,7 @@ import world.entities.Entity;
 import world.entities.creatures.Predator;
 
 public class PredatorSpawnAction extends spawnAction {
-    private final static double PREDATOR_RATE = 0.07;
+    private final static double PREDATOR_RATE = 0.06;
 
     public PredatorSpawnAction(Map map) {
         super(map);
