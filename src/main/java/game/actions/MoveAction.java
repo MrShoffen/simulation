@@ -5,53 +5,57 @@ import world.entities.creatures.Creature;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class MoveAction extends Action {
     boolean moveInProgress;
 
-    ArrayList<Creature> creaturesWithMoves;
+    List<Creature> creaturesWithMoves;
     int currentStep;
+
     public MoveAction(Map map) {
         super(map);
         moveInProgress = true;
-
-        creaturesWithMoves = getCreaturesWithMoves();
         currentStep = 1;
-
+        creaturesWithMoves = allCreatures();
     }
 
     @Override
-    public void perform() {
-            removeDeadCreatures(creaturesWithMoves);
-            removeWithNoSPeedCreatures(creaturesWithMoves,currentStep);
-        //хищник убивает свинью. она пытается найтись в Мапе, но её там нет. поэтому нулл экспешн
-        if(creaturesWithMoves.isEmpty()){
-            moveInProgress = false;
-            return;
-        }
+    public final void perform() {
+        creaturesWithMoves = filterCreaturesWithMoves();
 
-            Collections.shuffle(creaturesWithMoves); //optional
+
+
+        if (creaturesWithMoves.isEmpty()) {
+            moveInProgress = false;
+            allCreatures().forEach(Creature::allowToMove);
+        } else {
+            Collections.shuffle(creaturesWithMoves);
+
+//            System.out.println("now moving:" );
+//            creaturesWithMoves.forEach(creature -> System.out.print( map.locateCellOfCreature(creature) + " "));
+//            System.out.println();
+
             creaturesWithMoves.forEach(creature -> creature.move(map));
             currentStep++;
+        }
+    }
+
+    private List<Creature> allCreatures() {
+        return map.allEntities().stream()
+                .filter(entity -> entity instanceof Creature)
+                .map(entity -> (Creature) entity).collect(Collectors.toList());
     }
 
     public boolean moveInProgress() {
         return moveInProgress;
     }
 
-    private ArrayList<Creature> getCreaturesWithMoves() {
-        return map.allEntities().stream()
-                .filter(entity1 -> entity1 instanceof Creature)
-                .map(entity1 -> (Creature) entity1)
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    void removeDeadCreatures(ArrayList<Creature> list){
-        list.removeIf(Creature::isDead);
-    }
-
-    void removeWithNoSPeedCreatures(ArrayList<Creature> list, int step){
-        list.removeIf(creature -> creature.speed() < step);
+    private List<Creature> filterCreaturesWithMoves() {
+        return creaturesWithMoves.stream().
+                filter(creature -> !creature.isDead() && creature.speed() >= currentStep && !creature.isMoveFinished())
+                .collect(Collectors.toList());
     }
 }

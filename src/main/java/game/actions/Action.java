@@ -4,9 +4,9 @@ import world.Map;
 
 public abstract class Action{
 
-    protected Map map;
+    protected final Map map;
 
-    public Action(Map map) {
+    protected Action(Map map) {
         this.map = map;
     }
 

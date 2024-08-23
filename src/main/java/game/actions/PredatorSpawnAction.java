@@ -3,8 +3,9 @@ package game.actions;
 import world.Map;
 import world.entities.Entity;
 import world.entities.creatures.Predator;
+import world.entities.objects.Grass;
 
-public class PredatorSpawnAction extends spawnAction {
+public final class PredatorSpawnAction extends spawnAction {
     private final static double PREDATOR_RATE = 0.06;
 
     public PredatorSpawnAction(Map map) {
@@ -13,12 +14,12 @@ public class PredatorSpawnAction extends spawnAction {
     }
 
     @Override
-    protected final int currentQuantityOfEntityType() {
-        return currentQuantityOfEntityType(Predator.class);
+    protected int currentQuantityOfEntityType() {
+        return (int) map.allEntities().stream().filter(entity -> entity.getClass() == Predator.class).count();
     }
 
     @Override
-    protected final Entity randomEntity() {
+    protected Entity randomEntity() {
         return Predator.randomPredator();
     }
 }

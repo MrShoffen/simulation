@@ -52,11 +52,7 @@ public class Simulation {
         actions.add(new TreeSpawnAction(map));
         actions.add(new HerbivoreSpawnAction(map));
         actions.add(new PredatorSpawnAction(map));
-
-
-
         performAllActions();
-
     }
 
     private void addActions(){

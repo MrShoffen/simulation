@@ -4,7 +4,7 @@ import world.Map;
 import world.entities.Entity;
 import world.entities.objects.Grass;
 
-public class GrassSpawnAction extends spawnAction {
+public final class GrassSpawnAction extends spawnAction {
     private final static double GRASS_SPAWN_RATE = 0.1;
 
     public GrassSpawnAction(Map map) {
@@ -13,12 +13,13 @@ public class GrassSpawnAction extends spawnAction {
     }
 
     @Override
-    protected final int currentQuantityOfEntityType() {
-        return currentQuantityOfEntityType(Grass.class);
+    protected int currentQuantityOfEntityType() {
+        return (int) map.allEntities().stream().filter(entity -> entity.getClass() == Grass.class).count();
+
     }
 
     @Override
-    protected final Entity randomEntity() {
+    protected Entity randomEntity() {
         return new Grass();
     }
 }

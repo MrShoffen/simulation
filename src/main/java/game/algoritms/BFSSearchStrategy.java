@@ -11,7 +11,7 @@ import java.util.Map;
 public class BFSSearchStrategy implements SearchStrategy {
 
     @Override
-    public Cell find(Cell startCell, Class<? extends Entity> whatToFind) {
+    public Cell find(Cell startCell, Class<? extends Entity> target) {
         ArrayList<Cell> visited = new ArrayList<>();
         Map<Cell, Cell> route = new HashMap<>();
 
@@ -19,35 +19,41 @@ public class BFSSearchStrategy implements SearchStrategy {
         queue.add(startCell);
 
         while (!queue.isEmpty()) {
-            Cell tempCell = queue.removeFirst();
-            visited.add(tempCell);
+            Cell currentCell = queue.removeFirst();
+            visited.add(currentCell);
 
-            for (Cell neighbour : tempCell.neighbours()) {
+            for (Cell neighbour : currentCell.neighbours()) {
                 if (!visited.contains(neighbour)) {
-                    if (neighbour.hasEntity() && neighbour.getEntity().getClass() != whatToFind) {
+                    if (CellHasNoTarget(target, neighbour)) {
                         visited.add(neighbour);
                     } else {
                         queue.add(neighbour);
-                        route.put(neighbour, tempCell);
+                        route.put(neighbour, currentCell);
                     }
                 }
             }
 
-            if (tempCell.hasEntity() && tempCell.getEntity().getClass() == whatToFind) {
-                return unwrapRoute(route, tempCell,startCell);
+            if (cellHasTarget(target, currentCell)) {
+                return firstCellInRoute(route, currentCell, startCell);
             }
         }
         return startCell;
     }
 
-    private Cell unwrapRoute(Map<Cell, Cell> route, Cell targetCell, Cell startCell) {
+    private static boolean CellHasNoTarget(Class<? extends Entity> target, Cell neighbour) {
+        return neighbour.hasEntity() && neighbour.getEntity().getClass() != target;
+    }
+
+    private static boolean cellHasTarget(Class<? extends Entity> target, Cell cell) {
+        return cell.hasEntity() && cell.getEntity().getClass() == target;
+    }
+
+    private Cell firstCellInRoute(Map<Cell, Cell> route, Cell targetCell, Cell startCell) {
         Cell prevCell = targetCell;
-        while(!startCell.neighbours().contains(prevCell)){
+        while (!startCell.neighbours().contains(prevCell)) {
             prevCell = route.get(prevCell);
         }
         return prevCell;
     }
-
-
 }
 

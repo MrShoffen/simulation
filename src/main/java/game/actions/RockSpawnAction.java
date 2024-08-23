@@ -2,6 +2,7 @@ package game.actions;
 
 import world.Map;
 import world.entities.Entity;
+import world.entities.objects.Grass;
 import world.entities.objects.Rock;
 
 public class RockSpawnAction extends spawnAction {
@@ -14,7 +15,7 @@ public class RockSpawnAction extends spawnAction {
 
     @Override
     protected final int currentQuantityOfEntityType() {
-        return currentQuantityOfEntityType(Rock.class);
+        return (int) map.allEntities().stream().filter(entity -> entity.getClass() == Rock.class).count();
     }
 
     @Override

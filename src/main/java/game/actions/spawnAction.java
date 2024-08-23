@@ -28,12 +28,7 @@ public abstract class spawnAction extends Action {
 
     protected abstract int currentQuantityOfEntityType();
 
-    protected final int currentQuantityOfEntityType(Class<? extends Entity> type) {
-        return (int) map.allEntities().stream().filter(entity -> entity.getClass() == type).count();
-
-    }
-
-    abstract protected Entity randomEntity();
+    protected abstract Entity randomEntity();
 
     private Cell randomEmptyCell() {
         Cell result;

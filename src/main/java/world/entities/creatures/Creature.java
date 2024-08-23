@@ -14,19 +14,29 @@ public abstract class Creature extends Entity {
     protected int health;
     protected final int maxHealth;
     protected int speed;
-    protected SearchStrategy strategy = new BFSSearchStrategy();
+    protected SearchStrategy strategy;
+
+    protected boolean moveIsFinished;
 
     protected Creature(int health, int speed) {
         this.maxHealth = health;
         this.health = maxHealth;
         this.speed = speed;
+        strategy = new BFSSearchStrategy();
+        moveIsFinished = false;
     }
 
+    public boolean isMoveFinished() {
+        return moveIsFinished;
+    }
+
+    public void allowToMove(){
+        moveIsFinished = false;
+    }
 
     public void move(Map map) {
         Optional<Cell> start = map.locateCellOfCreature(this);
-        if (this.isDead()) {
-//            System.out.println("уже мертвое существо");
+        if (this.isDead() || start.isEmpty() || moveIsFinished) {
             return;
         }
         Cell startingCell = start.get();
@@ -62,7 +72,7 @@ public abstract class Creature extends Entity {
     }
 
     public void recieveDamage(int damage) {
-        health = -damage;
+        health -= damage;
     }
 
     public void heal(int heal) {

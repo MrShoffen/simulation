@@ -2,6 +2,7 @@ package game.actions;
 
 import world.Map;
 import world.entities.Entity;
+import world.entities.objects.Grass;
 import world.entities.objects.Tree;
 
 public class TreeSpawnAction extends spawnAction{
@@ -14,7 +15,7 @@ public class TreeSpawnAction extends spawnAction{
 
     @Override
     protected final int currentQuantityOfEntityType() {
-        return currentQuantityOfEntityType(Tree.class);
+        return (int) map.allEntities().stream().filter(entity -> entity.getClass() == Tree.class).count();
     }
 
     @Override
