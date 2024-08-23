@@ -16,27 +16,27 @@ public abstract class Creature extends Entity {
     protected int speed;
     protected SearchStrategy strategy;
 
-    protected boolean moveIsFinished;
+    protected boolean isMoving;
 
     protected Creature(int health, int speed) {
         this.maxHealth = health;
         this.health = maxHealth;
         this.speed = speed;
         strategy = new BFSSearchStrategy();
-        moveIsFinished = false;
+        isMoving = true;
     }
 
-    public boolean isMoveFinished() {
-        return moveIsFinished;
+    public boolean isMoving() {
+        return isMoving;
     }
 
     public void allowToMove(){
-        moveIsFinished = false;
+        isMoving = true;
     }
 
     public void move(Map map) {
         Optional<Cell> start = map.locateCellOfCreature(this);
-        if (this.isDead() || start.isEmpty() || moveIsFinished) {
+        if (this.isDead() || start.isEmpty() || !isMoving) {
             return;
         }
         Cell startingCell = start.get();

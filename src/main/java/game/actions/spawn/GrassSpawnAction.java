@@ -1,4 +1,4 @@
-package game.actions;
+package game.actions.spawn;
 
 import world.Map;
 import world.entities.Entity;

@@ -1,5 +1,6 @@
-package game.actions;
+package game.actions.spawn;
 
+import game.actions.Action;
 import world.Cell;
 import world.Map;
 import world.entities.Entity;
@@ -16,7 +17,7 @@ public abstract class spawnAction extends Action {
         int quantityForSpawn = getSpawnQuantity();
 
         for (int i = 0; i < quantityForSpawn; i++) {
-            randomEmptyCell().setEntity(randomEntity());
+            Action.randomEmptyCell(map).setEntity(randomEntity());
         }
     }
 
@@ -29,18 +30,5 @@ public abstract class spawnAction extends Action {
     protected abstract int currentQuantityOfEntityType();
 
     protected abstract Entity randomEntity();
-
-    private Cell randomEmptyCell() {
-        Cell result;
-        do {
-            int x = (int) (Math.random() * map.getWidth());
-            int y = (int) (Math.random() * map.getHeight());
-            result = map.getCellAt(x, y);
-
-        } while (result.hasEntity());
-
-        return result;
-    }
-
 
 }

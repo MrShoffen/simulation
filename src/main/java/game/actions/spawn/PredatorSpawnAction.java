@@ -1,9 +1,8 @@
-package game.actions;
+package game.actions.spawn;
 
 import world.Map;
 import world.entities.Entity;
 import world.entities.creatures.Predator;
-import world.entities.objects.Grass;
 
 public final class PredatorSpawnAction extends spawnAction {
     private final static double PREDATOR_RATE = 0.06;

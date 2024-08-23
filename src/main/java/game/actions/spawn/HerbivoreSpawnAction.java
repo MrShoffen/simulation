@@ -1,16 +1,15 @@
-package game.actions;
+package game.actions.spawn;
 
 import world.Map;
 import world.entities.Entity;
 import world.entities.creatures.Herbivore;
-import world.entities.objects.Grass;
 
 public class HerbivoreSpawnAction extends spawnAction{
     private final static double HERBIVORE_RATE = 0.1;
 
     public HerbivoreSpawnAction(Map map) {
         super(map);
-        spawnRate = HERBIVORE_RATE;
+        spawnRate = HERBIVORE_RATE + Math.random()*HERBIVORE_RATE;
     }
 
     @Override

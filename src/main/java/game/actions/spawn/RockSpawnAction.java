@@ -1,8 +1,7 @@
-package game.actions;
+package game.actions.spawn;
 
 import world.Map;
 import world.entities.Entity;
-import world.entities.objects.Grass;
 import world.entities.objects.Rock;
 
 public class RockSpawnAction extends spawnAction {

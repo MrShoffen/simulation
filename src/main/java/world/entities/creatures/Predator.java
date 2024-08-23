@@ -4,7 +4,7 @@ import world.entities.Entity;
 
 public class Predator extends Creature{
     private static final int HEALTH_MULTIPLIER = 3;
-    private static final int MINIMUM_HEALTH = 3;
+    private static final int MINIMUM_HEALTH = 4;
 
     private static final int SPEED_MULTIPLIER = 4;
     private static final int MINIMUM_SPEED = 2;
@@ -23,7 +23,8 @@ public class Predator extends Creature{
 
     @Override
     protected boolean tryToConsume(Entity victim) {
-        moveIsFinished = true;
+        isMoving = false;
+
         Herbivore herbivore = (Herbivore) victim;
         herbivore.recieveDamage(this.attack);
         if(herbivore.isDead()){

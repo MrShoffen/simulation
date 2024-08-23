@@ -2,6 +2,7 @@ package game;
 
 import game.actions.*;
 import game.actions.Action;
+import game.actions.spawn.*;
 import view.MapRenderer;
 import world.Map;
 
