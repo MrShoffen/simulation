@@ -10,7 +10,7 @@ public class Predator extends Creature{
     private static final int MINIMUM_SPEED = 2;
 
     private static final int ATTACK_MULTIPLIER = 4;
-    private static final int MINIMUM_ATTACK = 2;
+    private static final int MINIMUM_ATTACK = 3;
 
     private final int attack;
 
@@ -28,7 +28,7 @@ public class Predator extends Creature{
         Herbivore herbivore = (Herbivore) victim;
         herbivore.recieveDamage(this.attack);
         if(herbivore.isDead()){
-            this.heal(herbivore.getHealingPower());
+            this.heal(herbivore.healingPowerAfterDeath());
             return true;
         }
         return false;

@@ -61,6 +61,7 @@ public class Simulation {
         actions.add(new GrassSpawnAction(map));
         actions.add(new HerbivoreSpawnAction(map));
         actions.add(new StarveAction(map));
+        actions.add(new BreedAction(map));
     }
 
     private void performAllActions() throws InterruptedException {

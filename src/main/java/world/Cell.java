@@ -3,6 +3,7 @@ package world;
 import world.entities.Entity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Cell {
     private final int x;
@@ -96,7 +97,6 @@ public class Cell {
 
             }
     }
-
 
     @Override
     public String toString() {

@@ -1,9 +1,10 @@
 package world.entities.creatures;
 
+import world.entities.Consumable;
 import world.entities.Entity;
 import world.entities.objects.Grass;
 
-public class Herbivore extends Creature {
+public class Herbivore extends Creature implements Consumable {
     private static final int HEALTH_MULTIPLIER = 5;
     private static final int MINIMUM_HEALTH = 4;
 
@@ -24,9 +25,16 @@ public class Herbivore extends Creature {
         return true;
     }
 
+
+
     public static Herbivore randomHerbivore() {
         int randomHealth = (int)(Math.random()*HEALTH_MULTIPLIER) + MINIMUM_HEALTH;
         int randomSpeed = (int)(Math.random()*SPEED_MULTIPLIER) + MINIMUM_SPEED;
         return new Herbivore(randomHealth,randomSpeed);
+    }
+
+    @Override
+    public int healingPowerAfterDeath() {
+        return maxHealth/2;
     }
 }
