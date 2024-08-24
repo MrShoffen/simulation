@@ -1,5 +1,6 @@
 package world.entities.creatures;
 
+import world.entities.Consumable;
 import world.entities.Entity;
 
 public class Predator extends Creature{
@@ -22,7 +23,7 @@ public class Predator extends Creature{
     }
 
     @Override
-    protected boolean tryToConsume(Entity victim) {
+    protected boolean tryToConsume(Consumable victim) {
         canMove = false;
 
         Herbivore herbivore = (Herbivore) victim;

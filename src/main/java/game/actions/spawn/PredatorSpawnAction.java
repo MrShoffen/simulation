@@ -10,11 +10,7 @@ public final class PredatorSpawnAction extends spawnAction {
     public PredatorSpawnAction(Map map) {
         super(map);
         spawnRate = PREDATOR_RATE;
-    }
-
-    @Override
-    protected int currentQuantityOfEntityType() {
-        return (int) map.allEntities().stream().filter(entity -> entity.getClass() == Predator.class).count();
+        entityTypeForSpawn = Predator.class;
     }
 
     @Override

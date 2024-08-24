@@ -10,13 +10,9 @@ public final class GrassSpawnAction extends spawnAction {
     public GrassSpawnAction(Map map) {
         super(map);
         spawnRate =  GRASS_SPAWN_RATE;
+        entityTypeForSpawn = Grass.class;
     }
 
-    @Override
-    protected int currentQuantityOfEntityType() {
-        return (int) map.allEntities().stream().filter(entity -> entity.getClass() == Grass.class).count();
-
-    }
 
     @Override
     protected Entity randomEntity() {

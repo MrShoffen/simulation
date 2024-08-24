@@ -19,9 +19,9 @@ public class Herbivore extends Creature implements Consumable {
 
 
     @Override
-    protected boolean tryToConsume(Entity victim) {
+    protected boolean tryToConsume(Consumable victim) {
         canMove = false;
-        heal(victim.getHealingPower());
+        heal(((Grass)victim).healingPowerAfterDeath());
         return true;
     }
 

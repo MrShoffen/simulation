@@ -4,12 +4,13 @@ import game.algoritms.BFSSearchStrategy;
 import game.algoritms.SearchStrategy;
 import world.Cell;
 import world.Map;
+import world.entities.Consumable;
 import world.entities.Entity;
 
 import java.util.Optional;
 
 public abstract class Creature extends Entity {
-    protected Class<? extends Entity> VICTIM_CLASS;
+    protected Class<? extends Consumable> VICTIM_CLASS;
 
     protected int health;
     protected final int maxHealth;
@@ -50,7 +51,8 @@ public abstract class Creature extends Entity {
 
         boolean victimIsConsumed = false;
         if (nextCellContainsVictim(nextCell)) {
-             victimIsConsumed = tryToConsume(nextCell.getEntity());
+            Consumable victim = (Consumable) nextCell.getEntity();
+             victimIsConsumed = tryToConsume(victim);
             if (!victimIsConsumed) {
                 movesWithoutFood++;
                 return;
@@ -67,7 +69,7 @@ public abstract class Creature extends Entity {
     }
 
 
-    protected abstract boolean tryToConsume(Entity victim);
+    protected abstract boolean tryToConsume(Consumable victim);
 
     protected boolean nextCellContainsVictim(Cell nextCell) {
         return nextCell.hasEntity() && nextCell.getEntity().getClass() == VICTIM_CLASS;

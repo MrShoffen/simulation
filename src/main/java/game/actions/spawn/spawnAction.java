@@ -1,12 +1,12 @@
 package game.actions.spawn;
 
 import game.actions.Action;
-import world.Cell;
 import world.Map;
 import world.entities.Entity;
 
 public abstract class spawnAction extends Action {
     protected double spawnRate;
+    protected Class<? extends Entity> entityTypeForSpawn;
 
     protected spawnAction(Map map) {
         super(map);
@@ -27,8 +27,9 @@ public abstract class spawnAction extends Action {
         return (maxQuantityToSpawn - currentQuantityOfEntityType());
     }
 
-    protected abstract int currentQuantityOfEntityType();
+    private int currentQuantityOfEntityType(){
+        return (int) map.allEntities().stream().filter(entity -> entity.getClass() == entityTypeForSpawn).count();
+    }
 
     protected abstract Entity randomEntity();
-
 }

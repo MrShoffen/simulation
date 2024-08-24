@@ -1,6 +1,7 @@
 package game.algoritms;
 
 import world.Cell;
+import world.entities.Consumable;
 import world.entities.Entity;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.Map;
 public class BFSSearchStrategy implements SearchStrategy {
 
     @Override
-    public Cell find(Cell startCell, Class<? extends Entity> target) {
+    public Cell find(Cell startCell, Class<? extends Consumable> target) {
         ArrayList<Cell> visited = new ArrayList<>();
         Map<Cell, Cell> route = new HashMap<>();
 
@@ -40,11 +41,11 @@ public class BFSSearchStrategy implements SearchStrategy {
         return startCell;
     }
 
-    private static boolean CellHasNoTarget(Class<? extends Entity> target, Cell neighbour) {
+    private static boolean CellHasNoTarget(Class<? extends Consumable> target, Cell neighbour) {
         return neighbour.hasEntity() && neighbour.getEntity().getClass() != target;
     }
 
-    private static boolean cellHasTarget(Class<? extends Entity> target, Cell cell) {
+    private static boolean cellHasTarget(Class<? extends Consumable> target, Cell cell) {
         return cell.hasEntity() && cell.getEntity().getClass() == target;
     }
 

@@ -4,21 +4,18 @@ import world.Map;
 import world.entities.Entity;
 import world.entities.objects.Tree;
 
-public class TreeSpawnAction extends spawnAction{
+public final class TreeSpawnAction extends spawnAction{
     private final static double TREE_RATE = 0.1;
 
     public TreeSpawnAction(Map map) {
         super(map);
         spawnRate = TREE_RATE;
+        entityTypeForSpawn = Tree.class;
     }
 
-    @Override
-    protected final int currentQuantityOfEntityType() {
-        return (int) map.allEntities().stream().filter(entity -> entity.getClass() == Tree.class).count();
-    }
 
     @Override
-    protected final Entity randomEntity() {
+    protected Entity randomEntity() {
         return new Tree();
     }
 }
