@@ -1,16 +1,13 @@
 package game.actions;
 
-import world.Cell;
 import world.Map;
 import world.entities.creatures.Creature;
 
 import java.util.List;
-import java.util.Optional;
 
 public class StarveAction extends Action {
-    private static final int MOVE_NUMBER_FOR_STARVING = 5;
-    private static final int DAMAGE_FOR_STARVING = 2;
-
+    private static final int MOVE_NUMBER_FOR_STARVING = 4;
+    private static final int DAMAGE_FOR_STARVING = 1;
 
     public StarveAction(Map map) {
         super(map);
@@ -29,9 +26,5 @@ public class StarveAction extends Action {
               map.removeEntity(creature);
             }
         }
-
-
-
-
     }
 }

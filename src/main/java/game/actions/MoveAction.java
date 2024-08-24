@@ -5,9 +5,8 @@ import world.entities.creatures.Creature;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class MoveAction extends Action {
+public final class MoveAction extends Action {
     boolean moveInProgress;
 
     List<Creature> creaturesWithMoves;
@@ -21,7 +20,7 @@ public class MoveAction extends Action {
     }
 
     @Override
-    public final void perform() {
+    public void perform() {
         this.filterCreaturesWithMoves();
 
         if (creaturesWithMoves.isEmpty()) {
@@ -41,8 +40,8 @@ public class MoveAction extends Action {
     }
 
     private void filterCreaturesWithMoves() {
-        creaturesWithMoves = creaturesWithMoves.stream().
-                filter(creature -> !creature.isDead() && creature.speed() >= currentStep && creature.canMove())
-                .collect(Collectors.toList());
+        creaturesWithMoves.removeIf(Creature::isDead);
+        creaturesWithMoves.removeIf(creature -> creature.speed() < currentStep);
+        creaturesWithMoves.removeIf(creature -> !creature.canMove());
     }
 }

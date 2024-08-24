@@ -7,7 +7,7 @@ import world.entities.creatures.Creature;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class Action{
+public abstract class Action {
 
     protected final Map map;
 
