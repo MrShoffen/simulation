@@ -2,14 +2,13 @@ package game.algoritms;
 
 import world.Cell;
 import world.entities.Consumable;
-import world.entities.Entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 
-public class BFSSearchStrategy implements SearchStrategy {
+public final class BFSSearchStrategy implements SearchStrategy {
 
     @Override
     public Cell find(Cell startCell, Class<? extends Consumable> target) {
@@ -49,7 +48,7 @@ public class BFSSearchStrategy implements SearchStrategy {
         return cell.hasEntity() && cell.getEntity().getClass() == target;
     }
 
-    private Cell firstCellInRoute(Map<Cell, Cell> route, Cell targetCell, Cell startCell) {
+    private static Cell firstCellInRoute(Map<Cell, Cell> route, Cell targetCell, Cell startCell) {
         Cell prevCell = targetCell;
         while (!startCell.neighbours().contains(prevCell)) {
             prevCell = route.get(prevCell);

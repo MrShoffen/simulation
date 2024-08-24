@@ -37,7 +37,7 @@ public abstract class Creature extends Entity {
         return canMove;
     }
 
-    public void allowToMove(){
+    public void allowToMove() {
         canMove = true;
     }
 
@@ -52,14 +52,14 @@ public abstract class Creature extends Entity {
         boolean victimIsConsumed = false;
         if (nextCellContainsVictim(nextCell)) {
             Consumable victim = (Consumable) nextCell.getEntity();
-             victimIsConsumed = tryToConsume(victim);
+            victimIsConsumed = tryToConsume(victim);
             if (!victimIsConsumed) {
                 movesWithoutFood++;
                 return;
             }
         }
 
-        if(victimIsConsumed){
+        if (victimIsConsumed) {
             movesWithoutFood = 0;
         } else {
             movesWithoutFood++;
@@ -85,7 +85,7 @@ public abstract class Creature extends Entity {
 
     public void recieveDamage(int damage) {
         health -= damage;
-        if (health < 0){
+        if (health < 0) {
             health = 0;
         }
     }

@@ -1,4 +1,6 @@
 package world.entities.objects;
 
-public class Tree extends NonCreature{
+import world.entities.Entity;
+
+public final class Tree extends Entity {
 }

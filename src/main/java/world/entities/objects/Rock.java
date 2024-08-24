@@ -1,4 +1,6 @@
 package world.entities.objects;
 
-public class Rock extends NonCreature {
+import world.entities.Entity;
+
+public final class Rock extends Entity {
 }

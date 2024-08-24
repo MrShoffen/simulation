@@ -8,7 +8,7 @@ import world.entities.creatures.Predator;
 
 import java.util.*;
 
-public class BreedAction extends Action {
+public final class BreedAction extends Action {
     public BreedAction(Map map) {
         super(map);
     }

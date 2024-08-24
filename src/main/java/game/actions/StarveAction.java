@@ -5,7 +5,7 @@ import world.entities.creatures.Creature;
 
 import java.util.List;
 
-public class StarveAction extends Action {
+public final class StarveAction extends Action {
     private static final int MOVE_NUMBER_FOR_STARVING = 4;
     private static final int DAMAGE_FOR_STARVING = 1;
 
@@ -15,7 +15,6 @@ public class StarveAction extends Action {
 
     @Override
     public void perform() {
-
         List<Creature> allCreatures = Action.allCreaturesFromMap(map);
 
         for(Creature creature : allCreatures){
