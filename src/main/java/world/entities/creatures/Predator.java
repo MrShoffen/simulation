@@ -1,9 +1,8 @@
 package world.entities.creatures;
 
 import world.entities.Consumable;
-import world.entities.Entity;
 
-public class Predator extends Creature{
+public final class Predator extends Creature {
     private static final int HEALTH_MULTIPLIER = 3;
     private static final int MINIMUM_HEALTH = 4;
 
@@ -24,26 +23,24 @@ public class Predator extends Creature{
 
     @Override
     protected boolean tryToConsume(Consumable victim) {
-        canMove = false;
-
         Herbivore herbivore = (Herbivore) victim;
-        herbivore.recieveDamage(this.attack);
-        if(herbivore.isDead()){
+        herbivore.receiveDamage(this.attack);
+
+        if (herbivore.isDead()) {
             this.heal(herbivore.healingPowerAfterDeath());
             return true;
         }
         return false;
-
     }
 
     public int getAttack() {
         return attack;
     }
 
-    public static Predator randomPredator(){
-        int randomHealth = (int)(Math.random()*HEALTH_MULTIPLIER) + MINIMUM_HEALTH;
-        int randomSpeed = (int)(Math.random()*SPEED_MULTIPLIER) + MINIMUM_SPEED;
-        int randomAttack = (int)(Math.random()*ATTACK_MULTIPLIER) + MINIMUM_ATTACK;
-        return new Predator(randomHealth,randomSpeed,randomAttack);
+    public static Predator randomPredator() {
+        int randomHealth = (int) (Math.random() * HEALTH_MULTIPLIER) + MINIMUM_HEALTH;
+        int randomSpeed = (int) (Math.random() * SPEED_MULTIPLIER) + MINIMUM_SPEED;
+        int randomAttack = (int) (Math.random() * ATTACK_MULTIPLIER) + MINIMUM_ATTACK;
+        return new Predator(randomHealth, randomSpeed, randomAttack);
     }
 }

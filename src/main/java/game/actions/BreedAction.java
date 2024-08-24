@@ -55,33 +55,33 @@ public final class BreedAction extends Action {
 
         System.out.println(fist.equals(second) + " " + fist.equals(third) + "" + second.equals(third));
     }
-
+//todo mb realizovat nasledovanie par - herbi i predator
     private static class Pair {
 
-        Cell firstParent;
-        Cell secondParent;
+        Cell firstParentCell;
+        Cell secondParentCell;
         Class<? extends Entity> type;
 
         public Pair(Cell firstParent, Cell secondParent, Class<? extends Entity> type) {
-            this.firstParent = firstParent;
-            this.secondParent = secondParent;
+            this.firstParentCell = firstParent;
+            this.secondParentCell = secondParent;
             this.type = type;
         }
 
         @Override
         public boolean equals(Object o) {
             Pair pair = (Pair) o;
-            return pair.firstParent.equals(firstParent) && pair.secondParent.equals(secondParent) || pair.firstParent.equals(secondParent) && pair.secondParent.equals(firstParent);
+            return pair.firstParentCell.equals(firstParentCell) && pair.secondParentCell.equals(secondParentCell) || pair.firstParentCell.equals(secondParentCell) && pair.secondParentCell.equals(firstParentCell);
         }
 
         @Override
         public int hashCode() {
-            return Math.min(Objects.hash(firstParent, secondParent), Objects.hash(secondParent, firstParent));
+            return Math.min(Objects.hash(firstParentCell, secondParentCell), Objects.hash(secondParentCell, firstParentCell));
         }
 
         public HashSet<Cell> emptyCellsAround() {
-            HashSet<Cell> emptyCellsAround = new HashSet<>(firstParent.neighbours());
-            emptyCellsAround.addAll(secondParent.neighbours());
+            HashSet<Cell> emptyCellsAround = new HashSet<>(firstParentCell.neighbours());
+            emptyCellsAround.addAll(secondParentCell.neighbours());
             emptyCellsAround.removeIf(Cell::hasEntity);
 
             System.out.println(emptyCellsAround.size());

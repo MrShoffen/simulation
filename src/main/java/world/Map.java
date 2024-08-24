@@ -36,7 +36,7 @@ public class Map {
                 .collect(Collectors.toList());
     }
 
-    public Optional<Cell> locateCellOfCreature(Entity entity) {
+    public Optional<Cell> locateCellOfEntity(Entity entity) {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 Cell cellForCheck = getCellAt(x, y);
@@ -60,7 +60,7 @@ public class Map {
     }
 
     public void removeEntity(Entity entity) {
-        Optional<Cell> opt = locateCellOfCreature(entity);
+        Optional<Cell> opt = locateCellOfEntity(entity);
         opt.ifPresent(Cell::removeEntity);
     }
 }

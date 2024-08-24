@@ -19,7 +19,7 @@ public final class StarveAction extends Action {
 
         for(Creature creature : allCreatures){
             if(creature.movesWithoutFood() >= MOVE_NUMBER_FOR_STARVING){
-                creature.recieveDamage(DAMAGE_FOR_STARVING);
+                creature.receiveDamage(DAMAGE_FOR_STARVING);
             }
             if(creature.isDead()){
               map.removeEntity(creature);

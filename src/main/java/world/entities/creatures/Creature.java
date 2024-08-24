@@ -29,28 +29,17 @@ public abstract class Creature extends Entity {
         movesWithoutFood = 0;
     }
 
-    public int movesWithoutFood() {
-        return movesWithoutFood;
-    }
-
-    public boolean canMove() {
-        return canMove;
-    }
-
-    public void allowToMove() {
-        canMove = true;
-    }
-
-    public void move(Map map) {
-        Optional<Cell> start = map.locateCellOfCreature(this);
-        if (this.isDead() || start.isEmpty() || !canMove) {
+    public final void move(Map map) {
+        Optional<Cell> startOptCell = map.locateCellOfEntity(this);
+        if (this.isDead() || startOptCell.isEmpty() || !canMove) {
             return;
         }
-        Cell startingCell = start.get();
+        Cell startingCell = startOptCell.get();
         Cell nextCell = strategy.find(startingCell, VICTIM_CLASS);
 
         boolean victimIsConsumed = false;
         if (nextCellContainsVictim(nextCell)) {
+            canMove = false;
             Consumable victim = (Consumable) nextCell.getEntity();
             victimIsConsumed = tryToConsume(victim);
             if (!victimIsConsumed) {
@@ -64,44 +53,55 @@ public abstract class Creature extends Entity {
         } else {
             movesWithoutFood++;
         }
-//        System.out.println("im moving, my speed is " + speed + " and my cell is " + startingCell + ", my next cell is " +nextCell + ", road to " + VICTIM_CLASS);
+
         map.moveEntity(startingCell, nextCell);
     }
 
+    public final int movesWithoutFood() {
+        return movesWithoutFood;
+    }
+
+    public final boolean canMove() {
+        return canMove;
+    }
+
+    public final void allowToMove() {
+        canMove = true;
+    }
 
     protected abstract boolean tryToConsume(Consumable victim);
 
-    protected boolean nextCellContainsVictim(Cell nextCell) {
+     private boolean nextCellContainsVictim(Cell nextCell) {
         return nextCell.hasEntity() && nextCell.getEntity().getClass() == VICTIM_CLASS;
     }
 
-    public int currentHealth() {
+    public final int currentHealth() {
         return health;
     }
 
-    public int maxHealth() {
+    public final int maxHealth() {
         return maxHealth;
     }
 
-    public void recieveDamage(int damage) {
+    public final void receiveDamage(int damage) {
         health -= damage;
         if (health < 0) {
             health = 0;
         }
     }
 
-    public void heal(int heal) {
+    public final void heal(int heal) {
         health += heal;
         if (health > maxHealth) {
             health = maxHealth;
         }
     }
 
-    public boolean isDead() {
+    public final boolean isDead() {
         return health <= 0;
     }
 
-    public int speed() {
+    public final int speed() {
         return speed;
     }
 }
