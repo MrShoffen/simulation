@@ -2,6 +2,7 @@ package game;
 
 import game.actions.*;
 import game.actions.Action;
+import game.actions.breed.BreedAction;
 import game.actions.spawn.*;
 import view.MapRenderer;
 import world.Map;
@@ -59,9 +60,9 @@ public class Simulation {
     private void addActions(){
         actions.add(new MoveAction(map));
         actions.add(new GrassSpawnAction(map));
-        actions.add(new HerbivoreSpawnAction(map));
         actions.add(new StarveAction(map));
         actions.add(new BreedAction(map));
+        actions.add(new HerbivoreSpawnAction(map));
     }
 
     private void performAllActions() throws InterruptedException {
@@ -80,9 +81,9 @@ public class Simulation {
         while(action.moveInProgress()){
             action.perform();
             if (action.moveInProgress()){
-                renderer.render();
-                System.out.println();
-                Thread.sleep(400);
+//                renderer.render();
+//                System.out.println();
+//                Thread.sleep(400);
             }
         }
 

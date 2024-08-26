@@ -3,14 +3,14 @@ package world.entities.creatures;
 import world.entities.Consumable;
 
 public final class Predator extends Creature {
-    private static final int HEALTH_MULTIPLIER = 3;
-    private static final int MINIMUM_HEALTH = 4;
+    private static final int HEALTH_MULTIPLIER = 4;
+    private static final int MINIMUM_HEALTH = 6;
 
     private static final int SPEED_MULTIPLIER = 4;
-    private static final int MINIMUM_SPEED = 2;
+    private static final int MINIMUM_SPEED = 6;
 
-    private static final int ATTACK_MULTIPLIER = 4;
-    private static final int MINIMUM_ATTACK = 3;
+    private static final int ATTACK_MULTIPLIER = 3;
+    private static final int MINIMUM_ATTACK = 4;
 
     private final int attack;
 
@@ -42,5 +42,9 @@ public final class Predator extends Creature {
         int randomSpeed = (int) (Math.random() * SPEED_MULTIPLIER) + MINIMUM_SPEED;
         int randomAttack = (int) (Math.random() * ATTACK_MULTIPLIER) + MINIMUM_ATTACK;
         return new Predator(randomHealth, randomSpeed, randomAttack);
+    }
+
+    public static Predator predatorWithSpecifiedStats(int health, int speed, int attack){
+        return new Predator(health,speed,attack);
     }
 }

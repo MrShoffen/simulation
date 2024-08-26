@@ -13,7 +13,7 @@ public class Game {
     public final static Pattern PATTERN_FOR_WIDTH_HEIGHT_INPUT = Pattern.compile("[4-9][0-9]*|\\d{2,}"); //число от 4 и больше.
 
 
-    public final static String ASK_FOR_RENDERER_CHOICE = "Где выводить симуляцию?\n1: Консоль | 2: JavaFX | 3: Выход\nВаш выбор:";
+    public final static String ASK_FOR_RENDERER_CHOICE = "Где выводить симуляцию?\n1: Консоль | 2: JavaFX \nВаш выбор:";
     public final static Pattern PATTERN_FOR_RENDERER_MENU_CHOICE = Pattern.compile("[12]"); //1||2
 
     public final static String ASK_FOR_STARTING_SIMULATION = "Симуляция создана\nЛегенда: \n" +
@@ -47,18 +47,9 @@ public class Game {
         }
     }
 
-     static void messageBeforeStart(){
-        System.out.println(ASK_FOR_STARTING_SIMULATION);
-        Scanner scan = new Scanner(System.in);
-        scan.nextLine();
-
-    }
-
     public static void runSimulationInAnotherTrhead(Simulation sim) {
         GameThread game = new GameThread(sim);
         Thread gameThread = new Thread(game);
-
-//        messageBeforeStart();
 
         gameThread.start();
 

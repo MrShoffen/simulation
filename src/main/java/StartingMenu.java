@@ -23,7 +23,7 @@ public class StartingMenu
 //        MapRenderer renderer = Game.chooseMapRenderer();
 //        renderer.setMap(map);
 
-        Map map = new Map(9 ,9);
+        Map map = new Map(15 ,15);
         MapRenderer renderer = new IDEAConsoleMapRenderer();
         renderer.setMap(map);
         Simulation simulation  = new Simulation(map,renderer);

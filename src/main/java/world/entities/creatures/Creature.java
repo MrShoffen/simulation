@@ -83,6 +83,10 @@ public abstract class Creature extends Entity {
         return maxHealth;
     }
 
+    public final boolean isFullHealed(){
+         return health == maxHealth;
+    }
+
     public final void receiveDamage(int damage) {
         health -= damage;
         if (health < 0) {

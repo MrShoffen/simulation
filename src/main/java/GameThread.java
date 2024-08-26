@@ -15,7 +15,7 @@ public class GameThread implements Runnable{
         resume();
         while(gameRunning){
             try {
-                Thread.sleep(1000);
+                Thread.sleep(600);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -25,7 +25,7 @@ public class GameThread implements Runnable{
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-//                System.out.println(Game.ASK_FOR_RUNNING_MENU_CHOICE + '\n');
+                System.out.println(Game.ASK_FOR_RUNNING_MENU_CHOICE + '\n');
             }
         }
     }
