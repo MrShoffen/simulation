@@ -8,7 +8,7 @@ import world.entities.creatures.Herbivore;
 
     HerbivorePair(Cell firstParent, Cell secondParent) {
         super(firstParent, secondParent);
-        breedControlChance = 0.3;
+        breedControlChance = 0.27;
     }
 
     @Override

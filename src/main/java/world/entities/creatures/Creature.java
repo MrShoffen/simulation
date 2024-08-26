@@ -10,7 +10,7 @@ import world.entities.Entity;
 import java.util.Optional;
 
 public abstract class Creature extends Entity {
-    protected Class<? extends Consumable> VICTIM_CLASS;
+    protected Class<? extends Consumable> victim_class;
 
     protected int health;
     protected final int maxHealth;
@@ -35,7 +35,7 @@ public abstract class Creature extends Entity {
             return;
         }
         Cell startingCell = startOptCell.get();
-        Cell nextCell = strategy.find(startingCell, VICTIM_CLASS);
+        Cell nextCell = strategy.find(startingCell, victim_class);
 
         boolean victimIsConsumed = false;
         if (nextCellContainsVictim(nextCell)) {
@@ -72,7 +72,7 @@ public abstract class Creature extends Entity {
     protected abstract boolean tryToConsume(Consumable victim);
 
      private boolean nextCellContainsVictim(Cell nextCell) {
-        return nextCell.hasEntity() && nextCell.getEntity().getClass() == VICTIM_CLASS;
+        return nextCell.hasEntity() && nextCell.getEntity().getClass() == victim_class;
     }
 
     public final int currentHealth() {

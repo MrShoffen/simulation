@@ -53,7 +53,7 @@ public class Game {
 
         gameThread.start();
 
-        int choiceInRunningMenu = 0;
+        int choiceInRunningMenu;
         final int PAUSE = 1;
         final int RESUME = 2;
         final int EXIT  = 3;

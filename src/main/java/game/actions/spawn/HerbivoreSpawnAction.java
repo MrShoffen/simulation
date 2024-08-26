@@ -5,7 +5,7 @@ import world.entities.Entity;
 import world.entities.creatures.Herbivore;
 
 public final class HerbivoreSpawnAction extends spawnAction{
-    private final static double HERBIVORE_RATE = 0.05;
+    private final static double HERBIVORE_RATE = 0.06;
 
     public HerbivoreSpawnAction(Map map) {
         super(map);

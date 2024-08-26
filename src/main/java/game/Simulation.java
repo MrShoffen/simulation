@@ -1,39 +1,42 @@
 package game;
 
-import game.actions.*;
 import game.actions.Action;
+import game.actions.MoveAction;
+import game.actions.StarveAction;
 import game.actions.breed.BreedAction;
 import game.actions.spawn.*;
 import view.MapRenderer;
 import world.Map;
+import world.entities.creatures.Herbivore;
+import world.entities.creatures.Predator;
 
 import java.util.ArrayList;
 
 public class Simulation {
-    final private Map map;
-    final private MapRenderer renderer;
+    private final Map map;
+    private final MapRenderer renderer;
 
-    ArrayList<Action> actions;
+    private final ArrayList<Action> actions;
 
     boolean isRunning;
 
     int simulationCount;
-
-    public boolean isRunning() {
-        return isRunning;
-    }
 
     public Simulation(Map map, MapRenderer renderer) throws InterruptedException {
         this.map = map;
         this.renderer = renderer;
         actions = new ArrayList<>();
 
-        init();
-
-        renderer.render();
         isRunning = false;
         simulationCount = 0;
 
+        initActions();
+        performAllActions();
+        renderer.render();
+    }
+
+    public boolean isRunning() {
+        return isRunning;
     }
 
     public void resume() {
@@ -44,20 +47,15 @@ public class Simulation {
         isRunning = false;
     }
 
-    private void generateActions() {
-
-    }
-
-    private void init() throws InterruptedException {
+    private void initActions() {
         actions.add(new RockSpawnAction(map));
         actions.add(new GrassSpawnAction(map));
         actions.add(new TreeSpawnAction(map));
         actions.add(new HerbivoreSpawnAction(map));
         actions.add(new PredatorSpawnAction(map));
-        performAllActions();
     }
 
-    private void addActions(){
+    private void addActions() {
         actions.add(new MoveAction(map));
         actions.add(new GrassSpawnAction(map));
         actions.add(new StarveAction(map));
@@ -66,10 +64,10 @@ public class Simulation {
     }
 
     private void performAllActions() throws InterruptedException {
-        for(Action action : actions){
-            if (action instanceof MoveAction){
+        for (Action action : actions) {
+            if (action instanceof MoveAction) {
                 performMoveAction((MoveAction) action);
-            } else{
+            } else {
                 action.perform();
             }
         }
@@ -77,24 +75,32 @@ public class Simulation {
     }
 
     public void performMoveAction(MoveAction action) throws InterruptedException {
-
-        while(action.moveInProgress()){
+        while (action.moveInProgress()) {
             action.perform();
-            if (action.moveInProgress()){
+            if (action.moveInProgress()) {
 //                renderer.render();
 //                System.out.println();
 //                Thread.sleep(400);
             }
         }
-
     }
 
+    double h, p;
 
     public void nextTurn() throws InterruptedException {
         simulationCount++;
-        System.out.println("Шаг симуляции: " + simulationCount);
         addActions();
         performAllActions();
         renderer.render();
+
+
+        long HerbSize = map.allEntities().stream().filter(entity -> entity.getClass() == Herbivore.class).count();
+        long predator = map.allEntities().stream().filter(entity -> entity.getClass() == Predator.class).count();
+
+        double herbPerc = (double) HerbSize / (double) (predator + HerbSize);
+        h += herbPerc;
+        p += (1.0 - herbPerc);
+//        if (simulationCount % 100 == 0)
+            System.out.println("turn: " + simulationCount + " Predators: " + (p / simulationCount) + ", Herbi: " + (h / simulationCount));
     }
 }

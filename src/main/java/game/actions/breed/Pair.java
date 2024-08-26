@@ -1,5 +1,6 @@
 package game.actions.breed;
 
+import game.actions.Action;
 import world.Cell;
 import world.Map;
 import world.entities.creatures.Creature;
@@ -24,14 +25,10 @@ abstract class Pair {
     }
 
     void breed(Map map) {
-        List<Cell> cells = emptyCellsAround();
-
-        if (cells.isEmpty() || chanceToBreed > breedControlChance) {
+        if (chanceToBreed > breedControlChance) {
             return;
         }
-        BreedAction.randomEmptyCell(map).setEntity(generateNewCreature());
-
-
+        Action.randomEmptyCell(map).setEntity(generateNewCreature());
     }
 
     @Override
@@ -46,15 +43,6 @@ abstract class Pair {
         return Math.min(Objects.hash(firstParentCell, secondParentCell), Objects.hash(secondParentCell, firstParentCell));
     }
 
-    List<Cell> emptyCellsAround() {
-        List<Cell> emptyCellsAround = new ArrayList<>(firstParentCell.neighbours());
-        emptyCellsAround.addAll(secondParentCell.neighbours());
-        emptyCellsAround.removeIf(Cell::hasEntity);
-        emptyCellsAround.remove(firstParentCell);
-        emptyCellsAround.remove(secondParentCell);
-        return emptyCellsAround;
-    }
-
     static Pair createCreaturePair(Cell firstParent, Cell secondParent) {
         if (firstParent.getEntity().getClass() == Predator.class) {
             return new PredatorPair(firstParent, secondParent);
@@ -63,24 +51,5 @@ abstract class Pair {
         }
     }
 
-
     abstract Creature generateNewCreature();
-
-    int randomSpeedOfParents() {
-        int firstSpeed = ((Creature) firstParentCell.getEntity()).speed();
-        int secondSpeed = ((Creature) secondParentCell.getEntity()).speed();
-        return randomInt(firstSpeed, secondSpeed);
-    }
-
-    int randomHealthOfParents() {
-        int firstHealth = ((Creature) firstParentCell.getEntity()).maxHealth();
-        int secondHealth = ((Creature) secondParentCell.getEntity()).maxHealth();
-        return randomInt(firstHealth, secondHealth);
-    }
-
-    int randomInt(int first, int second) {
-        return Math.random() < 0.5 ? first : second;
-    }
-
-
 }

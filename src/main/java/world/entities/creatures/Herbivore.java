@@ -13,7 +13,7 @@ public final class Herbivore extends Creature implements Consumable {
 
     private Herbivore(int health, int speed) {
         super(health, speed);
-        VICTIM_CLASS = Grass.class;
+        victim_class = Grass.class;
     }
 
     @Override

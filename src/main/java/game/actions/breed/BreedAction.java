@@ -5,8 +5,7 @@ import world.Cell;
 import world.Map;
 import world.entities.creatures.Creature;
 
-import java.util.*;
-import java.util.function.Consumer;
+import java.util.HashSet;
 
 public final class BreedAction extends Action {
     public BreedAction(Map map) {
@@ -16,7 +15,6 @@ public final class BreedAction extends Action {
     @Override
     public void perform() {
         HashSet<Pair> pairs = calculatePairs(map);
-        System.out.println(pairs.size());
         for (Pair pair : pairs) {
             pair.breed(map);
         }

@@ -6,7 +6,7 @@ public final class Predator extends Creature {
     private static final int HEALTH_MULTIPLIER = 4;
     private static final int MINIMUM_HEALTH = 6;
 
-    private static final int SPEED_MULTIPLIER = 5;
+    private static final int SPEED_MULTIPLIER = 4;
     private static final int MINIMUM_SPEED = 6;
 
     private static final int ATTACK_MULTIPLIER = 5;
@@ -18,7 +18,7 @@ public final class Predator extends Creature {
     private Predator(int health, int speed, int attack) {
         super(health, speed);
         this.attack = attack;
-        VICTIM_CLASS = Herbivore.class;
+        victim_class = Herbivore.class;
     }
 
     @Override

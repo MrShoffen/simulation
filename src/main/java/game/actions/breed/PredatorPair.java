@@ -7,7 +7,7 @@ import world.entities.creatures.Predator;
  class PredatorPair extends Pair{
     protected PredatorPair(Cell firstParent, Cell secondParent) {
         super(firstParent, secondParent);
-        breedControlChance = 0.14;
+        breedControlChance = 0.1;
     }
 
     @Override
