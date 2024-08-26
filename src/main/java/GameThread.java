@@ -15,7 +15,7 @@ public class GameThread implements Runnable{
         resume();
         while(gameRunning){
             try {
-                Thread.sleep(600);
+                Thread.sleep(30);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

@@ -5,7 +5,7 @@ import world.entities.Entity;
 import world.entities.objects.Tree;
 
 public final class TreeSpawnAction extends spawnAction{
-    private final static double TREE_RATE = 0.1;
+    private final static double TREE_RATE = 0.06;
 
     public TreeSpawnAction(Map map) {
         super(map);

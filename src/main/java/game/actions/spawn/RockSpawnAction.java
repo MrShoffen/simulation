@@ -5,7 +5,7 @@ import world.entities.Entity;
 import world.entities.objects.Rock;
 
 public final class RockSpawnAction extends spawnAction {
-    private final static double ROCK_RATE = 0.1;
+    private final static double ROCK_RATE = 0.07;
 
     public RockSpawnAction(Map map) {
         super(map);

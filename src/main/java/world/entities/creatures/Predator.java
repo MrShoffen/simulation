@@ -6,10 +6,10 @@ public final class Predator extends Creature {
     private static final int HEALTH_MULTIPLIER = 4;
     private static final int MINIMUM_HEALTH = 6;
 
-    private static final int SPEED_MULTIPLIER = 4;
+    private static final int SPEED_MULTIPLIER = 5;
     private static final int MINIMUM_SPEED = 6;
 
-    private static final int ATTACK_MULTIPLIER = 3;
+    private static final int ATTACK_MULTIPLIER = 5;
     private static final int MINIMUM_ATTACK = 4;
 
     private final int attack;
@@ -44,7 +44,4 @@ public final class Predator extends Creature {
         return new Predator(randomHealth, randomSpeed, randomAttack);
     }
 
-    public static Predator predatorWithSpecifiedStats(int health, int speed, int attack){
-        return new Predator(health,speed,attack);
-    }
 }

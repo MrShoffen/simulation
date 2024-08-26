@@ -6,7 +6,7 @@ import world.entities.creatures.Creature;
 import java.util.List;
 
 public final class StarveAction extends Action {
-    private static final int MOVE_NUMBER_FOR_STARVING = 6;
+    private static final int MOVE_NUMBER_FOR_STARVING = 5;
     private static final int DAMAGE_FOR_STARVING = 2;
 
     public StarveAction(Map map) {

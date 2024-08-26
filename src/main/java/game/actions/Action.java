@@ -23,7 +23,7 @@ public abstract class Action {
                 .map(entity -> (Creature) entity).collect(Collectors.toList());
     }
 
-    protected static Cell randomEmptyCell(Map map) {
+     public static Cell randomEmptyCell(Map map) {
         Cell result;
         do {
             int x = (int) (Math.random() * map.getWidth());

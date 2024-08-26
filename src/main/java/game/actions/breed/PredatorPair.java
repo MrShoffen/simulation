@@ -7,17 +7,12 @@ import world.entities.creatures.Predator;
  class PredatorPair extends Pair{
     protected PredatorPair(Cell firstParent, Cell secondParent) {
         super(firstParent, secondParent);
-        breedControlChance = 0.15;
+        breedControlChance = 0.14;
     }
 
     @Override
     Creature generateNewCreature() {
-        return Predator.predatorWithSpecifiedStats(randomHealthOfParents(),randomSpeedOfParents(),randomAttackOfParents());
+        return Predator.randomPredator();
     }
 
-    int randomAttackOfParents(){
-        int firstAttack = ((Predator)firstParentCell.getEntity()).getAttack();
-        int secondAttack = ((Predator)secondParentCell.getEntity()).getAttack();
-        return randomInt(firstAttack,secondAttack);
-    }
 }

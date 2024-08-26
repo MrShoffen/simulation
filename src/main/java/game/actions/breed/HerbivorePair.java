@@ -8,11 +8,11 @@ import world.entities.creatures.Herbivore;
 
     HerbivorePair(Cell firstParent, Cell secondParent) {
         super(firstParent, secondParent);
-        breedControlChance = 0.2;
+        breedControlChance = 0.3;
     }
 
     @Override
     Creature generateNewCreature() {
-        return Herbivore.HerbivoreWithSpecifiedStats(randomHealthOfParents(), randomSpeedOfParents());
+        return Herbivore.randomHerbivore();
     }
 }

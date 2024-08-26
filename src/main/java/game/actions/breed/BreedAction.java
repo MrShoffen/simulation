@@ -17,7 +17,9 @@ public final class BreedAction extends Action {
     public void perform() {
         HashSet<Pair> pairs = calculatePairs(map);
         System.out.println(pairs.size());
-        pairs.forEach(Pair::breed);
+        for (Pair pair : pairs) {
+            pair.breed(map);
+        }
     }
 
 
@@ -28,20 +30,14 @@ public final class BreedAction extends Action {
             for (int x = 0; x < map.getWidth(); x++) {
                 Cell cell = map.getCellAt(x, y);
                 if (cellHasCreature(cell) && neighbourCellWithSameCreature(cell) != null) {
-//                    if (creaturesInCellAreFullHealth(cell, neighbourCellWithSameCreature(cell))) {
-                        pairs.add(Pair.createCreaturePair(cell, neighbourCellWithSameCreature(cell)));
-//                    }
+                    Cell neighbour = neighbourCellWithSameCreature(cell);
+                    pairs.add(Pair.createCreaturePair(cell, neighbour));
                 }
             }
         }
         return pairs;
     }
 
-    private static boolean creaturesInCellAreFullHealth(Cell first, Cell second) {
-        Creature firstCreature = (Creature) first.getEntity();
-        Creature secondCreature = (Creature) second.getEntity();
-        return firstCreature.isFullHealed() && secondCreature.isFullHealed();
-    }
 
     private static boolean cellHasCreature(Cell cell) {
         return cell.hasEntity() && cell.getEntity() instanceof Creature;

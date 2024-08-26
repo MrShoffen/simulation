@@ -1,6 +1,7 @@
 package game.actions.breed;
 
 import world.Cell;
+import world.Map;
 import world.entities.creatures.Creature;
 import world.entities.creatures.Predator;
 
@@ -22,17 +23,14 @@ abstract class Pair {
         chanceToBreed = Math.random();
     }
 
-    void breed() {
+    void breed(Map map) {
         List<Cell> cells = emptyCellsAround();
 
         if (cells.isEmpty() || chanceToBreed > breedControlChance) {
             return;
         }
+        BreedAction.randomEmptyCell(map).setEntity(generateNewCreature());
 
-
-        int randEmpty = (int) (Math.random() * cells.size());
-        cells.get(randEmpty).setEntity(generateNewCreature());
-        System.out.println("new creature Born!!");
 
     }
 

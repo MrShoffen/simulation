@@ -32,8 +32,5 @@ public final class Herbivore extends Creature implements Consumable {
         int randomSpeed = (int)(Math.random()*SPEED_MULTIPLIER) + MINIMUM_SPEED;
         return new Herbivore(randomHealth,randomSpeed);
     }
-    public static Herbivore HerbivoreWithSpecifiedStats(int health, int speed){
-        return new Herbivore(health,speed);
-    }
 
 }
