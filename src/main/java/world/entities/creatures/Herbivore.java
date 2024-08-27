@@ -13,11 +13,11 @@ public final class Herbivore extends Creature implements Consumable {
 
     private Herbivore(int health, int speed) {
         super(health, speed);
-        victim_class = Grass.class;
+        victimClass = Grass.class;
     }
 
     @Override
-    protected boolean tryToConsume(Consumable victim) {
+    protected boolean attackVictim(Consumable victim) {
         heal(victim.healingPowerAfterDeath());
         return true;
     }

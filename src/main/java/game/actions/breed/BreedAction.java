@@ -16,10 +16,11 @@ public final class BreedAction extends Action {
     public void perform() {
         HashSet<Pair> pairs = calculatePairs(map);
         for (Pair pair : pairs) {
-            pair.breed(map);
+            if(pair.canBreed()){
+                Action.randomEmptyCell(map).setEntity(pair.breedNewCreature());
+            }
         }
     }
-
 
     private static HashSet<Pair> calculatePairs(Map map) {
         HashSet<Pair> pairs = new HashSet<>();
@@ -35,7 +36,6 @@ public final class BreedAction extends Action {
         }
         return pairs;
     }
-
 
     private static boolean cellHasCreature(Cell cell) {
         return cell.hasEntity() && cell.getEntity() instanceof Creature;

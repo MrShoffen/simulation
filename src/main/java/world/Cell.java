@@ -3,33 +3,24 @@ package world;
 import world.entities.Entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Cell {
+public final class Cell {
     private final int x;
     private final int y;
 
     private Entity entity;
+    private final List<Cell> neighbours;
 
-    private final ArrayList<Cell> neighbours;
-
-
-    public Cell(int x, int y) {
+    Cell(int x, int y) {
         this.x = x;
         this.y = y;
         neighbours = new ArrayList<>();
         entity = null;
     }
 
-    public ArrayList<Cell> neighbours() {
+    public List<Cell> neighbours() {
         return neighbours;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
     }
 
     public Entity getEntity() {
@@ -40,15 +31,31 @@ public class Cell {
         this.entity = entity;
     }
 
-    void removeEntity() {
-        entity = null;
-    }
-
     public boolean hasEntity() {
         return entity != null;
     }
 
-    public static ArrayList<Cell> generateConnectedGridGraph(int height, int width) {
+    void removeEntity() {
+        entity = null;
+    }
+
+    int getX() {
+        return x;
+    }
+
+    int getY() {
+        return y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cell cell = (Cell) o;
+        return x == cell.x && y == cell.y;
+    }
+
+    static List<Cell> generateConnectedGridGraph(int height, int width) {
         Cell[][] grid = new Cell[height][width];
         ArrayList<Cell> graph = new ArrayList<>();
 
@@ -83,18 +90,5 @@ public class Cell {
                     grid[y][x].neighbours.add(grid[y + 1][x]);
                 }
             }
-    }
-
-    @Override
-    public String toString() {
-        return ("(" + x + " " + y + ")");
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cell cell = (Cell) o;
-        return x == cell.x && y == cell.y;
     }
 }

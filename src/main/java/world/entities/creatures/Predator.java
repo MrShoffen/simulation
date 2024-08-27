@@ -18,11 +18,11 @@ public final class Predator extends Creature {
     private Predator(int health, int speed, int attack) {
         super(health, speed);
         this.attack = attack;
-        victim_class = Herbivore.class;
+        victimClass = Herbivore.class;
     }
 
     @Override
-    protected boolean tryToConsume(Consumable victim) {
+    protected boolean attackVictim(Consumable victim) {
         Herbivore herbivore = (Herbivore) victim;
         herbivore.receiveDamage(this.attack);
 

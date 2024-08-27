@@ -2,7 +2,6 @@ package world;
 
 import world.entities.Entity;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -10,7 +9,7 @@ import java.util.stream.Collectors;
 public class Map {
     private final int height;
     private final int width;
-    private final ArrayList<Cell> cells;
+    private final List<Cell> cells;
 
     public Map(int height, int width) {
         this.height = height;
@@ -53,9 +52,9 @@ public class Map {
         getCellAt(x1, y1).removeEntity();
     }
 
-    public void moveEntity(Cell start, Cell finish) {
-        if (!start.equals(finish)) {
-            moveEntity(start.getX(), start.getY(), finish.getX(), finish.getY());
+    public void moveEntity(Cell from, Cell to) {
+        if (!from.equals(to)) {
+            moveEntity(from.getX(), from.getY(), to.getX(), to.getY());
         }
     }
 

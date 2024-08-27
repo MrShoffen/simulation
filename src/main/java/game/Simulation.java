@@ -58,8 +58,8 @@ public class Simulation {
     private void addActions() {
         actions.add(new MoveAction(map));
         actions.add(new GrassSpawnAction(map));
-        actions.add(new StarveAction(map));
         actions.add(new BreedAction(map));
+        actions.add(new StarveAction(map));
         actions.add(new HerbivoreSpawnAction(map));
     }
 

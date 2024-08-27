@@ -1,42 +1,36 @@
 package game.actions.breed;
 
-import game.actions.Action;
 import world.Cell;
-import world.Map;
 import world.entities.creatures.Creature;
 import world.entities.creatures.Predator;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 abstract class Pair {
 
     protected Cell firstParentCell;
     protected Cell secondParentCell;
-    private final double chanceToBreed;
 
-    protected double breedControlChance;
+    protected double chanceOfThisCreatureTypeToBreed;
+    private final double chanceOfThisPairToBreed;
 
     protected Pair(Cell firstParent, Cell secondParent) {
         this.firstParentCell = firstParent;
         this.secondParentCell = secondParent;
-        chanceToBreed = Math.random();
+        chanceOfThisPairToBreed = Math.random();
     }
 
-    void breed(Map map) {
-        if (chanceToBreed > breedControlChance) {
-            return;
-        }
-        Action.randomEmptyCell(map).setEntity(generateNewCreature());
+    boolean canBreed(){
+        return chanceOfThisPairToBreed <= chanceOfThisCreatureTypeToBreed;
     }
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Pair pair = (Pair) o;
         return pair.firstParentCell.equals(firstParentCell) && pair.secondParentCell.equals(secondParentCell)
-                || pair.firstParentCell.equals(secondParentCell) && pair.secondParentCell.equals(firstParentCell);
-    }
+                || pair.firstParentCell.equals(secondParentCell) && pair.secondParentCell.equals(firstParentCell);}
 
     @Override
     public int hashCode() {
@@ -51,5 +45,5 @@ abstract class Pair {
         }
     }
 
-    abstract Creature generateNewCreature();
+    abstract Creature breedNewCreature();
 }
