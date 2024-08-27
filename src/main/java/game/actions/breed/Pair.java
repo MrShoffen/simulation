@@ -5,6 +5,7 @@ import world.entities.creatures.Creature;
 import world.entities.creatures.Predator;
 
 import java.util.Objects;
+import java.util.Random;
 
 abstract class Pair {
 
@@ -17,7 +18,7 @@ abstract class Pair {
     protected Pair(Cell firstParent, Cell secondParent) {
         this.firstParentCell = firstParent;
         this.secondParentCell = secondParent;
-        chanceOfThisPairToBreed = Math.random();
+        chanceOfThisPairToBreed = new Random().nextDouble();
     }
 
     boolean canBreed(){
