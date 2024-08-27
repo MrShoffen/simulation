@@ -6,14 +6,14 @@ import game.actions.StarveAction;
 import game.actions.breed.BreedAction;
 import game.actions.spawn.*;
 import view.MapRenderer;
-import world.Map;
+import world.GridMap;
 import world.entities.creatures.Herbivore;
 import world.entities.creatures.Predator;
 
 import java.util.ArrayList;
 
 public class Simulation {
-    private final Map map;
+    private final GridMap map;
     private final MapRenderer renderer;
 
     private final ArrayList<Action> actions;
@@ -22,7 +22,7 @@ public class Simulation {
 
     int simulationCount;
 
-    public Simulation(Map map, MapRenderer renderer) throws InterruptedException {
+    public Simulation(GridMap map, MapRenderer renderer) throws InterruptedException {
         this.map = map;
         this.renderer = renderer;
         actions = new ArrayList<>();

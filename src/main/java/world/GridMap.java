@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class Map {
+public class GridMap {
     private final int height;
     private final int width;
     private final List<Cell> cells;
 
-    public Map(int height, int width) {
+    public GridMap(int height, int width) {
         this.height = height;
         this.width = width;
         cells = Cell.generateConnectedGridGraph(height, width);

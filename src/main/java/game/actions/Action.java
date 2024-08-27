@@ -1,7 +1,7 @@
 package game.actions;
 
 import world.Cell;
-import world.Map;
+import world.GridMap;
 import world.entities.creatures.Creature;
 
 import java.util.List;
@@ -10,21 +10,21 @@ import java.util.stream.Collectors;
 
 public abstract class Action {
 
-    protected final Map map;
+    protected final GridMap map;
 
-    protected Action(Map map) {
+    protected Action(GridMap map) {
         this.map = map;
     }
 
     public abstract void perform();
 
-    protected static List<Creature> allCreaturesFromMap(Map map) {
+    protected static List<Creature> allCreaturesFromMap(GridMap map) {
         return map.allEntities().stream()
                 .filter(entity -> entity instanceof Creature)
                 .map(entity -> (Creature) entity).collect(Collectors.toList());
     }
 
-    protected static Cell randomEmptyCell(Map map) {
+    protected static Cell randomEmptyCell(GridMap map) {
         Cell result;
         Random random = new Random();
         do {

@@ -3,16 +3,13 @@ package game.algoritms;
 import world.Cell;
 import world.entities.Consumable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
+import java.util.*;
 
 public final class BFSSearchStrategy implements SearchStrategy {
 
     @Override
     public Cell find(Cell startCell, Class<? extends Consumable> target) {
-        ArrayList<Cell> visited = new ArrayList<>();
+        List<Cell> visited = new ArrayList<>();
         Map<Cell, Cell> route = new HashMap<>();
 
         LinkedHashSet<Cell> queue = new LinkedHashSet<>();

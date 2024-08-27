@@ -1,14 +1,14 @@
 package view;
 
-import world.Map;
+import world.GridMap;
 
 public abstract class MapRenderer {
-    protected Map map;
+    protected GridMap map;
 
     protected int height;
     protected int width;
 
-    public void setMap(Map map) {
+    public void setMap(GridMap map) {
         this.map = map;
         this.height = map.getHeight();
         this.width = map.getWidth();

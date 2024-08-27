@@ -1,7 +1,7 @@
 import game.Simulation;
 import view.IDEAConsoleMapRenderer;
 import view.MapRenderer;
-import world.Map;
+import world.GridMap;
 
 public class StartingMenu
 {
@@ -23,7 +23,7 @@ public class StartingMenu
 //        MapRenderer renderer = Game.chooseMapRenderer();
 //        renderer.setMap(map);
 
-        Map map = new Map(30 ,30);
+        GridMap map = new GridMap(30 ,30);
         MapRenderer renderer = new IDEAConsoleMapRenderer();
         renderer.setMap(map);
         Simulation simulation  = new Simulation(map,renderer);

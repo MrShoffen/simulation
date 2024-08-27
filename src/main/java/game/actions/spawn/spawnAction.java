@@ -1,14 +1,14 @@
 package game.actions.spawn;
 
 import game.actions.Action;
-import world.Map;
+import world.GridMap;
 import world.entities.Entity;
 
 public abstract class spawnAction extends Action {
     protected double spawnRate;
     protected Class<? extends Entity> entityTypeForSpawn;
 
-    protected spawnAction(Map map) {
+    protected spawnAction(GridMap map) {
         super(map);
     }
 

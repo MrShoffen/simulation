@@ -1,6 +1,6 @@
 package game.actions;
 
-import world.Map;
+import world.GridMap;
 import world.entities.creatures.Creature;
 
 import java.util.Collections;
@@ -12,7 +12,7 @@ public final class MoveAction extends Action {
     List<Creature> creaturesWithMoves;
     int currentStep;
 
-    public MoveAction(Map map) {
+    public MoveAction(GridMap map) {
         super(map);
         moveInProgress = true;
         currentStep = 1;

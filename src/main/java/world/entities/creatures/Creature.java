@@ -3,7 +3,7 @@ package world.entities.creatures;
 import game.algoritms.BFSSearchStrategy;
 import game.algoritms.SearchStrategy;
 import world.Cell;
-import world.Map;
+import world.GridMap;
 import world.entities.Consumable;
 import world.entities.Entity;
 
@@ -29,7 +29,7 @@ public abstract class Creature extends Entity {
         movesWithoutFood = 0;
     }
 
-    public final void move(Map map) {
+    public final void move(GridMap map) {
         Optional<Cell> startOptCell = map.locateCellOfEntity(this);
         if (this.isDead() || startOptCell.isEmpty() || !canMove) {
             return;

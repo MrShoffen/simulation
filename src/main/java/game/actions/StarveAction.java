@@ -1,6 +1,6 @@
 package game.actions;
 
-import world.Map;
+import world.GridMap;
 import world.entities.creatures.Creature;
 
 import java.util.List;
@@ -9,7 +9,7 @@ public final class StarveAction extends Action {
     private static final int MOVE_NUMBER_FOR_STARVING = 4;
     private static final int DAMAGE_FOR_STARVING = 2;
 
-    public StarveAction(Map map) {
+    public StarveAction(GridMap map) {
         super(map);
     }
 

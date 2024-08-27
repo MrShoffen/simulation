@@ -1,6 +1,6 @@
 package view;
 
-import world.Map;
+import world.GridMap;
 
 public class FXRenderer extends MapRenderer{
     @Override
@@ -9,7 +9,7 @@ public class FXRenderer extends MapRenderer{
     }
 
     @Override
-    public void setMap(Map map) {
+    public void setMap(GridMap map) {
 
     }
 }

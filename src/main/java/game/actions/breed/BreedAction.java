@@ -2,19 +2,20 @@ package game.actions.breed;
 
 import game.actions.Action;
 import world.Cell;
-import world.Map;
+import world.GridMap;
 import world.entities.creatures.Creature;
 
 import java.util.HashSet;
+import java.util.Set;
 
 public final class BreedAction extends Action {
-    public BreedAction(Map map) {
+    public BreedAction(GridMap map) {
         super(map);
     }
 
     @Override
     public void perform() {
-        HashSet<Pair> pairs = calculatePairs(map);
+        Set<Pair> pairs = calculatePairs(map);
         for (Pair pair : pairs) {
             if(pair.canBreed()){
                 Action.randomEmptyCell(map).setEntity(pair.breedNewCreature());
@@ -22,8 +23,8 @@ public final class BreedAction extends Action {
         }
     }
 
-    private static HashSet<Pair> calculatePairs(Map map) {
-        HashSet<Pair> pairs = new HashSet<>();
+    private static Set<Pair> calculatePairs(GridMap map) {
+        Set<Pair> pairs = new HashSet<>();
 
         for (int y = 0; y < map.getHeight(); y++) {
             for (int x = 0; x < map.getWidth(); x++) {
