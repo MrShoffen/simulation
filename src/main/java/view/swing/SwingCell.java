@@ -18,9 +18,10 @@ public class SwingCell extends JPanel {
     private static final Dimension IMAGE_DIMENSION = new Dimension(48, 26);
     private static final Dimension CELL_DIMENSION = new Dimension(48, 48);
 
-    private static final Color ATTACK_TEXT_COLOR= new Color(124, 13, 13);
-    private static final Color HEALTH_TEXT_COLOR= new Color(7, 119, 8);
-
+    private static final Color EMPTY_CELL_COLOR = new Color(224, 181, 128, 163);
+    private static final Color ATTACK_TEXT_COLOR = new Color(124, 13, 13);
+    private static final Color HEALTH_TEXT_COLOR = new Color(7, 119, 8);
+    private static final Color MOVING_CREATURE_COLOR = new Color(143, 162, 126, 255);
 
 
     public SwingCell(Cell cell) {
@@ -33,8 +34,6 @@ public class SwingCell extends JPanel {
         } else {
             initNonCreatureCell(cell.getEntity());
         }
-
-
 
 
     }
@@ -51,9 +50,12 @@ public class SwingCell extends JPanel {
     }
 
     private void initCreatureCell(Creature creature) {
-  ImageIcon print;
-  String health = creature.currentHealth() + "/" + creature.maxHealth();
-  String attack = "";
+        ImageIcon print;
+        String health = creature.currentHealth() + "/" + creature.maxHealth();
+        if (creature.canMove()) {
+            setBackground(MOVING_CREATURE_COLOR);
+        }
+        String attack = "";
         switch (creature) {
             case Predator predator -> {
                 print = Images.PREDATOR;
@@ -103,7 +105,7 @@ public class SwingCell extends JPanel {
         setLayout(mgr);
 
         setBorder(new LineBorder(Color.BLACK));
-        setBackground(new Color(224, 181, 128, 163));
+        setBackground(EMPTY_CELL_COLOR);
 
         setPreferredSize(CELL_DIMENSION);
     }

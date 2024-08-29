@@ -9,7 +9,7 @@ import world.entities.objects.Grass;
 import world.entities.objects.Rock;
 import world.entities.objects.Tree;
 
-public final class IDEAConsoleMapRenderer implements MapRenderer {
+public final class ConsoleMapRenderer implements MapRenderer {
 
     private static final String PREDATOR_EMOJI = "\uD83D\uDC2F";
     private static final String HERBIVORE_EMOJI = "\uD83D\uDC16";

@@ -1,8 +1,12 @@
 import game.Simulation;
-import view.IDEAConsoleMapRenderer;
+import view.controllers.ConsoleController;
+import view.controllers.SimulationController;
+import view.ConsoleMapRenderer;
 import view.MapRenderer;
+import view.swing.SwingController;
 import view.swing.SwingMapRenderer;
 
+import javax.swing.*;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -19,7 +23,7 @@ public class Game {
     public final static String ASK_FOR_STARTING_SIMULATION = "Симуляция создана\nЛегенда: \n" +
             "Поросёнок - травоядное. Цифра справа - текущее здоровье\nТигр - хищник. Цифра справа - здоровье, цифра слева - сила атаки\n\n" +
             "Нажмите Enter для старта симуляции.";
-    public final static String ASK_FOR_RUNNING_MENU_CHOICE = "1: Пауза | 2: Продолжить | 3: Выход";
+
     public final static Pattern PATTERN_FOR_RUNNING_MENU_CHOICE = Pattern.compile("[123]"); // 1||2||3
 
     public final static String ERROR_INPUT_TRY_AGAIN = "Неправильный ввод! Попробуйте еще раз.";
@@ -28,7 +32,7 @@ public class Game {
     static MapRenderer chooseMapRenderer() {
         int result = readIntMatchingPattern(PATTERN_FOR_RENDERER_MENU_CHOICE);
         if (result == 1) {
-            return new IDEAConsoleMapRenderer();
+            return new ConsoleMapRenderer();
         } else {
             return new SwingMapRenderer();
         }
@@ -48,7 +52,16 @@ public class Game {
     }
 
     public static void runSimulationInAnotherTrhead(Simulation sim) {
-        GameThread game = new GameThread(sim);
+        if(sim.getRenderer() instanceof SwingMapRenderer){
+            SimulationController swingController  = new SwingController(sim);
+            new Thread(swingController).start();
+        } else {
+            runConsoleSimulation(sim);
+        }
+    }
+
+    private static void runConsoleSimulation(Simulation sim) {
+        SimulationController game = new ConsoleController(sim);
         Thread gameThread = new Thread(game);
 
         gameThread.start();
@@ -66,7 +79,6 @@ public class Game {
             }
         } while ( choiceInRunningMenu != EXIT);
         game.stop();
-
     }
 
 }

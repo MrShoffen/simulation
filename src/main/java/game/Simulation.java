@@ -7,13 +7,12 @@ import game.actions.breed.BreedAction;
 import game.actions.spawn.*;
 import view.MapRenderer;
 import world.GridMap;
-import world.entities.creatures.Herbivore;
-import world.entities.creatures.Predator;
 
 import java.util.ArrayList;
 
 public class Simulation {
     private final GridMap map;
+
     private final MapRenderer renderer;
 
     private final ArrayList<Action> actions;
@@ -22,6 +21,16 @@ public class Simulation {
 
     int simulationCount;
 
+    private int millisPauseBetweenRender;
+
+    public void setMillisPause(int millisPauseBetweenRender) {
+        this.millisPauseBetweenRender = millisPauseBetweenRender;
+    }
+
+    public MapRenderer getRenderer() {
+        return renderer;
+    }
+
     public Simulation(GridMap map, MapRenderer renderer) throws InterruptedException {
         this.map = map;
         this.renderer = renderer;
@@ -29,10 +38,15 @@ public class Simulation {
 
         isAutoRunning = false;
         simulationCount = 0;
+        millisPauseBetweenRender = 250;
 
         initActions();
         performAllActions();
         renderer.render();
+    }
+
+    public int getSimulationCount() {
+        return simulationCount;
     }
 
     public boolean isAutoRunning() {
@@ -77,11 +91,11 @@ public class Simulation {
     public void performMoveAction(MoveAction action) throws InterruptedException {
         while (action.moveInProgress()) {
             action.perform();
-            if (action.moveInProgress()) {
-                renderer.render();
-                System.out.println();
-                Thread.sleep(100);
-            }
+//            if (action.moveInProgress()) {
+            renderer.render();
+            Thread.sleep(millisPauseBetweenRender);
+            System.out.println();
+//            }
         }
     }
 
@@ -92,7 +106,7 @@ public class Simulation {
         addActions();
         performAllActions();
         renderer.render();
-        Thread.sleep(50);
+        Thread.sleep(millisPauseBetweenRender);
 
 //        long HerbSize = map.allEntities().stream().filter(entity -> entity.getClass() == Herbivore.class).count();
 //        long predator = map.allEntities().stream().filter(entity -> entity.getClass() == Predator.class).count();
