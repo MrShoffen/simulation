@@ -3,6 +3,8 @@ package view.swing;
 
 import game.Simulation;
 import view.SimulationController;
+import world.entities.creatures.Herbivore;
+import world.entities.creatures.Predator;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -16,6 +18,10 @@ public class SwingController extends SimulationController {
     SwingMapRenderer map;
 
     JFrame mainWindow;
+    private JLabel simCount;
+    private JLabel predatorCount;
+    private JLabel herbivoreCount;
+
 
 
     public SwingController(Simulation sim) {
@@ -42,6 +48,9 @@ public class SwingController extends SimulationController {
         JButton startPauseButton = createStartPauseButton();
         JLabel sliderLabel = new JLabel("Скорость симуляции");
         JSlider slider = createSpeedSlider();
+        simCount = new JLabel("Шаг симлуляции: " + simulation.getSimulationCount());
+        predatorCount = new JLabel("Хищники: " + 12);
+        herbivoreCount = new JLabel("Травоядные: " + 43);
 
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
@@ -50,10 +59,20 @@ public class SwingController extends SimulationController {
         controlPanel.add(Box.createRigidArea(new Dimension(0, 15)));
         controlPanel.add(sliderLabel);
         controlPanel.add(slider);
+        controlPanel.add(Box.createRigidArea(new Dimension(0, 30)));
+        controlPanel.add(simCount);
+        controlPanel.add(predatorCount);
+        controlPanel.add(herbivoreCount);
         return controlPanel;
     }
 
-    private  JSlider createSpeedSlider() {
+    private void updateSimulationStats() {
+        simCount.setText("Шаг симлуляции: " + simulation.getSimulationCount());
+        predatorCount.setText("Хищники: " + simulation.getEntityCountByType(Predator.class));
+        herbivoreCount.setText("Травоядные: " + simulation.getEntityCountByType(Herbivore.class));
+    }
+
+    private JSlider createSpeedSlider() {
         JSlider slider = new JSlider();
         slider.addChangeListener(new ChangeListener() {
             @Override
@@ -61,7 +80,7 @@ public class SwingController extends SimulationController {
                 simulation.setMillisPause(slider.getValue());
             }
         });
-        slider.setMinimum(50);
+        slider.setMinimum(20);
         slider.setMaximum(500);
         slider.setValue(250);
         slider.setInverted(true);
@@ -73,12 +92,12 @@ public class SwingController extends SimulationController {
         startPauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(simulation.isAutoRunning()) {
+                if (simulation.isAutoRunning()) {
                     pause();
                     startPauseButton.setText("Resume");
                 } else {
-                 resume();
-                 startPauseButton.setText("Pause");
+                    resume();
+                    startPauseButton.setText("Pause");
                 }
             }
         });
@@ -106,6 +125,7 @@ public class SwingController extends SimulationController {
                     throw new RuntimeException(e);
                 }
             }
+            updateSimulationStats();
         }
 
     }
