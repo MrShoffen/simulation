@@ -9,23 +9,17 @@ public class StartingMenu
 
     public static void main(String[] args) throws InterruptedException {
 
-//
-//        System.out.println(Game.ASK_FOR_WIDTH);
-//        int width = Game.readIntMatchingPattern(Game.PATTERN_FOR_WIDTH_HEIGHT_INPUT);
-//
-//        System.out.println(Game.ASK_FOR_HEIGHT);
-//        int height = Game.readIntMatchingPattern(Game.PATTERN_FOR_WIDTH_HEIGHT_INPUT);
-//
-//
-//        Map map = new Map(height,width);
-//
-//        System.out.println(Game.ASK_FOR_RENDERER_CHOICE);
-//        MapRenderer renderer = Game.chooseMapRenderer();
-//        renderer.setMap(map);
 
-        GridMap map = new GridMap(30 ,30);
-        MapRenderer renderer = new IDEAConsoleMapRenderer();
+        System.out.println(Game.ASK_FOR_WIDTH);
+        int width = Game.readIntMatchingPattern(Game.PATTERN_FOR_WIDTH_HEIGHT_INPUT);
+        System.out.println(Game.ASK_FOR_HEIGHT);
+        int height = Game.readIntMatchingPattern(Game.PATTERN_FOR_WIDTH_HEIGHT_INPUT);
+        GridMap map = new GridMap(height,width);
+
+
+        MapRenderer renderer = Game.chooseMapRenderer();
         renderer.setMap(map);
+
         Simulation simulation  = new Simulation(map,renderer);
 
         Game.runSimulationInAnotherTrhead(simulation);

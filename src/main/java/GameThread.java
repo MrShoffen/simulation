@@ -15,11 +15,11 @@ public class GameThread implements Runnable{
         resume();
         while(gameRunning){
             try {
-                Thread.sleep(20);
+                Thread.sleep(300);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            if(simulation.isRunning()){
+            if(simulation.isAutoRunning()){
                 try {
                     simulation.nextTurn();
                 } catch (InterruptedException e) {
@@ -31,12 +31,12 @@ public class GameThread implements Runnable{
     }
 
     public void pause(){
-        if(simulation.isRunning()) {
+        if(simulation.isAutoRunning()) {
             simulation.pause();
         }
     }
     public void resume(){
-        if(!simulation.isRunning()) {
+        if(!simulation.isAutoRunning()) {
             simulation.resume();
         }
     }

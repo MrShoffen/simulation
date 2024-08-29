@@ -12,7 +12,7 @@ public final class Cell {
     private Entity entity;
     private final List<Cell> neighbours;
 
-    Cell(int x, int y) {
+    public Cell(int x, int y) {
         this.x = x;
         this.y = y;
         neighbours = new ArrayList<>();
@@ -54,6 +54,7 @@ public final class Cell {
         Cell cell = (Cell) o;
         return x == cell.x && y == cell.y;
     }
+
 
     static List<Cell> generateConnectedGridGraph(int height, int width) {
         Cell[][] grid = new Cell[height][width];

@@ -18,7 +18,7 @@ public class Simulation {
 
     private final ArrayList<Action> actions;
 
-    boolean isRunning;
+    boolean isAutoRunning;
 
     int simulationCount;
 
@@ -27,7 +27,7 @@ public class Simulation {
         this.renderer = renderer;
         actions = new ArrayList<>();
 
-        isRunning = false;
+        isAutoRunning = false;
         simulationCount = 0;
 
         initActions();
@@ -35,16 +35,16 @@ public class Simulation {
         renderer.render();
     }
 
-    public boolean isRunning() {
-        return isRunning;
+    public boolean isAutoRunning() {
+        return isAutoRunning;
     }
 
     public void resume() {
-        isRunning = true;
+        isAutoRunning = true;
     }
 
     public void pause() {
-        isRunning = false;
+        isAutoRunning = false;
     }
 
     private void initActions() {
@@ -78,9 +78,9 @@ public class Simulation {
         while (action.moveInProgress()) {
             action.perform();
             if (action.moveInProgress()) {
-//                renderer.render();
-//                System.out.println();
-//                Thread.sleep(400);
+                renderer.render();
+                System.out.println();
+                Thread.sleep(100);
             }
         }
     }
@@ -92,15 +92,16 @@ public class Simulation {
         addActions();
         performAllActions();
         renderer.render();
+        Thread.sleep(50);
 
-
-        long HerbSize = map.allEntities().stream().filter(entity -> entity.getClass() == Herbivore.class).count();
-        long predator = map.allEntities().stream().filter(entity -> entity.getClass() == Predator.class).count();
-
-        double herbPerc = (double) HerbSize / (double) (predator + HerbSize);
-        h += herbPerc;
-        p += (1.0 - herbPerc);
+//        long HerbSize = map.allEntities().stream().filter(entity -> entity.getClass() == Herbivore.class).count();
+//        long predator = map.allEntities().stream().filter(entity -> entity.getClass() == Predator.class).count();
+//
+//        double herbPerc = (double) HerbSize / (double) (predator + HerbSize);
+//        h += herbPerc;
+//        p += (1.0 - herbPerc);
 //        if (simulationCount % 100 == 0)
-            System.out.println("turn: " + simulationCount + " Predators: " + (p / simulationCount) + ", Herbi: " + (h / simulationCount));
+//            System.out.println("turn: " + simulationCount + " Predators: " + (1-herbPerc) + ", Herbi: " + (herbPerc));
+//    }
     }
 }

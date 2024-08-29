@@ -2,17 +2,9 @@ package view;
 
 import world.GridMap;
 
-public abstract class MapRenderer {
-    protected GridMap map;
+public interface MapRenderer {
 
-    protected int height;
-    protected int width;
+    public void setMap(GridMap map);
 
-    public void setMap(GridMap map) {
-        this.map = map;
-        this.height = map.getHeight();
-        this.width = map.getWidth();
-    }
-
-    public abstract void render();
+    public void render();
 }

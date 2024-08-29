@@ -1,7 +1,7 @@
 import game.Simulation;
-import view.FXRenderer;
 import view.IDEAConsoleMapRenderer;
 import view.MapRenderer;
+import view.swing.SwingMapRenderer;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -30,7 +30,7 @@ public class Game {
         if (result == 1) {
             return new IDEAConsoleMapRenderer();
         } else {
-            return new FXRenderer();
+            return new SwingMapRenderer();
         }
 
     }

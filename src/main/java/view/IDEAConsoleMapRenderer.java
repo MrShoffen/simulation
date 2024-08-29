@@ -1,6 +1,7 @@
 package view;
 
 import world.Cell;
+import world.GridMap;
 import world.entities.Entity;
 import world.entities.creatures.Herbivore;
 import world.entities.creatures.Predator;
@@ -8,7 +9,7 @@ import world.entities.objects.Grass;
 import world.entities.objects.Rock;
 import world.entities.objects.Tree;
 
-public final class IDEAConsoleMapRenderer extends MapRenderer {
+public final class IDEAConsoleMapRenderer implements MapRenderer {
 
     private static final String PREDATOR_EMOJI = "\uD83D\uDC2F";
     private static final String HERBIVORE_EMOJI = "\uD83D\uDC16";
@@ -20,6 +21,18 @@ public final class IDEAConsoleMapRenderer extends MapRenderer {
     private static final String ATTACK_COLOR = "\u001B[31m";
     private static final String HEALTH_COLOR = "\u001B[32m";
     private static final String RESET_COLOR = "\u001B[0m";
+
+    GridMap map;
+    int height;
+    int width;
+
+    @Override
+    public void setMap(GridMap map) {
+        this.map = map;
+        this.height = map.getHeight();
+        this.width  = map.getWidth();
+
+    }
 
     @Override
     public void render() {
