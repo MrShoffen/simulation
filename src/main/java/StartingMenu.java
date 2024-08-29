@@ -20,7 +20,7 @@ public class StartingMenu
 //        GridMap map = new GridMap(15,15);
 //        MapRenderer renderer = new SwingMapRenderer();
 //        MapRenderer renderer = new ConsoleMapRenderer();
-        renderer.setMap(map);
+//        renderer.setMap(map)
 
         Simulation simulation  = new Simulation(map,renderer);
 

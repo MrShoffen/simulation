@@ -24,10 +24,14 @@ public class SwingCell extends JPanel {
     private static final Color MOVING_CREATURE_COLOR = new Color(143, 162, 126, 255);
 
 
+
     public SwingCell(Cell cell) {
+        setDoubleBuffered(true);
+
         initEmptyCell();
-        if (!cell.hasEntity())
+        if (!cell.hasEntity()) {
             return;
+        }
 
         if (cell.getEntity() instanceof Creature) {
             initCreatureCell((Creature) cell.getEntity());
@@ -109,4 +113,5 @@ public class SwingCell extends JPanel {
 
         setPreferredSize(CELL_DIMENSION);
     }
+
 }

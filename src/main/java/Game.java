@@ -3,7 +3,7 @@ import view.console.ConsoleSimulationController;
 import view.SimulationController;
 import view.console.ConsoleMapRenderer;
 import view.MapRenderer;
-import view.swing.SwingController;
+import view.swing.SwingSimulationController;
 import view.swing.SwingMapRenderer;
 
 import java.util.Scanner;
@@ -52,7 +52,7 @@ public class Game {
 
     public static void runSimulationInAnotherTrhead(Simulation sim) {
         if(sim.getRenderer() instanceof SwingMapRenderer){
-            SimulationController swingController  = new SwingController(sim);
+            SimulationController swingController  = new SwingSimulationController(sim);
             new Thread(swingController).start();
         } else {
             runConsoleSimulation(sim);

@@ -13,7 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SwingController extends SimulationController {
+public class SwingSimulationController extends SimulationController {
 
     SwingMapRenderer map;
 
@@ -24,7 +24,7 @@ public class SwingController extends SimulationController {
 
 
 
-    public SwingController(Simulation sim) {
+    public SwingSimulationController(Simulation sim) {
         super(sim);
         initializeWindow();
     }

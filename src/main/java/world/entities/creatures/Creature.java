@@ -37,6 +37,7 @@ public abstract class Creature extends Entity {
         Cell startingCell = startOptCell.get();
         Cell nextCell = strategy.find(startingCell, victimClass);
 
+
         boolean victimIsConsumed = false;
         if (nextCellContainsVictim(nextCell)) {
             canMove = false;

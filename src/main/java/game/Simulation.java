@@ -7,8 +7,10 @@ import game.actions.breed.BreedAction;
 import game.actions.spawn.*;
 import view.MapRenderer;
 import world.GridMap;
+import world.entities.Entity;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public class Simulation {
     private final GridMap map;
@@ -42,7 +44,7 @@ public class Simulation {
 
         initActions();
         performAllActions();
-        renderer.render();
+        renderer.render(map);
     }
 
     public int getSimulationCount() {
@@ -91,31 +93,21 @@ public class Simulation {
     public void performMoveAction(MoveAction action) throws InterruptedException {
         while (action.moveInProgress()) {
             action.perform();
-//            if (action.moveInProgress()) {
-            renderer.render();
+            renderer.render(map);
             Thread.sleep(millisPauseBetweenRender);
             System.out.println();
-//            }
         }
     }
 
-    double h, p;
+    public int getEntityCountByType(Class<? extends Entity> type) {
+        return (int) map.allEntities().stream().filter(entity -> entity.getClass() == type).count();
+    }
 
     public void nextTurn() throws InterruptedException {
         simulationCount++;
         addActions();
         performAllActions();
-        renderer.render();
+        renderer.render(map);
         Thread.sleep(millisPauseBetweenRender);
-
-//        long HerbSize = map.allEntities().stream().filter(entity -> entity.getClass() == Herbivore.class).count();
-//        long predator = map.allEntities().stream().filter(entity -> entity.getClass() == Predator.class).count();
-//
-//        double herbPerc = (double) HerbSize / (double) (predator + HerbSize);
-//        h += herbPerc;
-//        p += (1.0 - herbPerc);
-//        if (simulationCount % 100 == 0)
-//            System.out.println("turn: " + simulationCount + " Predators: " + (1-herbPerc) + ", Herbi: " + (herbPerc));
-//    }
     }
 }

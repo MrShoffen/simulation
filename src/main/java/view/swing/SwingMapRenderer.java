@@ -5,36 +5,30 @@ import world.GridMap;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 public class SwingMapRenderer extends JPanel implements MapRenderer {
-        int width;
-        int height;
 
-        GridMap map;
+    public SwingMapRenderer() {
+        setLayout(new GridLayout());
+        setDoubleBuffered(true);
+    }
 
     @Override
-    public void setMap(GridMap map) {
-        this.map = map;
-        width = map.getWidth();
-        height = map.getHeight();
-        setLayout(new GridLayout(height,width));
-        setDoubleBuffered(true);
-        render();
-    }
-@Override
-    public void render(){
+    public void render(GridMap map) {
+        ((GridLayout) getLayout()).setColumns(map.getWidth());
+        ((GridLayout) getLayout()).setRows(map.getHeight());
+
         removeAll();
-        for (int y = 0; y < map.getHeight(); y++){
-            for(int x = 0; x < map.getWidth(); x++){
-                add(new SwingCell(map.getCellAt(x,y)));
+        for (int y = 0; y < map.getHeight(); y++) {
+            for (int x = 0; x < map.getWidth(); x++) {
+                add(new SwingCell(map.getCellAt(x, y)));
             }
         }
         SwingUtilities.invokeLater(() -> {
-            // Обновления интерфейса здесь
             revalidate();
             repaint();
         });
     }
-
 }

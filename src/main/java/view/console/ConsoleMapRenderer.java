@@ -23,44 +23,30 @@ public final class ConsoleMapRenderer implements MapRenderer {
     private static final String HEALTH_COLOR = "\u001B[32m";
     private static final String RESET_COLOR = "\u001B[0m";
 
-    GridMap map;
-    int height;
-    int width;
 
     @Override
-    public void setMap(GridMap map) {
-        this.map = map;
-        this.height = map.getHeight();
-        this.width  = map.getWidth();
-
-    }
-
-    @Override
-    public void render() {
+    public void render(GridMap map) {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < height; i++) {
-            result.append(lineWithCells(i));
+        for (int lineNumber = 0; lineNumber < map.getHeight(); lineNumber++) {
+            result.append(lineWithCells(map, lineNumber));
         }
-
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
 
         System.out.print(result);
     }
 
 
-    private StringBuilder lineWithCells(int lineNumber) {
+    private StringBuilder lineWithCells(GridMap map, int lineNumber) {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < width; i++) {
-            result.append(cell(i, lineNumber));
+        for (int rowNumber = 0; rowNumber < map.getWidth(); rowNumber++) {
+            Cell cell = map.getCellAt(rowNumber,lineNumber);
+            result.append(cellString(cell));
         }
         result.append("\n");
         return result;
     }
 
-    private StringBuilder cell(int x, int y) {
+    private StringBuilder cellString(Cell cell) {
         StringBuilder result = new StringBuilder();
-        Cell cell = map.getCellAt(x, y);
         if (!cell.hasEntity()) {
             return result.append(" " + EMPTY_CELL_EMOJI + " ");
         }
