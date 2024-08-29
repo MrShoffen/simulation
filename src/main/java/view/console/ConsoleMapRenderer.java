@@ -1,5 +1,6 @@
-package view;
+package view.console;
 
+import view.MapRenderer;
 import world.Cell;
 import world.GridMap;
 import world.entities.Entity;

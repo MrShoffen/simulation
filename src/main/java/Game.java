@@ -1,12 +1,11 @@
 import game.Simulation;
-import view.controllers.ConsoleController;
-import view.controllers.SimulationController;
-import view.ConsoleMapRenderer;
+import view.console.ConsoleSimulationController;
+import view.SimulationController;
+import view.console.ConsoleMapRenderer;
 import view.MapRenderer;
 import view.swing.SwingController;
 import view.swing.SwingMapRenderer;
 
-import javax.swing.*;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -61,7 +60,7 @@ public class Game {
     }
 
     private static void runConsoleSimulation(Simulation sim) {
-        SimulationController game = new ConsoleController(sim);
+        SimulationController game = new ConsoleSimulationController(sim);
         Thread gameThread = new Thread(game);
 
         gameThread.start();

@@ -1,14 +1,15 @@
-package view.controllers;
+package view.console;
 
 import game.Simulation;
+import view.SimulationController;
 
-public class ConsoleController extends SimulationController {
+public class ConsoleSimulationController extends SimulationController {
     public final static String ASK_FOR_RUNNING_MENU_CHOICE = "1: Пауза | 2: Продолжить | 3: Выход";
 //    Simulation simulation;
 
 
 
-    public ConsoleController(Simulation simulation) {
+    public ConsoleSimulationController(Simulation simulation) {
         super(simulation);
     }
 

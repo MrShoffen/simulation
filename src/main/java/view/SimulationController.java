@@ -1,4 +1,4 @@
-package view.controllers;
+package view;
 
 import game.Simulation;
 

@@ -2,7 +2,7 @@ package view.swing;
 
 
 import game.Simulation;
-import view.controllers.SimulationController;
+import view.SimulationController;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -87,6 +87,9 @@ public class SwingController extends SimulationController {
 
     void launch() {
         mainWindow.setVisible(true);
+        mainWindow.setLocationRelativeTo(null);
+//        mainWindow.requestFocus();
+        mainWindow.toFront();
     }
 
     @Override
@@ -94,13 +97,7 @@ public class SwingController extends SimulationController {
         launch();
 
         gameRunning = true;
-//        resume();
         while (gameRunning) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
 
             if (simulation.isAutoRunning()) {
                 try {

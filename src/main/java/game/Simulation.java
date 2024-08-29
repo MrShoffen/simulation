@@ -49,7 +49,7 @@ public class Simulation {
         return simulationCount;
     }
 
-    public boolean isAutoRunning() {
+    synchronized public boolean isAutoRunning() {
         return isAutoRunning;
     }
 

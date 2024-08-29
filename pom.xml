@@ -18,6 +18,8 @@
 
 
     <build>
+
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -43,6 +45,7 @@
                                     <mainClass>StartingMenu</mainClass>
                                 </manifest>
                             </archive>
+
                         </configuration>
                     </execution>
                 </executions>
