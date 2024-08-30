@@ -10,6 +10,7 @@ public class ConsoleSimulationController extends SimulationController {
     public final static String ASK_FOR_RUNNING_MENU_CHOICE = "1: Пауза | 2: Продолжить | 3: Выход";
     public final static Pattern PATTERN_FOR_RUNNING_MENU_CHOICE = Pattern.compile("[123]"); // 1||2||3
 
+    private static final int MILLIS_PAUSE_BETWEEN_TURNS = 750;
 
     public ConsoleSimulationController(Simulation simulation) {
         super(simulation);
@@ -18,12 +19,13 @@ public class ConsoleSimulationController extends SimulationController {
     @Override
     public void run() {
         gameRunning = true;
-        resume();
+        simulationIsAutoRunning = true;
+
         while (gameRunning) {
-            Simulation.delay(750);
-            if (simulation.isAutoRunning()) {
+            if (simulationIsAutoRunning) {
                 simulation.nextTurn();
                 System.out.println(ASK_FOR_RUNNING_MENU_CHOICE + '\n');
+                SimulationController.delay(MILLIS_PAUSE_BETWEEN_TURNS);
             }
         }
     }

@@ -10,8 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SwingSimulationController extends SimulationController {
-
-    SwingMapRenderer map;
+    protected int delayTimeInMillis;
 
     JFrame mainWindow;
     private JLabel simCount;
@@ -21,11 +20,16 @@ public class SwingSimulationController extends SimulationController {
 
     public SwingSimulationController(Simulation sim) {
         super(sim);
+        delayTimeInMillis = 250;
         initializeWindow();
     }
 
+    private void setDelayTimeInMillis(int delayTimeInMillis) {
+        this.delayTimeInMillis = delayTimeInMillis;
+    }
+
     private void initializeWindow() {
-        this.map = (SwingMapRenderer) simulation.getRenderer();
+        SwingMapRenderer map = (SwingMapRenderer) simulation.getRenderer();
         mainWindow = new JFrame("Simulation");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setResizable(false);
@@ -67,7 +71,7 @@ public class SwingSimulationController extends SimulationController {
 
     private JSlider createSpeedSlider() {
         JSlider slider = new JSlider();
-        slider.addChangeListener(_ -> simulation.setMillisPause(slider.getValue()));
+        slider.addChangeListener(_ -> setDelayTimeInMillis(slider.getValue()));
         slider.setMinimum(20);
         slider.setMaximum(500);
         slider.setValue(250);
@@ -78,7 +82,7 @@ public class SwingSimulationController extends SimulationController {
     private JButton createStartPauseButton() {
         JButton startPauseButton = new JButton("Start");
         startPauseButton.addActionListener(_ -> {
-            if (simulation.isAutoRunning()) {
+            if (simulationIsAutoRunning) {
                 pause();
                 startPauseButton.setText("Resume");
             } else {
@@ -99,11 +103,13 @@ public class SwingSimulationController extends SimulationController {
     @Override
     public void run() {
         launch();
-
         gameRunning = true;
+        simulationIsAutoRunning = false;
+
         while (gameRunning) {
-            if (simulation.isAutoRunning()) {
+            if (simulationIsAutoRunning) {
                 simulation.nextTurn();
+                SimulationController.delay(delayTimeInMillis);
             }
             updateSimulationStats();
         }

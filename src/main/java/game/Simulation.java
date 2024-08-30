@@ -6,38 +6,31 @@ import game.actions.StarveAction;
 import game.actions.breed.BreedAction;
 import game.actions.spawn.*;
 import view.MapRenderer;
+import view.SimulationController;
 import world.GridMap;
 import world.entities.Entity;
 
 import java.util.ArrayList;
 
 public class Simulation {
-    private static final int DEFAULT_MILIS_PAUSE = 250;
+    private static final int MILLIS_PAUSE_BETWEEN_MOVES = 250;
 
     private final GridMap map;
     private final MapRenderer renderer;
     private final ArrayList<Action> actions;
 
-    boolean isAutoRunning;
     int simulationCount;
-    private int millisPauseBetweenRender;
 
     public Simulation(GridMap map, MapRenderer renderer) {
         this.map = map;
         this.renderer = renderer;
         actions = new ArrayList<>();
 
-        isAutoRunning = false;
         simulationCount = 0;
-        millisPauseBetweenRender = DEFAULT_MILIS_PAUSE;
 
         initActions();
         performAllActions();
         renderer.render(map);
-    }
-
-    public void setMillisPause(int millisPauseBetweenRender) {
-        this.millisPauseBetweenRender = millisPauseBetweenRender;
     }
 
     public MapRenderer getRenderer() {
@@ -46,18 +39,6 @@ public class Simulation {
 
     public int getSimulationCount() {
         return simulationCount;
-    }
-
-    synchronized public boolean isAutoRunning() {
-        return isAutoRunning;
-    }
-
-    public void resume() {
-        isAutoRunning = true;
-    }
-
-    public void pause() {
-        isAutoRunning = false;
     }
 
     private void initActions() {
@@ -91,7 +72,7 @@ public class Simulation {
         while (action.moveInProgress()) {
             action.perform();
             renderer.render(map);
-            delay(millisPauseBetweenRender);
+            SimulationController.delay(MILLIS_PAUSE_BETWEEN_MOVES);
             System.out.println();
         }
     }
@@ -108,14 +89,7 @@ public class Simulation {
 
         renderer.render(map);
 
-        delay(millisPauseBetweenRender);
     }
 
-    public static void delay(int millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 }

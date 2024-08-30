@@ -6,23 +6,26 @@ import view.swing.SwingMapRenderer;
 import view.swing.SwingSimulationController;
 
 public abstract class SimulationController implements Runnable {
+
     protected Simulation simulation;
 
     protected boolean gameRunning;
+    protected boolean simulationIsAutoRunning;
+
 
     protected SimulationController(Simulation sim) {
         simulation = sim;
     }
 
     public void pause() {
-        if (simulation.isAutoRunning()) {
-            simulation.pause();
+        if (simulationIsAutoRunning){
+            simulationIsAutoRunning = false;
         }
     }
 
     public void resume() {
-        if (!simulation.isAutoRunning()) {
-            simulation.resume();
+        if (!simulationIsAutoRunning){
+            simulationIsAutoRunning = true;
         }
     }
 
@@ -37,6 +40,14 @@ public abstract class SimulationController implements Runnable {
             new Thread(swingController).start();
         } else {
             ConsoleSimulationController.runConsoleSimulation(sim);
+        }
+    }
+
+    public static void delay(int millis){
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }
