@@ -18,15 +18,15 @@ public abstract class SimulationController implements Runnable {
     }
 
     public void pause() {
-        if (simulationIsAutoRunning){
+//        if (simulationIsAutoRunning){
             simulationIsAutoRunning = false;
-        }
+//        }
     }
 
     public void resume() {
-        if (!simulationIsAutoRunning){
+//        if (!simulationIsAutoRunning){
             simulationIsAutoRunning = true;
-        }
+//        }
     }
 
     public void stop() {

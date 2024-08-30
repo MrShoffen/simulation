@@ -25,10 +25,12 @@ public class ConsoleSimulationController extends SimulationController {
             if (simulationIsAutoRunning) {
                 simulation.nextTurn();
                 System.out.println(ASK_FOR_RUNNING_MENU_CHOICE + '\n');
-                SimulationController.delay(MILLIS_PAUSE_BETWEEN_TURNS);
             }
+            SimulationController.delay(MILLIS_PAUSE_BETWEEN_TURNS);
         }
     }
+
+
 
 
     public static void runConsoleSimulation(Simulation sim) {
