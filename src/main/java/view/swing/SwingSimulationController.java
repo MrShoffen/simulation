@@ -24,9 +24,6 @@ public class SwingSimulationController extends SimulationController {
         initializeWindow();
     }
 
-    private void setDelayTimeInMillis(int delayTimeInMillis) {
-        this.delayTimeInMillis = delayTimeInMillis;
-    }
 
     private void initializeWindow() {
         SwingMapRenderer map = (SwingMapRenderer) simulation.getRenderer();
@@ -71,7 +68,7 @@ public class SwingSimulationController extends SimulationController {
 
     private JSlider createSpeedSlider() {
         JSlider slider = new JSlider();
-        slider.addChangeListener(_ -> setDelayTimeInMillis(slider.getValue()));
+        slider.addChangeListener(_ -> simulation.setMillisPauseBetweenMoves(slider.getValue()));
         slider.setMinimum(20);
         slider.setMaximum(500);
         slider.setValue(250);
@@ -109,7 +106,6 @@ public class SwingSimulationController extends SimulationController {
         while (gameRunning) {
             if (simulationIsAutoRunning) {
                 simulation.nextTurn();
-                SimulationController.delay(delayTimeInMillis);
             }
             updateSimulationStats();
         }

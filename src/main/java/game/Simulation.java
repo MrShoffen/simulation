@@ -13,7 +13,7 @@ import world.entities.Entity;
 import java.util.ArrayList;
 
 public class Simulation {
-    private static final int MILLIS_PAUSE_BETWEEN_MOVES = 250;
+    private static final int DEFAULT_PAUSE_BETWEEN_MOVES = 250;
 
     private final GridMap map;
     private final MapRenderer renderer;
@@ -21,12 +21,19 @@ public class Simulation {
 
     int simulationCount;
 
+    public void setMillisPauseBetweenMoves(int millisPauseBetweenMoves) {
+        this.millisPauseBetweenMoves = millisPauseBetweenMoves;
+    }
+
+    int millisPauseBetweenMoves;
+
     public Simulation(GridMap map, MapRenderer renderer) {
         this.map = map;
         this.renderer = renderer;
         actions = new ArrayList<>();
 
         simulationCount = 0;
+        millisPauseBetweenMoves = DEFAULT_PAUSE_BETWEEN_MOVES;
 
         initActions();
         performAllActions();
@@ -72,7 +79,7 @@ public class Simulation {
         while (action.moveInProgress()) {
             action.perform();
             renderer.render(map);
-            SimulationController.delay(MILLIS_PAUSE_BETWEEN_MOVES);
+            SimulationController.delay(millisPauseBetweenMoves);
             System.out.println();
         }
     }
