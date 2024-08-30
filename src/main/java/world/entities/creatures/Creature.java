@@ -72,7 +72,7 @@ public abstract class Creature extends Entity {
 
     protected abstract boolean attackVictim(Consumable victim);
 
-     private boolean nextCellContainsVictim(Cell nextCell) {
+    private boolean nextCellContainsVictim(Cell nextCell) {
         return nextCell.hasEntity() && nextCell.getEntity().getClass() == victimClass;
     }
 
@@ -82,10 +82,6 @@ public abstract class Creature extends Entity {
 
     public final int maxHealth() {
         return maxHealth;
-    }
-
-    public final boolean isFullHealed(){
-         return health == maxHealth;
     }
 
     public final void receiveDamage(int damage) {

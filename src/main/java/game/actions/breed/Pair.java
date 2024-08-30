@@ -21,7 +21,7 @@ abstract class Pair {
         chanceOfThisPairToBreed = new Random().nextDouble();
     }
 
-    boolean canBreed(){
+    boolean canBreed() {
         return chanceOfThisPairToBreed <= chanceOfThisCreatureTypeToBreed;
     }
 
@@ -31,7 +31,8 @@ abstract class Pair {
         if (o == null || getClass() != o.getClass()) return false;
         Pair pair = (Pair) o;
         return pair.firstParentCell.equals(firstParentCell) && pair.secondParentCell.equals(secondParentCell)
-                || pair.firstParentCell.equals(secondParentCell) && pair.secondParentCell.equals(firstParentCell);}
+                || pair.firstParentCell.equals(secondParentCell) && pair.secondParentCell.equals(firstParentCell);
+    }
 
     @Override
     public int hashCode() {

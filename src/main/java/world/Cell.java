@@ -4,6 +4,7 @@ import world.entities.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public final class Cell {
     private final int x;
@@ -45,6 +46,11 @@ public final class Cell {
 
     int getY() {
         return y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 
     @Override

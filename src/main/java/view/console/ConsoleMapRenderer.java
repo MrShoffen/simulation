@@ -23,7 +23,6 @@ public final class ConsoleMapRenderer implements MapRenderer {
     private static final String HEALTH_COLOR = "\u001B[32m";
     private static final String RESET_COLOR = "\u001B[0m";
 
-
     @Override
     public void render(GridMap map) {
         StringBuilder result = new StringBuilder();
@@ -33,7 +32,6 @@ public final class ConsoleMapRenderer implements MapRenderer {
 
         System.out.print(result);
     }
-
 
     private StringBuilder lineWithCells(GridMap map, int lineNumber) {
         StringBuilder result = new StringBuilder();

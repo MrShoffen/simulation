@@ -10,20 +10,31 @@ import world.GridMap;
 import world.entities.Entity;
 
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 public class Simulation {
+    private static final int DEFAULT_MILIS_PAUSE = 250;
+
     private final GridMap map;
-
     private final MapRenderer renderer;
-
     private final ArrayList<Action> actions;
 
     boolean isAutoRunning;
-
     int simulationCount;
-
     private int millisPauseBetweenRender;
+
+    public Simulation(GridMap map, MapRenderer renderer) {
+        this.map = map;
+        this.renderer = renderer;
+        actions = new ArrayList<>();
+
+        isAutoRunning = false;
+        simulationCount = 0;
+        millisPauseBetweenRender = DEFAULT_MILIS_PAUSE;
+
+        initActions();
+        performAllActions();
+        renderer.render(map);
+    }
 
     public void setMillisPause(int millisPauseBetweenRender) {
         this.millisPauseBetweenRender = millisPauseBetweenRender;
@@ -31,20 +42,6 @@ public class Simulation {
 
     public MapRenderer getRenderer() {
         return renderer;
-    }
-
-    public Simulation(GridMap map, MapRenderer renderer) throws InterruptedException {
-        this.map = map;
-        this.renderer = renderer;
-        actions = new ArrayList<>();
-
-        isAutoRunning = false;
-        simulationCount = 0;
-        millisPauseBetweenRender = 250;
-
-        initActions();
-        performAllActions();
-        renderer.render(map);
     }
 
     public int getSimulationCount() {
@@ -79,7 +76,7 @@ public class Simulation {
         actions.add(new HerbivoreSpawnAction(map));
     }
 
-    private void performAllActions() throws InterruptedException {
+    private void performAllActions() {
         for (Action action : actions) {
             if (action instanceof MoveAction) {
                 performMoveAction((MoveAction) action);
@@ -90,11 +87,11 @@ public class Simulation {
         actions.clear();
     }
 
-    public void performMoveAction(MoveAction action) throws InterruptedException {
+    public void performMoveAction(MoveAction action) {
         while (action.moveInProgress()) {
             action.perform();
             renderer.render(map);
-            Thread.sleep(millisPauseBetweenRender);
+            delay(millisPauseBetweenRender);
             System.out.println();
         }
     }
@@ -103,11 +100,22 @@ public class Simulation {
         return (int) map.allEntities().stream().filter(entity -> entity.getClass() == type).count();
     }
 
-    public void nextTurn() throws InterruptedException {
+    public void nextTurn() {
         simulationCount++;
+
         addActions();
         performAllActions();
+
         renderer.render(map);
-        Thread.sleep(millisPauseBetweenRender);
+
+        delay(millisPauseBetweenRender);
+    }
+
+    public static void delay(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

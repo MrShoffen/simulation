@@ -24,22 +24,9 @@ public class SwingCell extends JPanel {
     private static final Color MOVING_CREATURE_COLOR = new Color(143, 162, 126, 255);
 
 
-
     public SwingCell(Cell cell) {
-        setDoubleBuffered(true);
-
         initEmptyCell();
-        if (!cell.hasEntity()) {
-            return;
-        }
-
-        if (cell.getEntity() instanceof Creature) {
-            initCreatureCell((Creature) cell.getEntity());
-        } else {
-            initNonCreatureCell(cell.getEntity());
-        }
-
-
+        refresh(cell);
     }
 
     private void initNonCreatureCell(Entity entity) {
@@ -54,34 +41,32 @@ public class SwingCell extends JPanel {
     }
 
     private void initCreatureCell(Creature creature) {
-        ImageIcon print;
-        String health = creature.currentHealth() + "/" + creature.maxHealth();
         if (creature.canMove()) {
             setBackground(MOVING_CREATURE_COLOR);
+        } else {
+            setBackground(EMPTY_CELL_COLOR);
         }
+
+        ImageIcon creaturePicture;
+        String health = creature.currentHealth() + "/" + creature.maxHealth();
         String attack = "";
         switch (creature) {
             case Predator predator -> {
-                print = Images.PREDATOR;
+                creaturePicture = Images.PREDATOR;
                 attack = String.valueOf(predator.getAttack());
             }
-            case Herbivore _ -> {
-                print = Images.HERBIVORE;
-            }
+            case Herbivore _ -> creaturePicture = Images.HERBIVORE;
             case null, default -> throw new IllegalStateException();
         }
 
         setHealth(health);
-
-        setImage(print, IMAGE_DIMENSION);
-
+        setImage(creaturePicture, IMAGE_DIMENSION);
         setAttack(attack);
 
     }
 
     private void setAttack(String attack) {
         JLabel attackLabel = new JLabel(attack);
-        attackLabel.setMaximumSize(TEXT_LABEL_DIMENSION);
         attackLabel.setPreferredSize(TEXT_LABEL_DIMENSION);
         attackLabel.setForeground(ATTACK_TEXT_COLOR);
         add(attackLabel);
@@ -93,7 +78,6 @@ public class SwingCell extends JPanel {
         healthLabel.setPreferredSize(TEXT_LABEL_DIMENSION);
         healthLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         healthLabel.setForeground(HEALTH_TEXT_COLOR);
-
         add(healthLabel);
     }
 
@@ -105,13 +89,22 @@ public class SwingCell extends JPanel {
     }
 
     private void initEmptyCell() {
-        BoxLayout mgr = new BoxLayout(this, BoxLayout.Y_AXIS);
-        setLayout(mgr);
-
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(new LineBorder(Color.BLACK));
         setBackground(EMPTY_CELL_COLOR);
-
         setPreferredSize(CELL_DIMENSION);
     }
 
+    public void refresh(Cell cell) {
+        removeAll();
+        if (!cell.hasEntity()) {
+            setBackground(EMPTY_CELL_COLOR);
+            return;
+        }
+        if (cell.getEntity() instanceof Creature) {
+            initCreatureCell((Creature) cell.getEntity());
+        } else {
+            initNonCreatureCell(cell.getEntity());
+        }
+    }
 }

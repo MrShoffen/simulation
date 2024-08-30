@@ -7,11 +7,7 @@ import world.entities.creatures.Herbivore;
 import world.entities.creatures.Predator;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class SwingSimulationController extends SimulationController {
 
@@ -21,7 +17,6 @@ public class SwingSimulationController extends SimulationController {
     private JLabel simCount;
     private JLabel predatorCount;
     private JLabel herbivoreCount;
-
 
 
     public SwingSimulationController(Simulation sim) {
@@ -34,17 +29,15 @@ public class SwingSimulationController extends SimulationController {
         mainWindow = new JFrame("Simulation");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setResizable(false);
+        mainWindow.setIconImage(Images.ICON);
 
         JPanel controlPanel = createControlPanel();
-
         mainWindow.getContentPane().add(map, BorderLayout.WEST);
         mainWindow.getContentPane().add(controlPanel, BorderLayout.EAST);
         mainWindow.pack();
-
     }
 
     private JPanel createControlPanel() {
-        // Создаем кнопку для обновления содержимого
         JButton startPauseButton = createStartPauseButton();
         JLabel sliderLabel = new JLabel("Скорость симуляции");
         JSlider slider = createSpeedSlider();
@@ -74,12 +67,7 @@ public class SwingSimulationController extends SimulationController {
 
     private JSlider createSpeedSlider() {
         JSlider slider = new JSlider();
-        slider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                simulation.setMillisPause(slider.getValue());
-            }
-        });
+        slider.addChangeListener(_ -> simulation.setMillisPause(slider.getValue()));
         slider.setMinimum(20);
         slider.setMaximum(500);
         slider.setValue(250);
@@ -89,26 +77,23 @@ public class SwingSimulationController extends SimulationController {
 
     private JButton createStartPauseButton() {
         JButton startPauseButton = new JButton("Start");
-        startPauseButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (simulation.isAutoRunning()) {
-                    pause();
-                    startPauseButton.setText("Resume");
-                } else {
-                    resume();
-                    startPauseButton.setText("Pause");
-                }
+        startPauseButton.addActionListener(_ -> {
+            if (simulation.isAutoRunning()) {
+                pause();
+                startPauseButton.setText("Resume");
+            } else {
+                resume();
+                startPauseButton.setText("Pause");
             }
         });
         return startPauseButton;
     }
 
     void launch() {
-        mainWindow.setVisible(true);
         mainWindow.setLocationRelativeTo(null);
-//        mainWindow.requestFocus();
+        mainWindow.requestFocus();
         mainWindow.toFront();
+        mainWindow.setVisible(true);
     }
 
     @Override
@@ -117,16 +102,10 @@ public class SwingSimulationController extends SimulationController {
 
         gameRunning = true;
         while (gameRunning) {
-
             if (simulation.isAutoRunning()) {
-                try {
-                    simulation.nextTurn();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                simulation.nextTurn();
             }
             updateSimulationStats();
         }
-
     }
 }

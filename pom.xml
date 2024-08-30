@@ -42,7 +42,7 @@
                             <descriptorRefs>jar-with-dependencies</descriptorRefs>
                             <archive>
                                 <manifest>
-                                    <mainClass>StartingMenu</mainClass>
+                                    <mainClass>Main</mainClass>
                                 </manifest>
                             </archive>
 

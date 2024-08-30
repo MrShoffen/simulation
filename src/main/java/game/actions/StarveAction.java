@@ -17,12 +17,12 @@ public final class StarveAction extends Action {
     public void perform() {
         List<Creature> allCreatures = Action.allCreaturesFromMap(map);
 
-        for(Creature creature : allCreatures){
-            if(creature.movesWithoutFood() >= MOVE_NUMBER_FOR_STARVING){
+        for (Creature creature : allCreatures) {
+            if (creature.movesWithoutFood() >= MOVE_NUMBER_FOR_STARVING) {
                 creature.receiveDamage(DAMAGE_FOR_STARVING);
             }
-            if(creature.isDead()){
-              map.removeEntity(creature);
+            if (creature.isDead()) {
+                map.removeEntity(creature);
             }
         }
     }

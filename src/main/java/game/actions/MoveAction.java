@@ -8,7 +8,6 @@ import java.util.List;
 
 public final class MoveAction extends Action {
     boolean moveInProgress;
-
     List<Creature> creaturesWithMoves;
     int currentStep;
 
@@ -28,12 +27,10 @@ public final class MoveAction extends Action {
             allCreaturesFromMap(map).forEach(Creature::allowToMove);
         } else {
             Collections.shuffle(creaturesWithMoves);
-
             creaturesWithMoves.forEach(creature -> creature.move(map));
             currentStep++;
         }
     }
-
 
     public boolean moveInProgress() {
         return moveInProgress;
