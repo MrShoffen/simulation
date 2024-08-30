@@ -97,6 +97,4 @@ public class Simulation {
         renderer.render(map);
 
     }
-
-
 }
