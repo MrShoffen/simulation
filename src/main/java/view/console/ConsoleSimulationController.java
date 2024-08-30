@@ -30,9 +30,6 @@ public class ConsoleSimulationController extends SimulationController {
         }
     }
 
-
-
-
     public static void runConsoleSimulation(Simulation sim) {
         SimulationController game = new ConsoleSimulationController(sim);
         Thread gameThread = new Thread(game);
