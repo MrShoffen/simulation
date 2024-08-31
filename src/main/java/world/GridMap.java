@@ -1,25 +1,25 @@
 package world;
 
 import world.entities.Entity;
+import world.entities.creatures.Creature;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
+
 //todo remove array in general, make hashmap
 public class GridMap {
     private final int height;
     private final int width;
-    private final List<Cell> cells;
-
+    private final Map<Cell, Entity> cells;
 
     public GridMap(int height, int width) {
         this.height = height;
         this.width = width;
-        cells = Cell.generateConnectedGridGraph(height, width);
+        cells = new HashMap<>();
+
     }
 
-    public Cell getCellAt(int x, int y) {
-        return cells.get(y * width + x);
+    public boolean cellIsBusy(Cell cell) {
+        return cells.containsKey(cell);
     }
 
     public int getWidth() {
@@ -30,37 +30,38 @@ public class GridMap {
         return height;
     }
 
-    public List<Entity> allEntities() {
-        return cells.stream().filter(Cell::hasEntity)
-                .map(Cell::getEntity)
-                .collect(Collectors.toList());
-    }
-
-    public Optional<Cell> locateCellOfEntity(Entity entity) {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                Cell cellForCheck = getCellAt(x, y);
-                if (cellForCheck.hasEntity() && cellForCheck.getEntity() == entity) {
-                    return Optional.of(cellForCheck);
-                }
-            }
-        }
-        return Optional.empty();
-    }
-
-    private void moveEntity(int x1, int y1, int x2, int y2) {
-        getCellAt(x2, y2).setEntity(getCellAt(x1, y1).getEntity());
-        getCellAt(x1, y1).removeEntity();
+    public Collection<Entity> allEntities() {
+        return cells.values();
     }
 
     public void moveEntity(Cell from, Cell to) {
-        if (!from.equals(to)) {
-            moveEntity(from.getX(), from.getY(), to.getX(), to.getY());
-        }
+        Entity entity = getEntity(from);
+        clearCell(from);
+        placeEntity(to,entity);
     }
 
-    public void removeEntity(Entity entity) {
-        Optional<Cell> opt = locateCellOfEntity(entity);
-        opt.ifPresent(Cell::removeEntity);
+    public void placeEntity(Cell cell, Entity entity) {
+        cells.put(cell, entity);
+    }
+
+    public void clearCell(Cell cell) {
+        cells.remove(cell);
+    }
+
+    public void removeEntity(Entity entity){
+        cells.values().remove(entity);
+    }
+
+     public Entity getEntity(Cell cell){
+        return cells.get(cell);
+    }
+
+    public Optional<Cell> locateCellOfEntity(Entity entity) {
+        for(Cell cell : cells.keySet()){
+            if(cells.get(cell).equals(entity)){
+                return Optional.of(cell);
+            }
+        }
+        return Optional.empty();
     }
 }

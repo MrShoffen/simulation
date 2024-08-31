@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SwingSimulationController extends SimulationController {
+    public final static Image ICON = Toolkit.getDefaultToolkit().getImage("src/main/resources/icon.png");
+
     protected int delayTimeInMillis;
 
     JFrame mainWindow;
@@ -30,7 +32,7 @@ public class SwingSimulationController extends SimulationController {
         mainWindow = new JFrame("Simulation");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setResizable(false);
-        mainWindow.setIconImage(Images.ICON);
+        mainWindow.setIconImage(ICON);
 
         JPanel controlPanel = createControlPanel();
         mainWindow.getContentPane().add(map, BorderLayout.WEST);

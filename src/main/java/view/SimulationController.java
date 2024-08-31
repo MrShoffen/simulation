@@ -30,6 +30,7 @@ public abstract class SimulationController implements Runnable {
         gameRunning = false;
     }
 
+    //todo rework
     public static void runSimulation(Simulation sim) {
         if (sim.getRenderer() instanceof SwingMapRenderer) {
             SimulationController swingController = new SwingSimulationController(sim);

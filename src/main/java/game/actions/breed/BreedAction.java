@@ -18,7 +18,8 @@ public final class BreedAction extends Action {
         Set<Pair> pairs = calculatePairs(map);
         for (Pair pair : pairs) {
             if (pair.canBreed()) {
-                Action.randomEmptyCell(map).setEntity(pair.breedNewCreature());
+                Cell emptyCell = Action.randomEmptyCell(map);
+                map.placeEntity(emptyCell,pair.breedNewCreature());
             }
         }
     }

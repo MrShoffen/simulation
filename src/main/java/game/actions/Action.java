@@ -30,9 +30,9 @@ public abstract class Action {
         do {
             int x = random.nextInt(map.getWidth());
             int y = random.nextInt(map.getHeight());
-            result = map.getCellAt(x, y);
+            result = new Cell(x,y);
 
-        } while (result.hasEntity());
+        } while (map.cellIsBusy(result));
 
         return result;
     }

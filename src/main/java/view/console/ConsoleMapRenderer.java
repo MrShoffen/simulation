@@ -19,39 +19,33 @@ public final class ConsoleMapRenderer implements MapRenderer {
     private static final String TREE_EMOJI = "\uD83C\uDF33";
     private static final String EMPTY_CELL_EMOJI = "\uD83D\uDFEB";
 
-    private static final String ATTACK_COLOR = "\u001B[31m";
-    private static final String HEALTH_COLOR = "\u001B[32m";
-    private static final String RESET_COLOR = "\u001B[0m";
+    private static final String ATTACK_COLOR = ANSIIColor.RED.getCode();
+    private static final String HEALTH_COLOR = ANSIIColor.GREEN.getCode();
+    private static final String RESET_COLOR = ANSIIColor.DEFAULT.getCode();
 
     @Override
     public void render(GridMap map) {
         StringBuilder result = new StringBuilder();
-        for (int lineNumber = 0; lineNumber < map.getHeight(); lineNumber++) {
-            result.append(lineWithCells(map, lineNumber));
+
+        for (int line = 0; line < map.getHeight(); line++) {
+            for (int row = 0; row < map.getWidth(); row++) {
+                result.append(stringFromCell(new Cell(row, line), map));
+            }
+            result.append('\n');
         }
 
         System.out.print(result);
     }
 
-    private StringBuilder lineWithCells(GridMap map, int lineNumber) {
-        StringBuilder result = new StringBuilder();
-        for (int rowNumber = 0; rowNumber < map.getWidth(); rowNumber++) {
-            Cell cell = map.getCellAt(rowNumber,lineNumber);
-            result.append(cellString(cell));
+    private String stringFromCell(Cell cell, GridMap map) {
+        if (map.cellIsBusy(cell)) {
+            return stringFromEntity(map.getEntity(cell));
+        } else {
+            return stringFromEmptyCell();
         }
-        result.append("\n");
-        return result;
     }
 
-    private StringBuilder cellString(Cell cell) {
-        StringBuilder result = new StringBuilder();
-        if (!cell.hasEntity()) {
-            return result.append(" " + EMPTY_CELL_EMOJI + " ");
-        }
-        return result.append(entity(cell.getEntity()));
-    }
-
-    private String entity(Entity entity) throws IllegalStateException {
+    private String stringFromEntity(Entity entity) {
         return
                 switch (entity) {
                     case Predator predator ->
@@ -63,5 +57,25 @@ public final class ConsoleMapRenderer implements MapRenderer {
                     case Tree _ -> " " + TREE_EMOJI + " ";
                     case null, default -> throw new IllegalStateException();
                 };
+    }
+
+    private String stringFromEmptyCell() {
+        return " " + EMPTY_CELL_EMOJI + " ";
+    }
+
+    private enum ANSIIColor {
+        DEFAULT("\u001B[0m"),
+        RED("\u001B[31m"),
+        GREEN("\u001B[32m");
+
+        private final String code;
+
+        ANSIIColor(String code) {
+            this.code = code;
+        }
+
+        public String getCode() {
+            return code;
+        }
     }
 }
