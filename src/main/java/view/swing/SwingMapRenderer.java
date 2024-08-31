@@ -76,7 +76,7 @@ public class SwingMapRenderer extends JPanel implements MapRenderer {
     private void refreshSwingCell(JPanel swingCell, Cell cell, GridMap map){
         swingCell.removeAll();
         if (!map.cellIsBusy(cell)) {
-            setBackground(EMPTY_CELL_COLOR);
+            swingCell.setBackground(EMPTY_CELL_COLOR);
         } else {
             addEntityToCell(swingCell,map.getEntity(cell));
         }
@@ -84,7 +84,8 @@ public class SwingMapRenderer extends JPanel implements MapRenderer {
 
 
     private JPanel generateJPanelWithCell(GridMap map, Cell cell) {
-        JPanel JPanelWithCell = new JPanel(new BoxLayout(this, BoxLayout.Y_AXIS));
+        JPanel JPanelWithCell = new JPanel();
+        JPanelWithCell.setLayout(new BoxLayout(JPanelWithCell, BoxLayout.Y_AXIS));
         JPanelWithCell.setBorder(new LineBorder(Color.BLACK));
         JPanelWithCell.setBackground(EMPTY_CELL_COLOR);
         JPanelWithCell.setPreferredSize(CELL_DIMENSION);

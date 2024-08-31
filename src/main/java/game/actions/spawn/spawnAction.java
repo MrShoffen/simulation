@@ -1,6 +1,7 @@
 package game.actions.spawn;
 
 import game.actions.Action;
+import world.Cell;
 import world.GridMap;
 import world.entities.Entity;
 
@@ -17,7 +18,8 @@ public abstract class spawnAction extends Action {
         int quantityForSpawn = getSpawnQuantity();
 
         for (int i = 0; i < quantityForSpawn; i++) {
-            Action.randomEmptyCell(map).setEntity(randomEntity());
+            Cell randomEmptyCell = Action.randomEmptyCell(map);
+            map.placeEntity(randomEmptyCell,randomEntity());
         }
     }
 
