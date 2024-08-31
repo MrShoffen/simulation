@@ -88,6 +88,7 @@ public class Simulation {
         return (int) map.allEntities().stream().filter(entity -> entity.getClass() == type).count();
     }
 
+
     public void nextTurn() {
         simulationCount++;
 

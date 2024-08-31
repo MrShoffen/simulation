@@ -1,7 +1,7 @@
 package world.entities.creatures;
 
-import game.algoritms.BFSSearchStrategy;
-import game.algoritms.SearchStrategy;
+import game.search.BFSSearchStrategy;
+import game.search.SearchStrategy;
 import world.Cell;
 import world.GridMap;
 import world.entities.Consumable;

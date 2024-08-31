@@ -1,4 +1,4 @@
-package game.algoritms;
+package game.search;
 
 import world.Cell;
 import world.entities.Consumable;

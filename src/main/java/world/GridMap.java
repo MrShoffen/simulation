@@ -5,7 +5,7 @@ import world.entities.Entity;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+//todo remove array in general, make hashmap
 public class GridMap {
     private final int height;
     private final int width;

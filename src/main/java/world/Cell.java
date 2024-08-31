@@ -5,7 +5,7 @@ import world.entities.Entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+//todo rework entire cell class, make it simple
 public final class Cell {
     private final int x;
     private final int y;
