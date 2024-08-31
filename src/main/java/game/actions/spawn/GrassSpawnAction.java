@@ -2,7 +2,7 @@ package game.actions.spawn;
 
 import world.GridMap;
 import world.entities.Entity;
-import world.entities.objects.Grass;
+import world.entities.environment.Grass;
 
 public final class GrassSpawnAction extends spawnAction {
     private final static double GRASS_SPAWN_RATE = 0.06;

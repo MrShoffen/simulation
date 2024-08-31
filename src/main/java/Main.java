@@ -20,7 +20,7 @@ public class Main
 //        System.out.println(ConsoleInput.ASK_FOR_RENDERER_CHOICE);
 //        MapRenderer renderer = ConsoleInput.chooseMapRenderer();
 
-        GridMap map = new GridMap(8,8);
+        GridMap map = new GridMap(15,15);
         MapRenderer renderer = new SwingMapRenderer();
 
         Simulation simulation  = new Simulation(map,renderer);

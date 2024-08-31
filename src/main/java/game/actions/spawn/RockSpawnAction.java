@@ -2,7 +2,7 @@ package game.actions.spawn;
 
 import world.GridMap;
 import world.entities.Entity;
-import world.entities.objects.Rock;
+import world.entities.environment.Rock;
 
 public final class RockSpawnAction extends spawnAction {
     private final static double ROCK_SPAWN_RATE = 0.09;

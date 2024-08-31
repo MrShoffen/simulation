@@ -2,7 +2,7 @@ package game.actions.spawn;
 
 import world.GridMap;
 import world.entities.Entity;
-import world.entities.objects.Tree;
+import world.entities.environment.Tree;
 
 public final class TreeSpawnAction extends spawnAction{
     private final static double TREE_SPAWN_RATE = 0.08;

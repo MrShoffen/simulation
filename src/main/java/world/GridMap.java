@@ -1,11 +1,12 @@
 package world;
 
 import world.entities.Entity;
-import world.entities.creatures.Creature;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
-//todo remove array in general, make hashmap
 public class GridMap {
     private final int height;
     private final int width;
@@ -35,30 +36,32 @@ public class GridMap {
     }
 
     public void moveEntity(Cell from, Cell to) {
-        Entity entity = getEntity(from);
-        clearCell(from);
-        placeEntity(to,entity);
+        if (!from.equals(to)) {
+            Entity entity = getEntity(from);
+            clearCell(from);
+            placeEntity(to, entity);
+        }
     }
 
     public void placeEntity(Cell cell, Entity entity) {
         cells.put(cell, entity);
     }
 
-    public void clearCell(Cell cell) {
+    private void clearCell(Cell cell) {
         cells.remove(cell);
     }
 
-    public void removeEntity(Entity entity){
+    public void removeEntity(Entity entity) {
         cells.values().remove(entity);
     }
-
-     public Entity getEntity(Cell cell){
+//todo mojet bit tut null
+    public Entity getEntity(Cell cell) {
         return cells.get(cell);
     }
 
     public Optional<Cell> locateCellOfEntity(Entity entity) {
-        for(Cell cell : cells.keySet()){
-            if(cells.get(cell).equals(entity)){
+        for (Cell cell : cells.keySet()) {
+            if (cells.get(cell).equals(entity)) {
                 return Optional.of(cell);
             }
         }

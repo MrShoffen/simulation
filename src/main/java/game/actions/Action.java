@@ -18,23 +18,7 @@ public abstract class Action {
 
     public abstract void perform();
 
-    protected static List<Creature> allCreaturesFromMap(GridMap map) {
-        return map.allEntities().stream()
-                .filter(entity -> entity instanceof Creature)
-                .map(entity -> (Creature) entity).collect(Collectors.toList());
-    }
 
-    protected static Cell randomEmptyCell(GridMap map) {
-        Cell result;
-        Random random = new Random();
-        do {
-            int x = random.nextInt(map.getWidth());
-            int y = random.nextInt(map.getHeight());
-            result = new Cell(x,y);
 
-        } while (map.cellIsBusy(result));
-
-        return result;
-    }
 
 }

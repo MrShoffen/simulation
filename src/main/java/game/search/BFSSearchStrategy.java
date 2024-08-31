@@ -10,7 +10,7 @@ public final class BFSSearchStrategy implements SearchStrategy {
     GridMap map;
 
     @Override
-    public Cell find(Cell startCell, GridMap map, Class<? extends Consumable> target) {
+    public Cell findNextCellToTarget(Cell startCell, GridMap map, Class<? extends Consumable> target) {
         this.map = map;
 
         List<Cell> visited = new ArrayList<>();
@@ -25,7 +25,7 @@ public final class BFSSearchStrategy implements SearchStrategy {
 
             for (Cell neighbour : neighbours(currentCell)) {
                 if (!visited.contains(neighbour)) {
-                    if (CellHasNoTarget(target, neighbour)) {
+                    if (CellHasNoTarget(neighbour,target)) {
                         visited.add(neighbour);
                     } else {
                         queue.add(neighbour);
@@ -34,8 +34,7 @@ public final class BFSSearchStrategy implements SearchStrategy {
                 }
             }
 
-            if (cellHasTarget(target, currentCell)) {
-//                System.out.println("found! " + currentCell + target);
+            if (cellHasTarget(currentCell,target)) {
                 return firstCellInRoute(route, currentCell, startCell);
             }
         }
@@ -44,8 +43,8 @@ public final class BFSSearchStrategy implements SearchStrategy {
 
     private List<Cell> neighbours(Cell cell) {
         List<Cell> neighbours = new ArrayList<>();
-        int x = cell.getX();
-        int y = cell.getY();
+        int x = cell.x();
+        int y = cell.y();
 
         if (x != 0)
             neighbours.add(new Cell(x - 1, y));
@@ -56,25 +55,21 @@ public final class BFSSearchStrategy implements SearchStrategy {
         if (y != map.getHeight() - 1)
             neighbours.add(new Cell(x, y + 1));
 
-//        System.out.println("Current cell: " + cell);
-//        neighbours.forEach(System.out::print);
-//        System.out.println();
-
         return neighbours;
     }
 
-    private boolean CellHasNoTarget(Class<? extends Consumable> target, Cell neighbour) {
+    private boolean CellHasNoTarget(Cell neighbour, Class<? extends Consumable> target) {
         return map.cellIsBusy(neighbour) && map.getEntity(neighbour).getClass() != target;
     }
 
-    private boolean cellHasTarget(Class<? extends Consumable> target, Cell cell) {
+    private boolean cellHasTarget(Cell cell, Class<? extends Consumable> target) {
         return map.cellIsBusy(cell) && map.getEntity(cell).getClass() == target;
     }
 
     private static Cell firstCellInRoute(Map<Cell, Cell> route, Cell targetCell, Cell startCell) {
         Cell prevCell = targetCell;
         while (prevCell != null) {
-            if(route.get(prevCell).equals(startCell)){
+            if (route.get(prevCell).equals(startCell)) {
                 break;
             }
             prevCell = route.get(prevCell);

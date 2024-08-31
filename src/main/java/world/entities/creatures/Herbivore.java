@@ -1,7 +1,7 @@
 package world.entities.creatures;
 
 import world.entities.Consumable;
-import world.entities.objects.Grass;
+import world.entities.environment.Grass;
 
 import java.util.Random;
 

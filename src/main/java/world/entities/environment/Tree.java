@@ -1,4 +1,4 @@
-package world.entities.objects;
+package world.entities.environment;
 
 import world.entities.Entity;
 

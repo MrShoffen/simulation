@@ -3,8 +3,10 @@ package game.actions.spawn;
 import game.actions.Action;
 import world.Cell;
 import world.GridMap;
+import world.MapUtils;
 import world.entities.Entity;
 
+//todo refactor in one generic class
 public abstract class spawnAction extends Action {
     protected double spawnRate;
     protected Class<? extends Entity> entityTypeForSpawn;
@@ -18,7 +20,7 @@ public abstract class spawnAction extends Action {
         int quantityForSpawn = getSpawnQuantity();
 
         for (int i = 0; i < quantityForSpawn; i++) {
-            Cell randomEmptyCell = Action.randomEmptyCell(map);
+            Cell randomEmptyCell = MapUtils.randomEmptyCell(map);
             map.placeEntity(randomEmptyCell,randomEntity());
         }
     }

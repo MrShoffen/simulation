@@ -6,9 +6,9 @@ import world.GridMap;
 import world.entities.Entity;
 import world.entities.creatures.Herbivore;
 import world.entities.creatures.Predator;
-import world.entities.objects.Grass;
-import world.entities.objects.Rock;
-import world.entities.objects.Tree;
+import world.entities.environment.Grass;
+import world.entities.environment.Rock;
+import world.entities.environment.Tree;
 
 public final class ConsoleMapRenderer implements MapRenderer {
 
