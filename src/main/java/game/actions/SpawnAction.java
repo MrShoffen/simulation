@@ -2,15 +2,17 @@ package game.actions;
 
 import world.Cell;
 import world.GridMap;
-import world.MapUtils;
+import world.GridMapUtils;
 import world.entities.Entity;
+import world.entities.creatures.Creature;
 import world.entities.creatures.Herbivore;
 import world.entities.creatures.Predator;
 import world.entities.environment.Grass;
 import world.entities.environment.Rock;
 import world.entities.environment.Tree;
 
-//todo refactor in one generic class
+import java.util.Random;
+
 public class SpawnAction extends Action {
     final TypeForSpawn typeForSpawn;
 
@@ -24,7 +26,7 @@ public class SpawnAction extends Action {
         int quantityForSpawn = getSpawnQuantity();
 
         for (int i = 0; i < quantityForSpawn; i++) {
-            Cell randomEmptyCell = MapUtils.randomEmptyCell(map);
+            Cell randomEmptyCell = GridMapUtils.randomEmptyCell(map);
             map.placeEntity(randomEmptyCell, randomEntity());
         }
     }
@@ -47,8 +49,20 @@ public class SpawnAction extends Action {
                     case ROCK -> new Rock();
                     case TREE -> new Tree();
                     case GRASS -> new Grass();
-                    case PREDATOR -> Predator.randomPredator();
-                    case HERBIVORE -> Herbivore.randomHerbivore();
+                    case PREDATOR, HERBIVORE -> randomCreature();
+                };
+    }
+
+    private Creature randomCreature() {
+        Random rand = new Random();
+        return
+                switch (typeForSpawn) {
+                    case PREDATOR -> Predator.newInstance(rand.nextInt(Predator.MIN_HEALTH, Predator.MAX_HEALTH),
+                            rand.nextInt(Predator.MIN_SPEED, Predator.MAX_SPEED),
+                            rand.nextInt(Predator.MIN_ATTACK, Predator.MAX_ATTACK));
+                    case HERBIVORE -> Herbivore.newInstance(rand.nextInt(Herbivore.MIN_HEALTH, Herbivore.MAX_HEALTH),
+                            rand.nextInt(Herbivore.MIN_SPEED, Herbivore.MAX_SPEED));
+                    default -> throw new IllegalStateException();
                 };
     }
 

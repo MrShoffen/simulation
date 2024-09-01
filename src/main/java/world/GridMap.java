@@ -16,7 +16,6 @@ public class GridMap {
         this.height = height;
         this.width = width;
         cells = new HashMap<>();
-
     }
 
     public boolean cellIsBusy(Cell cell) {
@@ -54,7 +53,7 @@ public class GridMap {
     public void removeEntity(Entity entity) {
         cells.values().remove(entity);
     }
-//todo mojet bit tut null
+
     public Entity getEntity(Cell cell) {
         return cells.get(cell);
     }

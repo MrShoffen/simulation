@@ -1,7 +1,7 @@
 package game.actions;
 
 import world.GridMap;
-import world.MapUtils;
+import world.GridMapUtils;
 import world.entities.creatures.Creature;
 
 import java.util.Collections;
@@ -16,7 +16,7 @@ public final class MoveAction extends Action {
         super(map);
         moveInProgress = true;
         currentStep = 1;
-        creaturesWithMoves = MapUtils.allCreaturesFromMap(map);
+        creaturesWithMoves = GridMapUtils.allCreaturesFromMap(map);
     }
 
     @Override
@@ -25,7 +25,7 @@ public final class MoveAction extends Action {
 
         if (creaturesWithMoves.isEmpty()) {
             moveInProgress = false;
-            MapUtils.allCreaturesFromMap(map).forEach(Creature::allowToMove);
+            GridMapUtils.allCreaturesFromMap(map).forEach(Creature::allowToMove);
         } else {
             Collections.shuffle(creaturesWithMoves);
             creaturesWithMoves.forEach(creature -> creature.move(map));

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class MapUtils {
+public class GridMapUtils {
     public static List<Creature> allCreaturesFromMap(GridMap map) {
         return map.allEntities().stream()
                 .filter(entity -> entity instanceof Creature)

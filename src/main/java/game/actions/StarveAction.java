@@ -1,7 +1,7 @@
 package game.actions;
 
 import world.GridMap;
-import world.MapUtils;
+import world.GridMapUtils;
 import world.entities.creatures.Creature;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public final class StarveAction extends Action {
 
     @Override
     public void perform() {
-        List<Creature> allCreatures = MapUtils.allCreaturesFromMap(map);
+        List<Creature> allCreatures = GridMapUtils.allCreaturesFromMap(map);
 
         for (Creature creature : allCreatures) {
             if (creature.movesWithoutFood() >= MOVE_NUMBER_FOR_STARVING) {
