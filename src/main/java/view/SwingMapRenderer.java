@@ -1,6 +1,5 @@
-package view.swing;
+package view;
 
-import view.MapRenderer;
 import world.map.Cell;
 import world.map.GridMap;
 import world.entities.Entity;

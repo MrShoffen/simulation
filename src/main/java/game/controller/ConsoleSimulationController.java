@@ -1,8 +1,9 @@
-package view.console;
+package game.controller;
 
 import input.ConsoleInput;
 import game.Simulation;
-import view.SimulationController;
+import view.ConsoleMapRenderer;
+import world.map.GridMap;
 
 import java.util.regex.Pattern;
 
@@ -12,15 +13,12 @@ public class ConsoleSimulationController extends SimulationController {
 
     private static final int MILLIS_PAUSE_BETWEEN_TURNS = 750;
 
-    public ConsoleSimulationController(Simulation simulation) {
-        super(simulation);
+    public ConsoleSimulationController(GridMap map) {
+        simulation = new Simulation(map, new ConsoleMapRenderer());
     }
 
     @Override
     public void run() {
-        gameRunning = true;
-        simulationIsAutoRunning = true;
-
         while (gameRunning) {
             if (simulationIsAutoRunning) {
                 simulation.nextTurn();
@@ -30,25 +28,32 @@ public class ConsoleSimulationController extends SimulationController {
         }
     }
 
-    public static void runConsoleSimulation(Simulation sim) {
-        SimulationController game = new ConsoleSimulationController(sim);
-        Thread gameThread = new Thread(game);
+    @Override
+    public void startSimulation() {
+        gameRunning = true;
+        simulationIsAutoRunning = true;
+        new Thread(this).start();
+        readConsoleInputForRunningSimulation();
+    }
 
-        gameThread.start();
+    public void stopSimulation() {
+        pauseSimulation();
+        gameRunning = false;
+    }
 
+    private void readConsoleInputForRunningSimulation() {
         int choiceInRunningMenu;
         final int PAUSE = 1;
         final int RESUME = 2;
-        final int EXIT  = 3;
+        final int EXIT = 3;
         do {
             choiceInRunningMenu = ConsoleInput.readIntMatchingPattern(PATTERN_FOR_RUNNING_MENU_CHOICE);
-            if(choiceInRunningMenu == PAUSE){
-                game.pause();
-            } else if(choiceInRunningMenu == RESUME){
-                game.resume();
+            if (choiceInRunningMenu == PAUSE) {
+                this.pauseSimulation();
+            } else if (choiceInRunningMenu == RESUME) {
+                this.resumeSimulation();
             }
-        } while ( choiceInRunningMenu != EXIT);
-        game.stop();
+        } while (choiceInRunningMenu != EXIT);
+        this.stopSimulation();
     }
-
 }

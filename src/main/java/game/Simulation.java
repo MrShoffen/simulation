@@ -5,7 +5,7 @@ import game.actions.MoveAction;
 import game.actions.SpawnAction;
 import game.actions.StarveAction;
 import view.MapRenderer;
-import view.SimulationController;
+import game.controller.SimulationController;
 import world.map.GridMap;
 import world.entities.Entity;
 

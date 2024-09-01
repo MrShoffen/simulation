@@ -1,28 +1,26 @@
-package view.swing;
+package game.controller;
 
 
 import game.Simulation;
-import view.SimulationController;
+import view.SwingMapRenderer;
 import world.entities.creatures.Herbivore;
 import world.entities.creatures.Predator;
+import world.map.GridMap;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class SwingSimulationController extends SimulationController {
-    public final static Image ICON = Toolkit.getDefaultToolkit().getImage("src/main/resources/icon.png");
-
-    protected int delayTimeInMillis;
+    public final static Image ICON = Toolkit.getDefaultToolkit().getImage("src" + File.separator + "main" + File.separator + "resources" + File.separator + "icon.png");
 
     JFrame mainWindow;
-    private JLabel simCount;
+    private JLabel simulationCount;
     private JLabel predatorCount;
     private JLabel herbivoreCount;
 
-
-    public SwingSimulationController(Simulation sim) {
-        super(sim);
-        delayTimeInMillis = 250;
+    public SwingSimulationController(GridMap map) {
+        simulation = new Simulation(map, new SwingMapRenderer());
         initializeWindow();
     }
 
@@ -44,9 +42,9 @@ public class SwingSimulationController extends SimulationController {
         JButton startPauseButton = createStartPauseButton();
         JLabel sliderLabel = new JLabel("Скорость симуляции");
         JSlider slider = createSpeedSlider();
-        simCount = new JLabel("Шаг симлуляции: " + simulation.getSimulationCount());
-        predatorCount = new JLabel("Хищники: " + 12);
-        herbivoreCount = new JLabel("Травоядные: " + 43);
+        simulationCount = new JLabel("Шаг симлуляции: " + simulation.getSimulationCount());
+        predatorCount = new JLabel("Хищники: ");
+        herbivoreCount = new JLabel("Травоядные: ");
 
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
@@ -56,14 +54,14 @@ public class SwingSimulationController extends SimulationController {
         controlPanel.add(sliderLabel);
         controlPanel.add(slider);
         controlPanel.add(Box.createRigidArea(new Dimension(0, 30)));
-        controlPanel.add(simCount);
+        controlPanel.add(simulationCount);
         controlPanel.add(predatorCount);
         controlPanel.add(herbivoreCount);
         return controlPanel;
     }
 
     private void updateSimulationStats() {
-        simCount.setText("Шаг симлуляции: " + simulation.getSimulationCount());
+        simulationCount.setText("Шаг симлуляции: " + simulation.getSimulationCount());
         predatorCount.setText("Хищники: " + simulation.getEntityCountByType(Predator.class));
         herbivoreCount.setText("Травоядные: " + simulation.getEntityCountByType(Herbivore.class));
     }
@@ -82,17 +80,17 @@ public class SwingSimulationController extends SimulationController {
         JButton startPauseButton = new JButton("Start");
         startPauseButton.addActionListener(_ -> {
             if (simulationIsAutoRunning) {
-                pause();
+                pauseSimulation();
                 startPauseButton.setText("Resume");
             } else {
-                resume();
+                resumeSimulation();
                 startPauseButton.setText("Pause");
             }
         });
         return startPauseButton;
     }
 
-    void launch() {
+    void launchWindow() {
         mainWindow.setLocationRelativeTo(null);
         mainWindow.requestFocus();
         mainWindow.toFront();
@@ -101,15 +99,19 @@ public class SwingSimulationController extends SimulationController {
 
     @Override
     public void run() {
-        launch();
-        gameRunning = true;
-        simulationIsAutoRunning = false;
-
         while (gameRunning) {
             if (simulationIsAutoRunning) {
                 simulation.nextTurn();
             }
             updateSimulationStats();
         }
+    }
+
+    @Override
+    public void startSimulation() {
+        launchWindow();
+        gameRunning = true;
+        simulationIsAutoRunning = false;
+        new Thread(this).start();
     }
 }

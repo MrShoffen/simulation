@@ -1,29 +1,22 @@
-import game.Simulation;
-import view.MapRenderer;
-import view.SimulationController;
-import view.swing.SwingMapRenderer;
+import input.ConsoleInput;
+import game.controller.SimulationController;
 import world.map.GridMap;
 
 public class Main
 {
-
-
     public static void main(String[] args)   {
-//        System.out.println(ConsoleInput.ASK_FOR_WIDTH);
-//        int width = ConsoleInput.readIntMatchingPattern(ConsoleInput.PATTERN_FOR_WIDTH_HEIGHT_INPUT);
-//        System.out.println(ConsoleInput.ASK_FOR_HEIGHT);
-//        int height = ConsoleInput.readIntMatchingPattern(ConsoleInput.PATTERN_FOR_WIDTH_HEIGHT_INPUT);
-//        GridMap map = new GridMap(height,width);
-//
-//        System.out.println(ConsoleInput.ASK_FOR_RENDERER_CHOICE);
-//        MapRenderer renderer = ConsoleInput.chooseMapRenderer();
+        System.out.println(ConsoleInput.ASK_FOR_WIDTH);
+        int width = ConsoleInput.readIntMatchingPattern(ConsoleInput.PATTERN_FOR_WIDTH_HEIGHT_INPUT);
+        System.out.println(ConsoleInput.ASK_FOR_HEIGHT);
+        int height = ConsoleInput.readIntMatchingPattern(ConsoleInput.PATTERN_FOR_WIDTH_HEIGHT_INPUT);
+        GridMap map = new GridMap(height,width);
 
-        GridMap map = new GridMap(15,15);
-        MapRenderer renderer = new SwingMapRenderer();
+        System.out.println(ConsoleInput.ASK_FOR_UI);
+        SimulationController.Ui ui = ConsoleInput.chooseUi();
 
-        Simulation simulation  = new Simulation(map,renderer);
+        SimulationController controller = SimulationController.createFromUi(ui,map);
 
-        SimulationController.runSimulation(simulation);
+        controller.startSimulation();
     }
 
 
