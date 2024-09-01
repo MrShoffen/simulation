@@ -2,8 +2,8 @@ package game;
 
 import game.actions.Action;
 import game.actions.MoveAction;
+import game.actions.SpawnAction;
 import game.actions.StarveAction;
-import game.actions.spawn.*;
 import view.MapRenderer;
 import view.SimulationController;
 import world.GridMap;
@@ -48,19 +48,21 @@ public class Simulation {
     }
 
     private void initActions() {
-        actions.add(new RockSpawnAction(map));
-        actions.add(new GrassSpawnAction(map));
-        actions.add(new TreeSpawnAction(map));
-        actions.add(new HerbivoreSpawnAction(map));
-        actions.add(new PredatorSpawnAction(map));
+        actions.add(new SpawnAction(map, SpawnAction.TypeForSpawn.ROCK));
+        actions.add(new SpawnAction(map, SpawnAction.TypeForSpawn.GRASS));
+        actions.add(new SpawnAction(map, SpawnAction.TypeForSpawn.TREE));
+        actions.add(new SpawnAction(map, SpawnAction.TypeForSpawn.HERBIVORE));
+        actions.add(new SpawnAction(map, SpawnAction.TypeForSpawn.PREDATOR));
     }
 
     private void addActions() {
         actions.add(new MoveAction(map));
-        actions.add(new GrassSpawnAction(map));
+        actions.add(new SpawnAction(map, SpawnAction.TypeForSpawn.GRASS));
+
 //        actions.add(new BreedAction(map));
         actions.add(new StarveAction(map));
-        actions.add(new HerbivoreSpawnAction(map));
+        actions.add(new SpawnAction(map, SpawnAction.TypeForSpawn.HERBIVORE));
+
     }
 
     private void performAllActions() {

@@ -20,11 +20,8 @@ public class MapUtils {
             int x = random.nextInt(map.getWidth());
             int y = random.nextInt(map.getHeight());
             result = new Cell(x, y);
-
         } while (map.cellIsBusy(result));
 
         return result;
     }
-
-
 }

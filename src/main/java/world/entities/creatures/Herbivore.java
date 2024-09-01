@@ -26,13 +26,17 @@ public final class Herbivore extends Creature implements Consumable {
 
     @Override
     public int healingPowerAfterDeath() {
-        return maxHealth/2;
+        return maxHealth / 2;
+    }
+
+    public static Herbivore newInstance(int health, int speed) {
+        return new Herbivore(health, speed);
     }
 
     public static Herbivore randomHerbivore() {
         Random random = new Random();
-        int randomHealth = random.nextInt(MINIMUM_HEALTH,MAXIMUM_HEALTH);
-        int randomSpeed = random.nextInt(MINIMUM_SPEED,MAXIMUM_SPEED);
+        int randomHealth = random.nextInt(MINIMUM_HEALTH, MAXIMUM_HEALTH);
+        int randomSpeed = random.nextInt(MINIMUM_SPEED, MAXIMUM_SPEED);
         return new Herbivore(randomHealth, randomSpeed);
     }
 

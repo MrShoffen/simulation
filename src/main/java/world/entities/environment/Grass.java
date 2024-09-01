@@ -13,4 +13,10 @@ public final class Grass extends Entity implements Consumable {
     public int healingPowerAfterDeath() {
         return new Random().nextInt(MIN_GRASS_HEAL_VALUE,MAX_GRASS_HEAL_VALUE);
     }
+
+    public static Grass newInstance(){
+        return new Grass();
+    }
+
+
 }
