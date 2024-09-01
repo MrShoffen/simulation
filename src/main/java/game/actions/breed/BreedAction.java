@@ -1,8 +1,8 @@
 //package game.actions.breed;
 //
 //import game.actions.Action;
-//import world.Cell;
-//import world.GridMap;
+//import world.map.Cell;
+//import world.map.GridMap;
 //import world.entities.creatures.Creature;
 //
 //import java.util.HashSet;

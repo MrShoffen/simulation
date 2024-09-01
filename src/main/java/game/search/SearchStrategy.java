@@ -1,7 +1,7 @@
 package game.search;
 
-import world.Cell;
-import world.GridMap;
+import world.map.Cell;
+import world.map.GridMap;
 import world.entities.Consumable;
 
 public interface SearchStrategy {

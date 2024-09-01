@@ -1,8 +1,8 @@
 package view.swing;
 
 import view.MapRenderer;
-import world.Cell;
-import world.GridMap;
+import world.map.Cell;
+import world.map.GridMap;
 import world.entities.Entity;
 import world.entities.creatures.Creature;
 import world.entities.creatures.Herbivore;

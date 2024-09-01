@@ -1,8 +1,8 @@
 package view.console;
 
 import view.MapRenderer;
-import world.Cell;
-import world.GridMap;
+import world.map.Cell;
+import world.map.GridMap;
 import world.entities.Entity;
 import world.entities.creatures.Herbivore;
 import world.entities.creatures.Predator;

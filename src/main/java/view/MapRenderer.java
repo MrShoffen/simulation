@@ -1,6 +1,6 @@
 package view;
 
-import world.GridMap;
+import world.map.GridMap;
 
 public interface MapRenderer {
     void render(GridMap map);

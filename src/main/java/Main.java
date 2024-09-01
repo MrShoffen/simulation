@@ -1,10 +1,8 @@
-import input.ConsoleInput;
 import game.Simulation;
 import view.MapRenderer;
 import view.SimulationController;
-import view.console.ConsoleMapRenderer;
 import view.swing.SwingMapRenderer;
-import world.GridMap;
+import world.map.GridMap;
 
 public class Main
 {

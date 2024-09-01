@@ -1,8 +1,8 @@
 package game.search;
 
-import world.Cell;
-import world.GridMap;
 import world.entities.Consumable;
+import world.map.Cell;
+import world.map.GridMap;
 
 import java.util.*;
 
@@ -25,7 +25,7 @@ public final class BFSSearchStrategy implements SearchStrategy {
 
             for (Cell neighbour : neighbours(currentCell)) {
                 if (!visited.contains(neighbour)) {
-                    if (CellHasNoTarget(neighbour,target)) {
+                    if (cellHasNoTarget(neighbour,target)) {
                         visited.add(neighbour);
                     } else {
                         queue.add(neighbour);
@@ -58,7 +58,7 @@ public final class BFSSearchStrategy implements SearchStrategy {
         return neighbours;
     }
 
-    private boolean CellHasNoTarget(Cell neighbour, Class<? extends Consumable> target) {
+    private boolean cellHasNoTarget(Cell neighbour, Class<? extends Consumable> target) {
         return map.cellIsBusy(neighbour) && map.getEntity(neighbour).getClass() != target;
     }
 

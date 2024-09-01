@@ -2,8 +2,8 @@ package world.entities.creatures;
 
 import game.search.BFSSearchStrategy;
 import game.search.SearchStrategy;
-import world.Cell;
-import world.GridMap;
+import world.map.Cell;
+import world.map.GridMap;
 import world.entities.Consumable;
 import world.entities.Entity;
 
@@ -37,7 +37,6 @@ public abstract class Creature extends Entity {
         Cell startingCell = startOptCell.get();
         Cell nextCell = strategy.findNextCellToTarget(startingCell, map, victimClass);
 
-
         boolean victimIsConsumed = false;
         if (nextCellContainsVictim(nextCell, map)) {
             canMove = false;
@@ -48,7 +47,6 @@ public abstract class Creature extends Entity {
                 return;
             }
         }
-
         if (victimIsConsumed) {
             movesWithoutFood = 0;
         } else {

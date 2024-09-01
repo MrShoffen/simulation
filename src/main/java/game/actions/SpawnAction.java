@@ -1,8 +1,8 @@
 package game.actions;
 
-import world.Cell;
-import world.GridMap;
-import world.GridMapUtils;
+import world.map.Cell;
+import world.map.GridMap;
+import world.map.GridMapUtils;
 import world.entities.Entity;
 import world.entities.creatures.Creature;
 import world.entities.creatures.Herbivore;

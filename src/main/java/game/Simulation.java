@@ -6,7 +6,7 @@ import game.actions.SpawnAction;
 import game.actions.StarveAction;
 import view.MapRenderer;
 import view.SimulationController;
-import world.GridMap;
+import world.map.GridMap;
 import world.entities.Entity;
 
 import java.util.ArrayList;
@@ -19,12 +19,8 @@ public class Simulation {
     private final ArrayList<Action> actions;
 
     int simulationCount;
-
-    public void setMillisPauseBetweenMoves(int millisPauseBetweenMoves) {
-        this.millisPauseBetweenMoves = millisPauseBetweenMoves;
-    }
-
     int millisPauseBetweenMoves;
+
 
     public Simulation(GridMap map, MapRenderer renderer) {
         this.map = map;
@@ -37,6 +33,10 @@ public class Simulation {
         initActions();
         performAllActions();
         renderer.render(map);
+    }
+
+    public void setMillisPauseBetweenMoves(int millisPauseBetweenMoves) {
+        this.millisPauseBetweenMoves = millisPauseBetweenMoves;
     }
 
     public MapRenderer getRenderer() {
@@ -81,14 +81,12 @@ public class Simulation {
             action.perform();
             renderer.render(map);
             SimulationController.delay(millisPauseBetweenMoves);
-            System.out.println();
         }
     }
 
     public int getEntityCountByType(Class<? extends Entity> type) {
         return (int) map.allEntities().stream().filter(entity -> entity.getClass() == type).count();
     }
-
 
     public void nextTurn() {
         simulationCount++;
@@ -97,6 +95,5 @@ public class Simulation {
         performAllActions();
 
         renderer.render(map);
-
     }
 }

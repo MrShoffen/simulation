@@ -1,4 +1,4 @@
-package world;
+package world.map;
 
 import world.entities.Entity;
 

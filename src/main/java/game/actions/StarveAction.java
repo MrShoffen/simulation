@@ -1,7 +1,7 @@
 package game.actions;
 
-import world.GridMap;
-import world.GridMapUtils;
+import world.map.GridMap;
+import world.map.GridMapUtils;
 import world.entities.creatures.Creature;
 
 import java.util.List;
