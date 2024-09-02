@@ -11,6 +11,7 @@ import world.map.GridMap;
 import world.entities.Entity;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class Simulation {
     private static final int DEFAULT_PAUSE_BETWEEN_MOVES = 250;
@@ -57,7 +58,10 @@ public class Simulation {
     }
 
     private void addActions() {
-        actions.add(new MoveAction(map));
+        MoveAction move = new MoveAction(map);
+        move.setListener(renderer);
+        actions.add(move);
+
         actions.add(new SpawnAction(map, SpawnAction.EntityType.GRASS));
         actions.add(new SpawnAction(map, SpawnAction.EntityType.HERBIVORE));
         actions.add(new BreedAction(map));
@@ -65,23 +69,10 @@ public class Simulation {
     }
 
     private void performAllActions() {
-        for (Action action : actions) {
-            if (action instanceof MoveAction) {
-                performMoveAction((MoveAction) action);
-            } else {
-                action.perform();
-            }
-        }
+        actions.forEach(Action::perform);
         actions.clear();
     }
 
-    public void performMoveAction(MoveAction action) {
-        while (action.moveInProgress()) {
-            action.perform();
-            renderer.render(map);
-            SimulationController.delay(millisPauseBetweenMoves);
-        }
-    }
 
     public int getEntityCountByType(Class<? extends Entity> type) {
         return (int) map.allEntities().stream().filter(entity -> entity.getClass() == type).count();

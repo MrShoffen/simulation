@@ -161,4 +161,9 @@ public class SwingMapRenderer extends JPanel implements MapRenderer {
         imageLabel.setMaximumSize(dim);
         return imageLabel;
     }
+
+    @Override
+    public void handleMapChange(GridMap map) {
+        render(map);
+    }
 }

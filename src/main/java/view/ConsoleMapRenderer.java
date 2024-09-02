@@ -62,6 +62,11 @@ public final class ConsoleMapRenderer implements MapRenderer {
         return " " + EMPTY_CELL_EMOJI + " ";
     }
 
+    @Override
+    public void handleMapChange(GridMap map) {
+        render(map);
+    }
+
     private enum ANSIIColor {
         DEFAULT("\u001B[0m"),
         RED("\u001B[31m"),
