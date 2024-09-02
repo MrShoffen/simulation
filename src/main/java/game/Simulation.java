@@ -48,20 +48,20 @@ public class Simulation {
     }
 
     private void initActions() {
-        actions.add(new SpawnAction(map, SpawnAction.TypeForSpawn.ROCK));
-        actions.add(new SpawnAction(map, SpawnAction.TypeForSpawn.GRASS));
-        actions.add(new SpawnAction(map, SpawnAction.TypeForSpawn.TREE));
-        actions.add(new SpawnAction(map, SpawnAction.TypeForSpawn.HERBIVORE));
-        actions.add(new SpawnAction(map, SpawnAction.TypeForSpawn.PREDATOR));
+        actions.add(new SpawnAction(map, SpawnAction.EntityType.ROCK));
+        actions.add(new SpawnAction(map, SpawnAction.EntityType.GRASS));
+        actions.add(new SpawnAction(map, SpawnAction.EntityType.TREE));
+        actions.add(new SpawnAction(map, SpawnAction.EntityType.HERBIVORE));
+        actions.add(new SpawnAction(map, SpawnAction.EntityType.PREDATOR));
     }
 
     private void addActions() {
         actions.add(new MoveAction(map));
-        actions.add(new SpawnAction(map, SpawnAction.TypeForSpawn.GRASS));
+        actions.add(new SpawnAction(map, SpawnAction.EntityType.GRASS));
 
 //        actions.add(new BreedAction(map));
         actions.add(new StarveAction(map));
-        actions.add(new SpawnAction(map, SpawnAction.TypeForSpawn.HERBIVORE));
+        actions.add(new SpawnAction(map, SpawnAction.EntityType.HERBIVORE));
 
     }
 
