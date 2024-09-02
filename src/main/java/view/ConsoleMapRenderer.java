@@ -18,9 +18,9 @@ public final class ConsoleMapRenderer implements MapRenderer {
     private static final String TREE_EMOJI = "\uD83C\uDF33";
     private static final String EMPTY_CELL_EMOJI = "\uD83D\uDFEB";
 
-    private static final String ATTACK_COLOR = ANSIIColor.RED.getCode();
-    private static final String HEALTH_COLOR = ANSIIColor.GREEN.getCode();
-    private static final String RESET_COLOR = ANSIIColor.DEFAULT.getCode();
+    private static final String ATTACK_COLOR = ANSIIColor.RED.code();
+    private static final String HEALTH_COLOR = ANSIIColor.GREEN.code();
+    private static final String RESET_COLOR = ANSIIColor.DEFAULT.code();
 
     @Override
     public void render(GridMap map) {
@@ -73,7 +73,7 @@ public final class ConsoleMapRenderer implements MapRenderer {
             this.code = code;
         }
 
-        public String getCode() {
+        public String code() {
             return code;
         }
     }

@@ -190,17 +190,18 @@ new Thread(swingController).start();
 SimulationController в соответствии с UI. Добавил метод startSimulation для запуска*
 ```java
 SimulationController controller = SimulationController.createFromUI(ui,map);
-controller.startSimulation()
+controller.startSimulation();
 ```
 
-Алексей, [31.08.2024 13:42]
 ### 11. class SwingCell extends JPanel и class SwingMapRenderer extends JPanel implements MapRenderer, рендерят карту в окно через Свинг.
 
--Распределение ответственностей мне не нравится. Очевидно, что хранить спрайты существ и т.д. должен Рендерер, а не Ячейка.
+>-Распределение ответственностей мне не нравится. Очевидно, что хранить спрайты существ и т.д. должен Рендерер, а не Ячейка.
+
+*Переместил хранение спрайтов существ в SwingMapRenderer*
 
 ### 12. class ConsoleMapRenderer implements MapRenderer
 
--Не ясно, какой именно цвет соответствует атаке, лечению и т.д. При необходимости будет труднее поменять
+>-Не ясно, какой именно цвет соответствует атаке, лечению и т.д. При необходимости будет труднее поменять
 public final class ConsoleMapRenderer implements MapRenderer {
 private static final String ATTACK_COLOR = "\u001B[31m";
 private static final String HEALTH_COLOR = "\u001B[32m";
@@ -208,34 +209,21 @@ private static final String RESET_COLOR = "\u001B[0m";
 //...
 }
 
-//ЛУЧШЕ:
-public final class ConsoleMapRenderer implements MapRenderer {
-private static final String ATTACK_COLOR = Color.RED.getCode();
-private static final String HEALTH_COLOR = Color.GREEN.getCode();
-private static final String RESET_COLOR = Color.DEFAULT.getCode();
-//...
-
-private enum Color {
-DEFAULT("\u001B[0m"),
-RED("\u001B[31m"),
-GREEN("\u001B[32m"),
-BLUE("\u001B[34m"),
-YELLOW("\u001B[33m"),
-PURPLE("\u001B[35m"),
-CYAN("\u001B[36m"),
-;
+*Вынес ANSII коды в отдельный enum*
+```java
+private enum ANSIIColor {
+    DEFAULT("\u001B[0m"),
+    RED("\u001B[31m"),
+    GREEN("\u001B[32m");
 
     private final String code;
 
-    Color(String code) {
-      this.code = code;
+    ANSIIColor(String code){ 
+        this.code = code;
     }
 
     public String getCode() {
-      return code;
+        return code;
     }
 }
-
-}
-
-
+```
