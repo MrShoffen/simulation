@@ -33,7 +33,7 @@ public final class ConsoleMapRenderer implements MapRenderer {
             result.append('\n');
         }
 
-        System.out.print(result);
+        System.out.print(result + "\n");
     }
 
     private String stringFromCell(Cell cell, GridMap map) {

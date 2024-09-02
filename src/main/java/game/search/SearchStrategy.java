@@ -3,12 +3,11 @@ package game.search;
 import world.entities.Entity;
 import world.map.Cell;
 import world.map.GridMap;
-import world.entities.Consumable;
 
 import java.util.Optional;
 
 public interface SearchStrategy {
-    Cell findNextCellToTarget(Cell startCell, GridMap map, Class<? extends Consumable> whatToFind);
+    Cell findNextCellToTarget(Cell startCell, GridMap map, Class<? extends Entity> whatToFind);
 
      static Optional<Cell> locateCellOfEntity(GridMap map, Entity entity) {
 

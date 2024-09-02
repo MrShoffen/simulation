@@ -2,15 +2,15 @@ package world.entities.creatures;
 
 import game.search.BFSSearchStrategy;
 import game.search.SearchStrategy;
+import world.entities.Entity;
 import world.map.Cell;
 import world.map.GridMap;
 import world.entities.Consumable;
-import world.entities.Entity;
 
 import java.util.Optional;
 
 public abstract class Creature extends Entity {
-    protected Class<? extends Consumable> victimClass;
+    protected Class<? extends Entity> victimClass;
 
     protected int health;
     protected final int maxHealth;
@@ -30,15 +30,15 @@ public abstract class Creature extends Entity {
     }
 
     public final void move(GridMap map) {
-        Optional<Cell> startOptCell = SearchStrategy.locateCellOfEntity(map,this);
-        if (this.isDead() || startOptCell.isEmpty() || !canMove) {
+        if (this.isDead() || !this.canMove) {
             return;
         }
+        Optional<Cell> startOptCell = SearchStrategy.locateCellOfEntity(map, this);
         Cell startingCell = startOptCell.get();
         Cell nextCell = strategy.findNextCellToTarget(startingCell, map, victimClass);
 
         boolean victimIsConsumed = false;
-        if (nextCellContainsVictim(nextCell, map)) {
+        if (nextCellContainsEntityType(nextCell, victimClass, map)) {
             canMove = false;
             Consumable victim = (Consumable) map.getEntity(nextCell).get();
             victimIsConsumed = attackVictim(victim);
@@ -56,6 +56,18 @@ public abstract class Creature extends Entity {
         map.moveEntity(startingCell, nextCell);
     }
 
+    public final Optional<Creature> findPartnerForBreed(GridMap map) {
+        Cell currentCell = SearchStrategy.locateCellOfEntity(map, this).get();
+        Cell cellWithMate = strategy.findNextCellToTarget(currentCell, map, this.getClass());
+        if (cellWithMate.equals(currentCell)) {
+            return Optional.empty();
+        }
+        if (nextCellContainsEntityType(cellWithMate,this.getClass(),map)) {
+            return Optional.of((Creature) map.getEntity(cellWithMate).get());
+        }
+        return Optional.empty();
+    }
+
     public final int movesWithoutFood() {
         return movesWithoutFood;
     }
@@ -70,8 +82,8 @@ public abstract class Creature extends Entity {
 
     protected abstract boolean attackVictim(Consumable victim);
 
-    private boolean nextCellContainsVictim(Cell nextCell, GridMap map) {
-        return map.getEntity(nextCell).isPresent() && map.getEntity(nextCell).get().getClass() == victimClass;
+    private boolean nextCellContainsEntityType(Cell nextCell, Class<? extends Entity> type, GridMap map) {
+        return map.getEntity(nextCell).isPresent() && map.getEntity(nextCell).get().getClass() == type;
     }
 
     public final int currentHealth() {

@@ -1,6 +1,7 @@
 package game.search;
 
 import world.entities.Consumable;
+import world.entities.Entity;
 import world.map.Cell;
 import world.map.GridMap;
 
@@ -10,7 +11,7 @@ public final class BFSSearchStrategy implements SearchStrategy {
     GridMap map;
 
     @Override
-    public Cell findNextCellToTarget(Cell startCell, GridMap map, Class<? extends Consumable> target) {
+    public Cell findNextCellToTarget(Cell startCell, GridMap map, Class<? extends Entity> target) {
         this.map = map;
 
         List<Cell> visited = new ArrayList<>();
@@ -33,10 +34,10 @@ public final class BFSSearchStrategy implements SearchStrategy {
                     }
                 }
             }
-
-            if (cellHasTarget(currentCell,target)) {
+            if (cellHasTarget(currentCell,target) && !currentCell.equals(startCell)) {
                 return firstCellInRoute(route, currentCell, startCell);
             }
+
         }
         return startCell;
     }
@@ -58,11 +59,11 @@ public final class BFSSearchStrategy implements SearchStrategy {
         return neighbours;
     }
 
-    private boolean cellHasNoTarget(Cell neighbour, Class<? extends Consumable> target) {
+    private boolean cellHasNoTarget(Cell neighbour, Class<? extends Entity> target) {
         return map.getEntity(neighbour).isPresent() && map.getEntity(neighbour).get().getClass() != target;
     }
 
-    private boolean cellHasTarget(Cell cell, Class<? extends Consumable> target) {
+    private boolean cellHasTarget(Cell cell, Class<? extends Entity> target) {
         return map.getEntity(cell).isPresent() && map.getEntity(cell).get().getClass() == target;
     }
 

@@ -23,7 +23,6 @@ public class SpawnAction extends Action {
     @Override
     public final void perform() {
         int quantityForSpawn = getSpawnQuantity();
-
         for (int i = 0; i < quantityForSpawn; i++) {
             Cell randomEmptyCell = ActionUtils.randomEmptyCell(map);
             map.placeEntity(randomEmptyCell, entityType.newInstance());
@@ -42,17 +41,17 @@ public class SpawnAction extends Action {
                 .count();
     }
 
-    public static Herbivore randomHerbivore() {
-        Random rand = new Random();
-        return Herbivore.newInstance(rand.nextInt(Herbivore.MIN_HEALTH, Herbivore.MAX_HEALTH),
-                rand.nextInt(Herbivore.MIN_SPEED, Herbivore.MAX_SPEED));
-    }
-
     public static Predator randomPredator() {
         Random rand = new Random();
         return Predator.newInstance(rand.nextInt(Predator.MIN_HEALTH, Predator.MAX_HEALTH),
                 rand.nextInt(Predator.MIN_SPEED, Predator.MAX_SPEED),
                 rand.nextInt(Predator.MIN_ATTACK, Predator.MAX_ATTACK));
+    }
+
+    public static Herbivore randomHerbivore() {
+        Random rand = new Random();
+        return Herbivore.newInstance(rand.nextInt(Herbivore.MIN_HEALTH, Herbivore.MAX_HEALTH),
+                rand.nextInt(Herbivore.MIN_SPEED, Herbivore.MAX_SPEED));
     }
 
     public enum EntityType {
@@ -78,9 +77,9 @@ public class SpawnAction extends Action {
         private double spawnRate() {
             return spawnRate;
         }
-
         private Class<? extends Entity> entityClass() {
             return entityClass;
         }
+
     }
 }

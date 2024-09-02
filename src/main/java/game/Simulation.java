@@ -4,6 +4,7 @@ import game.actions.Action;
 import game.actions.MoveAction;
 import game.actions.SpawnAction;
 import game.actions.StarveAction;
+import game.actions.BreedAction;
 import view.MapRenderer;
 import game.controller.SimulationController;
 import world.map.GridMap;
@@ -58,11 +59,9 @@ public class Simulation {
     private void addActions() {
         actions.add(new MoveAction(map));
         actions.add(new SpawnAction(map, SpawnAction.EntityType.GRASS));
-
-//        actions.add(new BreedAction(map));
-        actions.add(new StarveAction(map));
         actions.add(new SpawnAction(map, SpawnAction.EntityType.HERBIVORE));
-
+        actions.add(new BreedAction(map));
+        actions.add(new StarveAction(map));
     }
 
     private void performAllActions() {
