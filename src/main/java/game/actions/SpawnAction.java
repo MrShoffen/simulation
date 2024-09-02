@@ -2,7 +2,6 @@ package game.actions;
 
 import world.map.Cell;
 import world.map.GridMap;
-import world.map.GridMapUtils;
 import world.entities.Entity;
 import world.entities.creatures.Creature;
 import world.entities.creatures.Herbivore;
@@ -26,7 +25,7 @@ public class SpawnAction extends Action {
         int quantityForSpawn = getSpawnQuantity();
 
         for (int i = 0; i < quantityForSpawn; i++) {
-            Cell randomEmptyCell = GridMapUtils.randomEmptyCell(map);
+            Cell randomEmptyCell = ActionUtils.randomEmptyCell(map);
             map.placeEntity(randomEmptyCell, randomEntity());
         }
     }

@@ -1,14 +1,14 @@
-package world.map;
+package game.actions;
 
-import world.entities.Entity;
 import world.entities.creatures.Creature;
+import world.map.Cell;
+import world.map.GridMap;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
-//todo raspredelit po nuzhnim klassam
-public class GridMapUtils {
+
+public class ActionUtils {
     public static List<Creature> allCreaturesFromMap(GridMap map) {
         return map.allEntities().stream()
                 .filter(entity -> entity instanceof Creature)
@@ -26,13 +26,4 @@ public class GridMapUtils {
 
         return result;
     }
-    public static Optional<Cell> locateCellOfEntity(GridMap map, Entity entity) {
-        for (Cell cell : map.cells.keySet()) {
-            if (map.cells.get(cell).equals(entity)) {
-                return Optional.of(cell);
-            }
-        }
-        return Optional.empty();
-    }
-
 }

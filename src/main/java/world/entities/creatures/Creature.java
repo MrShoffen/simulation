@@ -6,7 +6,6 @@ import world.map.Cell;
 import world.map.GridMap;
 import world.entities.Consumable;
 import world.entities.Entity;
-import world.map.GridMapUtils;
 
 import java.util.Optional;
 
@@ -31,7 +30,7 @@ public abstract class Creature extends Entity {
     }
 
     public final void move(GridMap map) {
-        Optional<Cell> startOptCell = GridMapUtils.locateCellOfEntity(map,this);
+        Optional<Cell> startOptCell = SearchStrategy.locateCellOfEntity(map,this);
         if (this.isDead() || startOptCell.isEmpty() || !canMove) {
             return;
         }
