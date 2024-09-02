@@ -22,7 +22,7 @@ public class GridMapUtils {
             int x = random.nextInt(map.getWidth());
             int y = random.nextInt(map.getHeight());
             result = new Cell(x, y);
-        } while (map.cellIsBusy(result));
+        } while (map.getEntity(result).isPresent());
 
         return result;
     }

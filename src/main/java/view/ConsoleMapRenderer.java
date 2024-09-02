@@ -37,8 +37,8 @@ public final class ConsoleMapRenderer implements MapRenderer {
     }
 
     private String stringFromCell(Cell cell, GridMap map) {
-        if (map.cellIsBusy(cell)) {
-            return stringFromEntity(map.getEntity(cell));
+        if (map.getEntity(cell).isPresent()) {
+            return stringFromEntity(map.getEntity(cell).get());
         } else {
             return stringFromEmptyCell();
         }

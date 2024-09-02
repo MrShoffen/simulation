@@ -5,6 +5,7 @@ import world.entities.Entity;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class GridMap {
     private final int height;
@@ -15,10 +16,6 @@ public class GridMap {
         this.height = height;
         this.width = width;
         cells = new HashMap<>();
-    }
-
-    public boolean cellIsBusy(Cell cell) {
-        return cells.containsKey(cell);
     }
 
     public int getWidth() {
@@ -35,9 +32,10 @@ public class GridMap {
 
     public void moveEntity(Cell from, Cell to) {
         if (!from.equals(to)) {
-            Entity entity = getEntity(from);
-            cells.remove(from);
-            placeEntity(to, entity);
+            getEntity(from).ifPresent(entity -> {
+                cells.remove(from);
+                placeEntity(to, entity);
+            });
         }
     }
 
@@ -49,9 +47,8 @@ public class GridMap {
         cells.values().remove(entity);
     }
 
-    //todo mojet vernut null
-    public Entity getEntity(Cell cell) {
-        return cells.get(cell);
+    public Optional<Entity> getEntity(Cell cell) {
+        return Optional.ofNullable(cells.get(cell));
     }
 
 

@@ -59,11 +59,11 @@ public final class BFSSearchStrategy implements SearchStrategy {
     }
 
     private boolean cellHasNoTarget(Cell neighbour, Class<? extends Consumable> target) {
-        return map.cellIsBusy(neighbour) && map.getEntity(neighbour).getClass() != target;
+        return map.getEntity(neighbour).isPresent() && map.getEntity(neighbour).get().getClass() != target;
     }
 
     private boolean cellHasTarget(Cell cell, Class<? extends Consumable> target) {
-        return map.cellIsBusy(cell) && map.getEntity(cell).getClass() == target;
+        return map.getEntity(cell).isPresent() && map.getEntity(cell).get().getClass() == target;
     }
 
     private static Cell firstCellInRoute(Map<Cell, Cell> route, Cell targetCell, Cell startCell) {

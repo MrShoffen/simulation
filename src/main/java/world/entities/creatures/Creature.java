@@ -41,7 +41,7 @@ public abstract class Creature extends Entity {
         boolean victimIsConsumed = false;
         if (nextCellContainsVictim(nextCell, map)) {
             canMove = false;
-            Consumable victim = (Consumable) map.getEntity(nextCell);
+            Consumable victim = (Consumable) map.getEntity(nextCell).get();
             victimIsConsumed = attackVictim(victim);
             if (!victimIsConsumed) {
                 movesWithoutFood++;
@@ -72,7 +72,7 @@ public abstract class Creature extends Entity {
     protected abstract boolean attackVictim(Consumable victim);
 
     private boolean nextCellContainsVictim(Cell nextCell, GridMap map) {
-        return map.cellIsBusy(nextCell) && map.getEntity(nextCell).getClass() == victimClass;
+        return map.getEntity(nextCell).isPresent() && map.getEntity(nextCell).get().getClass() == victimClass;
     }
 
     public final int currentHealth() {
