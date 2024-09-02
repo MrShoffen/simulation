@@ -18,7 +18,7 @@ public final class MoveAction extends Action {
         currentStep = 1;
         creaturesWithMoves = GridMapUtils.allCreaturesFromMap(map);
     }
-
+//todo add listener
     @Override
     public void perform() {
         this.filterCreaturesWithMoves();

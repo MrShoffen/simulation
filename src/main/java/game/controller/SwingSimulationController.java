@@ -19,7 +19,7 @@ public class SwingSimulationController extends SimulationController {
     private JLabel predatorCount;
     private JLabel herbivoreCount;
 
-    public SwingSimulationController(GridMap map) {
+    SwingSimulationController(GridMap map) {
         simulation = new Simulation(map, new SwingMapRenderer());
         initializeWindow();
     }

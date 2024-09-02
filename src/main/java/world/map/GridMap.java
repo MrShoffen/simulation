@@ -5,12 +5,11 @@ import world.entities.Entity;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class GridMap {
     private final int height;
     private final int width;
-    private final Map<Cell, Entity> cells;
+    final Map<Cell, Entity> cells;
 
     public GridMap(int height, int width) {
         this.height = height;
@@ -37,7 +36,7 @@ public class GridMap {
     public void moveEntity(Cell from, Cell to) {
         if (!from.equals(to)) {
             Entity entity = getEntity(from);
-            clearCell(from);
+            cells.remove(from);
             placeEntity(to, entity);
         }
     }
@@ -46,24 +45,14 @@ public class GridMap {
         cells.put(cell, entity);
     }
 
-    private void clearCell(Cell cell) {
-        cells.remove(cell);
-    }
-
     public void removeEntity(Entity entity) {
         cells.values().remove(entity);
     }
 
+    //todo mojet vernut null
     public Entity getEntity(Cell cell) {
         return cells.get(cell);
     }
 
-    public Optional<Cell> locateCellOfEntity(Entity entity) {
-        for (Cell cell : cells.keySet()) {
-            if (cells.get(cell).equals(entity)) {
-                return Optional.of(cell);
-            }
-        }
-        return Optional.empty();
-    }
+
 }

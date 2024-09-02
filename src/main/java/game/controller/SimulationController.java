@@ -21,7 +21,7 @@ public abstract class SimulationController implements Runnable {
             simulationIsAutoRunning = true;
     }
 
-    public static SimulationController createFromUi(Ui ui, GridMap map){
+    public static SimulationController createFromUI(UI ui, GridMap map){
         return switch (ui){
             case SWING -> new SwingSimulationController(map);
             case CONSOLE -> new ConsoleSimulationController(map);
@@ -36,7 +36,7 @@ public abstract class SimulationController implements Runnable {
         }
     }
 
-    public enum Ui{
+    public enum UI {
         CONSOLE,
         SWING
     }

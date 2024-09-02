@@ -12,9 +12,9 @@ public class Main
         GridMap map = new GridMap(height,width);
 
         System.out.println(ConsoleInput.ASK_FOR_UI);
-        SimulationController.Ui ui = ConsoleInput.chooseUi();
+        SimulationController.UI ui = ConsoleInput.chooseUi();
 
-        SimulationController controller = SimulationController.createFromUi(ui,map);
+        SimulationController controller = SimulationController.createFromUI(ui,map);
 
         controller.startSimulation();
     }

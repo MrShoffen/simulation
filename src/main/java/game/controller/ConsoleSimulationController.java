@@ -13,7 +13,7 @@ public class ConsoleSimulationController extends SimulationController {
 
     private static final int MILLIS_PAUSE_BETWEEN_TURNS = 750;
 
-    public ConsoleSimulationController(GridMap map) {
+    ConsoleSimulationController(GridMap map) {
         simulation = new Simulation(map, new ConsoleMapRenderer());
     }
 

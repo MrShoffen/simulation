@@ -15,12 +15,12 @@ public class ConsoleInput {
 
     public final static String ERROR_INPUT_TRY_AGAIN = "Неправильный ввод! Попробуйте еще раз.";
 
-    public static SimulationController.Ui chooseUi() {
+    public static SimulationController.UI chooseUi() {
         int result = readIntMatchingPattern(PATTERN_FOR_RENDERER_MENU_CHOICE);
         if (result == 1) {
-            return SimulationController.Ui.CONSOLE;
+            return SimulationController.UI.CONSOLE;
         } else {
-            return SimulationController.Ui.SWING;
+            return SimulationController.UI.SWING;
         }
     }
 
