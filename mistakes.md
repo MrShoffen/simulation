@@ -224,9 +224,7 @@ SimulationController в соответствии с UI. Добавил мето�
 
 ```java
 SimulationController controller = SimulationController.createFromUI(ui, map);
-controller.
-
-startSimulation();
+controller.startSimulation();
 ```
 
 ### 11. class SwingCell extends JPanel и class SwingMapRenderer extends JPanel implements MapRenderer, рендерят карту в окно через Свинг.
