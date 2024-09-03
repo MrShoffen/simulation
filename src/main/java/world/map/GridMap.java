@@ -40,7 +40,13 @@ public class GridMap {
     }
 
     public void placeEntity(Cell cell, Entity entity) {
-        cells.put(cell, entity);
+        if (!cellOutOfBound(cell)) {
+            cells.put(cell, entity);
+        }
+    }
+
+    private boolean cellOutOfBound(Cell cell) {
+        return cell.x() < 0 || cell.x() >= width || cell.y() < 0 || cell.y() >= height;
     }
 
     public void removeEntity(Entity entity) {
