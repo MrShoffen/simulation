@@ -19,28 +19,31 @@ import java.util.Map;
 
 
 public class SwingMapRenderer extends JPanel implements MapRenderer {
+    private int millisDelay;
+
     private static final Dimension TEXT_LABEL_DIMENSION = new Dimension(42, 10);
+
     private static final Dimension IMAGE_DIMENSION = new Dimension(48, 26);
     private static final Dimension CELL_DIMENSION = new Dimension(48, 48);
-
     private static final Color EMPTY_CELL_COLOR = new Color(224, 181, 128, 163);
+
     private static final Color ATTACK_TEXT_COLOR = new Color(124, 13, 13);
     private static final Color HEALTH_TEXT_COLOR = new Color(7, 119, 8);
     private static final Color MOVING_CREATURE_COLOR = new Color(143, 162, 126, 255);
-
     private static final ImageIcon PREDATOR_IMAGE = new ImageIcon("src" + File.separator + "main" + File.separator + "resources" + File.separator + "predator.png");
+
     private static final ImageIcon ROCK_IMAGE = new ImageIcon("src" + File.separator + "main" + File.separator + "resources" + File.separator + "rock.png");
     private static final ImageIcon GRASS_IMAGE = new ImageIcon("src" + File.separator + "main" + File.separator + "resources" + File.separator + "grass.png");
     private static final ImageIcon TREE_IMAGE = new ImageIcon("src" + File.separator + "main" + File.separator + "resources" + File.separator + "tree.png");
     private static final ImageIcon HERBIVORE_IMAGE = new ImageIcon("src" + File.separator + "main" + File.separator + "resources" + File.separator + "herbivore.png");
 
-
     Map<Cell, JPanel> swingCells = new HashMap<>();
-    boolean firstRender;
 
+    boolean firstRender;
     public SwingMapRenderer() {
         setLayout(new GridLayout());
         firstRender = true;
+        millisDelay = 250;
     }
 
     @Override
@@ -50,15 +53,21 @@ public class SwingMapRenderer extends JPanel implements MapRenderer {
             firstRender = false;
         }
         for (Cell cell : swingCells.keySet()) {
-            refreshSwingCell(swingCells.get(cell),cell,map);
+            refreshSwingCell(swingCells.get(cell), cell, map);
         }
         SwingUtilities.invokeLater(() -> {
             revalidate();
             repaint();
         });
+        delay(millisDelay);
     }
 
-    public void initRender(GridMap map) {
+    @Override
+    public void setDelayTime(int millis) {
+        millisDelay = millis;
+    }
+
+    private void initRender(GridMap map) {
         ((GridLayout) getLayout()).setColumns(map.getWidth());
         ((GridLayout) getLayout()).setRows(map.getHeight());
 
@@ -72,12 +81,12 @@ public class SwingMapRenderer extends JPanel implements MapRenderer {
         }
     }
 
-    private void refreshSwingCell(JPanel swingCell, Cell cell, GridMap map){
+    private void refreshSwingCell(JPanel swingCell, Cell cell, GridMap map) {
         swingCell.removeAll();
         if (map.getEntity(cell).isEmpty()) {
             swingCell.setBackground(EMPTY_CELL_COLOR);
         } else {
-            addEntityToCell(swingCell,map.getEntity(cell).get());
+            addEntityToCell(swingCell, map.getEntity(cell).get());
         }
     }
 
@@ -112,7 +121,7 @@ public class SwingMapRenderer extends JPanel implements MapRenderer {
                     case Tree _ -> TREE_IMAGE;
                     case null, default -> throw new IllegalStateException();
                 };
-        swingCell.add(imageLabel(print,CELL_DIMENSION));
+        swingCell.add(imageLabel(print, CELL_DIMENSION));
     }
 
     private void addCreatureToCell(JPanel swingCell, Creature creature) {
@@ -135,7 +144,7 @@ public class SwingMapRenderer extends JPanel implements MapRenderer {
         }
 
         swingCell.add(healthLabel(health));
-        swingCell.add(imageLabel(creaturePicture,IMAGE_DIMENSION));
+        swingCell.add(imageLabel(creaturePicture, IMAGE_DIMENSION));
         swingCell.add(attackLabel(attack));
     }
 
@@ -160,10 +169,5 @@ public class SwingMapRenderer extends JPanel implements MapRenderer {
         imageLabel.setMinimumSize(dim);
         imageLabel.setMaximumSize(dim);
         return imageLabel;
-    }
-
-    @Override
-    public void handleMapChange(GridMap map) {
-        render(map);
     }
 }

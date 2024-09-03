@@ -22,6 +22,8 @@ public final class ConsoleMapRenderer implements MapRenderer {
     private static final String HEALTH_COLOR = ANSIIColor.GREEN.code();
     private static final String RESET_COLOR = ANSIIColor.DEFAULT.code();
 
+    private static final int MILLIS_PAUSE_BETWEEN_TURNS = 250;
+
     @Override
     public void render(GridMap map) {
         StringBuilder result = new StringBuilder();
@@ -34,6 +36,7 @@ public final class ConsoleMapRenderer implements MapRenderer {
         }
 
         System.out.print(result + "\n");
+        delay(MILLIS_PAUSE_BETWEEN_TURNS);
     }
 
     private String stringFromCell(Cell cell, GridMap map) {
@@ -60,11 +63,6 @@ public final class ConsoleMapRenderer implements MapRenderer {
 
     private String stringFromEmptyCell() {
         return " " + EMPTY_CELL_EMOJI + " ";
-    }
-
-    @Override
-    public void handleMapChange(GridMap map) {
-        render(map);
     }
 
     private enum ANSIIColor {

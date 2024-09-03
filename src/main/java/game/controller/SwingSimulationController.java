@@ -1,7 +1,7 @@
 package game.controller;
 
 
-import game.Simulation;
+import view.MapRenderer;
 import view.SwingMapRenderer;
 import world.entities.creatures.Herbivore;
 import world.entities.creatures.Predator;
@@ -18,31 +18,49 @@ public class SwingSimulationController extends SimulationController {
     private JLabel simulationCount;
     private JLabel predatorCount;
     private JLabel herbivoreCount;
+    private int millisPauseBetweenMoves;
 
-    SwingSimulationController(GridMap map) {
-        simulation = new Simulation(map, new SwingMapRenderer());
-        initializeWindow();
+    SwingSimulationController(GridMap map, SwingMapRenderer swingMapRenderer) {
+        super(map,swingMapRenderer);
+
+        initializeWindow(swingMapRenderer);
     }
 
+    @Override
+    public void run() {
+        while (gameRunning) {
+            if (simulationIsAutoRunning) {
+                simulation.nextTurn();
+            }
+            updateSimulationStats();
+        }
+    }
 
-    private void initializeWindow() {
-        SwingMapRenderer map = (SwingMapRenderer) simulation.getRenderer();
+    @Override
+    public void startSimulation() {
+        launchWindow();
+        gameRunning = true;
+        simulationIsAutoRunning = false;
+        new Thread(this).start();
+    }
+
+    private void initializeWindow(MapRenderer renderer) {
         mainWindow = new JFrame("Simulation");
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setResizable(false);
         mainWindow.setIconImage(ICON);
 
-        JPanel controlPanel = createControlPanel();
-        mainWindow.getContentPane().add(map, BorderLayout.WEST);
+        JPanel controlPanel = createControlPanel(renderer);
+        mainWindow.getContentPane().add((SwingMapRenderer)renderer, BorderLayout.WEST);
         mainWindow.getContentPane().add(controlPanel, BorderLayout.EAST);
         mainWindow.pack();
     }
 
-    private JPanel createControlPanel() {
+    private JPanel createControlPanel(MapRenderer renderer) {
         JButton startPauseButton = createStartPauseButton();
         JLabel sliderLabel = new JLabel("Скорость симуляции");
-        JSlider slider = createSpeedSlider();
-        simulationCount = new JLabel("Шаг симлуляции: " + simulation.getSimulationCount());
+        JSlider slider = createSpeedSlider(renderer);
+        simulationCount = new JLabel("Шаг симуляции: " + simulation.getSimulationCount());
         predatorCount = new JLabel("Хищники: ");
         herbivoreCount = new JLabel("Травоядные: ");
 
@@ -61,14 +79,19 @@ public class SwingSimulationController extends SimulationController {
     }
 
     private void updateSimulationStats() {
-        simulationCount.setText("Шаг симлуляции: " + simulation.getSimulationCount());
+        simulationCount.setText("Шаг симуляции: " + simulation.getSimulationCount());
         predatorCount.setText("Хищники: " + simulation.getEntityCountByType(Predator.class));
         herbivoreCount.setText("Травоядные: " + simulation.getEntityCountByType(Herbivore.class));
     }
 
-    private JSlider createSpeedSlider() {
+    public void setMillisPauseBetweenMoves(int millisPauseBetweenMoves) {
+        this.millisPauseBetweenMoves = millisPauseBetweenMoves;
+    }
+
+
+    private JSlider createSpeedSlider(MapRenderer renderer) {
         JSlider slider = new JSlider();
-        slider.addChangeListener(_ -> simulation.setMillisPauseBetweenMoves(slider.getValue()));
+        slider.addChangeListener(_ -> renderer.setDelayTime (slider.getValue()));
         slider.setMinimum(20);
         slider.setMaximum(500);
         slider.setValue(250);
@@ -95,23 +118,5 @@ public class SwingSimulationController extends SimulationController {
         mainWindow.requestFocus();
         mainWindow.toFront();
         mainWindow.setVisible(true);
-    }
-
-    @Override
-    public void run() {
-        while (gameRunning) {
-            if (simulationIsAutoRunning) {
-                simulation.nextTurn();
-            }
-            updateSimulationStats();
-        }
-    }
-
-    @Override
-    public void startSimulation() {
-        launchWindow();
-        gameRunning = true;
-        simulationIsAutoRunning = false;
-        new Thread(this).start();
     }
 }

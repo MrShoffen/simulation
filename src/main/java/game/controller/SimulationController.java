@@ -1,15 +1,22 @@
 package game.controller;
 
 import game.Simulation;
+import view.ConsoleMapRenderer;
+import view.MapRenderer;
+import view.SwingMapRenderer;
 import world.map.GridMap;
 
 public abstract class SimulationController implements Runnable {
     protected Simulation simulation;
+//    MapRenderer renderer;
+//    protected GridMap map;
 
     protected boolean gameRunning;
     protected boolean simulationIsAutoRunning;
 
-    protected SimulationController(){}
+    protected SimulationController(GridMap map, MapRenderer renderer){
+        simulation = new Simulation(map, renderer);
+    }
 
     public abstract void startSimulation();
 
@@ -23,18 +30,12 @@ public abstract class SimulationController implements Runnable {
 
     public static SimulationController createFromUI(UI ui, GridMap map){
         return switch (ui){
-            case SWING -> new SwingSimulationController(map);
-            case CONSOLE -> new ConsoleSimulationController(map);
+            case SWING -> new SwingSimulationController(map, new SwingMapRenderer());
+            case CONSOLE -> new ConsoleSimulationController(map, new ConsoleMapRenderer());
         };
     }
 
-    public static void delay(int millis){
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
     public enum UI {
         CONSOLE,

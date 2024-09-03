@@ -1,7 +1,6 @@
 package game.controller;
 
 import input.ConsoleInput;
-import game.Simulation;
 import view.ConsoleMapRenderer;
 import world.map.GridMap;
 
@@ -11,10 +10,8 @@ public class ConsoleSimulationController extends SimulationController {
     public final static String ASK_FOR_RUNNING_MENU_CHOICE = "1: Пауза | 2: Продолжить | 3: Выход";
     public final static Pattern PATTERN_FOR_RUNNING_MENU_CHOICE = Pattern.compile("[123]"); // 1||2||3
 
-    private static final int MILLIS_PAUSE_BETWEEN_TURNS = 750;
-
-    ConsoleSimulationController(GridMap map) {
-        simulation = new Simulation(map, new ConsoleMapRenderer());
+    ConsoleSimulationController(GridMap map, ConsoleMapRenderer renderer) {
+        super(map, renderer);
     }
 
     @Override
@@ -24,7 +21,7 @@ public class ConsoleSimulationController extends SimulationController {
                 simulation.nextTurn();
                 System.out.println(ASK_FOR_RUNNING_MENU_CHOICE + '\n');
             }
-            SimulationController.delay(MILLIS_PAUSE_BETWEEN_TURNS);
+//            SimulationController.delay(MILLIS_PAUSE_BETWEEN_TURNS*3);
         }
     }
 
@@ -56,4 +53,5 @@ public class ConsoleSimulationController extends SimulationController {
         } while (choiceInRunningMenu != EXIT);
         this.stopSimulation();
     }
+
 }
