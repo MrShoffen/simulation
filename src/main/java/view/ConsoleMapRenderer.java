@@ -1,13 +1,13 @@
 package view;
 
-import world.map.Cell;
-import world.map.GridMap;
 import world.entities.Entity;
 import world.entities.creatures.Herbivore;
 import world.entities.creatures.Predator;
 import world.entities.environment.Grass;
 import world.entities.environment.Rock;
 import world.entities.environment.Tree;
+import world.map.Cell;
+import world.map.GridMap;
 
 public final class ConsoleMapRenderer implements MapRenderer {
 

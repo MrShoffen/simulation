@@ -1,7 +1,5 @@
 package view;
 
-import world.map.Cell;
-import world.map.GridMap;
 import world.entities.Entity;
 import world.entities.creatures.Creature;
 import world.entities.creatures.Herbivore;
@@ -9,6 +7,8 @@ import world.entities.creatures.Predator;
 import world.entities.environment.Grass;
 import world.entities.environment.Rock;
 import world.entities.environment.Tree;
+import world.map.Cell;
+import world.map.GridMap;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -40,6 +40,7 @@ public class SwingMapRenderer extends JPanel implements MapRenderer {
     Map<Cell, JPanel> swingCells = new HashMap<>();
 
     boolean firstRender;
+
     public SwingMapRenderer() {
         setLayout(new GridLayout());
         firstRender = true;

@@ -15,13 +15,13 @@ public class SwingSimulationController extends SimulationController {
     public final static Image ICON = Toolkit.getDefaultToolkit().getImage("src" + File.separator + "main" + File.separator + "resources" + File.separator + "icon.png");
 
     JFrame mainWindow;
+    JSlider speedSlider;
     private JLabel simulationCount;
     private JLabel predatorCount;
     private JLabel herbivoreCount;
-    private int millisPauseBetweenMoves;
 
     SwingSimulationController(GridMap map, SwingMapRenderer swingMapRenderer) {
-        super(map,swingMapRenderer);
+        super(map, swingMapRenderer);
 
         initializeWindow(swingMapRenderer);
     }
@@ -50,16 +50,18 @@ public class SwingSimulationController extends SimulationController {
         mainWindow.setResizable(false);
         mainWindow.setIconImage(ICON);
 
-        JPanel controlPanel = createControlPanel(renderer);
-        mainWindow.getContentPane().add((SwingMapRenderer)renderer, BorderLayout.WEST);
+        JPanel controlPanel = createControlPanel();
+        speedSlider.addChangeListener(_ -> renderer.setDelayTime(speedSlider.getValue()));
+
+        mainWindow.getContentPane().add((SwingMapRenderer) renderer, BorderLayout.WEST);
         mainWindow.getContentPane().add(controlPanel, BorderLayout.EAST);
         mainWindow.pack();
     }
 
-    private JPanel createControlPanel(MapRenderer renderer) {
+    private JPanel createControlPanel() {
         JButton startPauseButton = createStartPauseButton();
         JLabel sliderLabel = new JLabel("Скорость симуляции");
-        JSlider slider = createSpeedSlider(renderer);
+        speedSlider = createSpeedSlider();
         simulationCount = new JLabel("Шаг симуляции: " + simulation.getSimulationCount());
         predatorCount = new JLabel("Хищники: ");
         herbivoreCount = new JLabel("Травоядные: ");
@@ -70,7 +72,7 @@ public class SwingSimulationController extends SimulationController {
         controlPanel.add(startPauseButton);
         controlPanel.add(Box.createRigidArea(new Dimension(0, 15)));
         controlPanel.add(sliderLabel);
-        controlPanel.add(slider);
+        controlPanel.add(speedSlider);
         controlPanel.add(Box.createRigidArea(new Dimension(0, 30)));
         controlPanel.add(simulationCount);
         controlPanel.add(predatorCount);
@@ -84,14 +86,8 @@ public class SwingSimulationController extends SimulationController {
         herbivoreCount.setText("Травоядные: " + simulation.getEntityCountByType(Herbivore.class));
     }
 
-    public void setMillisPauseBetweenMoves(int millisPauseBetweenMoves) {
-        this.millisPauseBetweenMoves = millisPauseBetweenMoves;
-    }
-
-
-    private JSlider createSpeedSlider(MapRenderer renderer) {
+    private JSlider createSpeedSlider() {
         JSlider slider = new JSlider();
-        slider.addChangeListener(_ -> renderer.setDelayTime (slider.getValue()));
         slider.setMinimum(20);
         slider.setMaximum(500);
         slider.setValue(250);

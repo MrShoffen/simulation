@@ -1,10 +1,10 @@
 package game.actions;
 
+import world.entities.creatures.Creature;
 import world.entities.creatures.Herbivore;
 import world.entities.creatures.Predator;
 import world.map.Cell;
 import world.map.GridMap;
-import world.entities.creatures.Creature;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,8 @@ public final class BreedAction extends Action {
 
         Random random = new Random();
         for (PairType pair : pairsReadyForBreed) {
-            if (random.nextDouble() <= pair.breedRate()) {
+            double chanceOfConcretePairToBreed = random.nextDouble();
+            if (chanceOfConcretePairToBreed <= pair.breedRate()) {
                 Cell randomCell = ActionUtils.randomEmptyCell(map);
                 map.placeEntity(randomCell, pair.breedCreature());
             }
@@ -42,7 +43,7 @@ public final class BreedAction extends Action {
     }
 
     private enum PairType {
-        PREDATOR_PAIR(0.21, SpawnAction::randomPredator),
+        PREDATOR_PAIR(0.15, SpawnAction::randomPredator),
         HERBIVORE_PAIR(0.33, SpawnAction::randomHerbivore);
 
         private final double breedRate;

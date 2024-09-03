@@ -2,10 +2,10 @@ package world.entities.creatures;
 
 import game.search.BFSSearchStrategy;
 import game.search.SearchStrategy;
+import world.entities.Consumable;
 import world.entities.Entity;
 import world.map.Cell;
 import world.map.GridMap;
-import world.entities.Consumable;
 
 import java.util.Optional;
 
@@ -62,7 +62,7 @@ public abstract class Creature extends Entity {
         if (cellWithMate.equals(currentCell)) {
             return Optional.empty();
         }
-        if (nextCellContainsEntityType(cellWithMate,this.getClass(),map)) {
+        if (nextCellContainsEntityType(cellWithMate, this.getClass(), map)) {
             return Optional.of((Creature) map.getEntity(cellWithMate).get());
         }
         return Optional.empty();

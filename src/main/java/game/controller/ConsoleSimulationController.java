@@ -21,7 +21,6 @@ public class ConsoleSimulationController extends SimulationController {
                 simulation.nextTurn();
                 System.out.println(ASK_FOR_RUNNING_MENU_CHOICE + '\n');
             }
-//            SimulationController.delay(MILLIS_PAUSE_BETWEEN_TURNS*3);
         }
     }
 
@@ -53,5 +52,4 @@ public class ConsoleSimulationController extends SimulationController {
         } while (choiceInRunningMenu != EXIT);
         this.stopSimulation();
     }
-
 }

@@ -1,13 +1,13 @@
 package game.actions;
 
-import world.map.Cell;
-import world.map.GridMap;
 import world.entities.Entity;
 import world.entities.creatures.Herbivore;
 import world.entities.creatures.Predator;
 import world.entities.environment.Grass;
 import world.entities.environment.Rock;
 import world.entities.environment.Tree;
+import world.map.Cell;
+import world.map.GridMap;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -56,10 +56,10 @@ public class SpawnAction extends Action {
 
     public enum EntityType {
         ROCK(0.09, Rock.class, Rock::new),
-        GRASS(0.06, Grass.class,Grass::new),
-        TREE(0.08, Tree.class,Tree::new),
-        PREDATOR(0.06, Predator.class,SpawnAction::randomPredator),
-        HERBIVORE(0.06, Herbivore.class,SpawnAction::randomHerbivore);
+        GRASS(0.1, Grass.class, Grass::new),
+        TREE(0.08, Tree.class, Tree::new),
+        PREDATOR(0.09, Predator.class, SpawnAction::randomPredator),
+        HERBIVORE(0.11, Herbivore.class, SpawnAction::randomHerbivore);
 
         private final double spawnRate;
         private final Class<? extends Entity> entityClass;
@@ -70,13 +70,15 @@ public class SpawnAction extends Action {
             this.entityClass = entityClass;
             this.creator = creator;
         }
-        private Entity newInstance(){
+
+        private Entity newInstance() {
             return creator.get();
         }
 
         private double spawnRate() {
             return spawnRate;
         }
+
         private Class<? extends Entity> entityClass() {
             return entityClass;
         }

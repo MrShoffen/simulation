@@ -1,6 +1,5 @@
 package game.search;
 
-import world.entities.Consumable;
 import world.entities.Entity;
 import world.map.Cell;
 import world.map.GridMap;
@@ -26,7 +25,7 @@ public final class BFSSearchStrategy implements SearchStrategy {
 
             for (Cell neighbour : neighbours(currentCell)) {
                 if (!visited.contains(neighbour)) {
-                    if (cellHasNoTarget(neighbour,target)) {
+                    if (cellHasNoTarget(neighbour, target)) {
                         visited.add(neighbour);
                     } else {
                         queue.add(neighbour);
@@ -34,7 +33,7 @@ public final class BFSSearchStrategy implements SearchStrategy {
                     }
                 }
             }
-            if (cellHasTarget(currentCell,target) && !currentCell.equals(startCell)) {
+            if (cellHasTarget(currentCell, target) && !currentCell.equals(startCell)) {
                 return firstCellInRoute(route, currentCell, startCell);
             }
 

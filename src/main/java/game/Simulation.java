@@ -39,10 +39,7 @@ public class Simulation {
     }
 
     private void addActions() {
-        MoveAction move = new MoveAction(map);
-        move.setListener(renderer);
-        actions.add(move);
-
+        actions.add(new MoveAction(map, renderer));
         actions.add(new SpawnAction(map, SpawnAction.EntityType.GRASS));
         actions.add(new SpawnAction(map, SpawnAction.EntityType.HERBIVORE));
         actions.add(new BreedAction(map));
@@ -53,7 +50,6 @@ public class Simulation {
         actions.forEach(Action::perform);
         actions.clear();
     }
-
 
     public int getEntityCountByType(Class<? extends Entity> type) {
         return (int) map.allEntities().stream().filter(entity -> entity.getClass() == type).count();

@@ -37,8 +37,8 @@ public final class Predator extends Creature {
         return attack;
     }
 
-    public static Predator newInstance(int health, int speed, int attack){
-        return new Predator(health,speed,attack);
+    public static Predator newInstance(int health, int speed, int attack) {
+        return new Predator(health, speed, attack);
     }
 
 }

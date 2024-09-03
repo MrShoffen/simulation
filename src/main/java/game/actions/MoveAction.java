@@ -2,8 +2,8 @@ package game.actions;
 
 import game.event.ListenerOfMapChange;
 import game.event.ObservableMapChanger;
-import world.map.GridMap;
 import world.entities.creatures.Creature;
+import world.map.GridMap;
 
 import java.util.Collections;
 import java.util.List;
@@ -13,8 +13,9 @@ public final class MoveAction extends Action implements ObservableMapChanger {
     int currentStep;
     ListenerOfMapChange listener;
 
-    public MoveAction(GridMap map) {
+    public MoveAction(GridMap map, ListenerOfMapChange listener) {
         super(map);
+        this.listener = listener;
         currentStep = 1;
         creaturesWithMoves = ActionUtils.allCreaturesFromMap(map);
     }
